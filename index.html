@@ -150,7 +150,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 /* WOOD FLOW */
 .wflow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:6px;margin-bottom:11px}
 .fb{background:var(--card2);border:1px solid var(--border2);border-radius:9px;padding:11px 7px;text-align:center}
-.fb-ico{font-size:18px;margin-bottom:3px}
+.fb-ico{width:22px;height:22px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center}.fb-ico svg{width:100%;height:100%}
 .fb-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
 .fb-val{font-size:12px;font-weight:700}
 .fb-sub{font-size:10px;color:var(--accent);margin-top:2px}
@@ -220,7 +220,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 
 /* SCRIPT */
 .skcard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:9px;cursor:pointer;transition:.18s}
-.skcard:active{transform:scale(.985)}
+.skcard{cursor:pointer}
 .sk-head{display:flex;align-items:center;gap:11px;padding:13px}
 .sk-num{width:34px;height:34px;border-radius:9px;background:var(--accent);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
 .sk-ht{flex:1}
@@ -235,7 +235,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 
 /* OBJ */
 .ocard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:9px;cursor:pointer}
-.ocard:active{transform:scale(.985)}
+
 .oq{display:flex;align-items:center;gap:9px;padding:12px 13px;background:rgba(239,68,68,.05);border-bottom:1px solid rgba(239,68,68,.1)}
 .oq-txt{font-size:13px;font-weight:700;color:#fca5a5;flex:1}
 .oc{color:var(--text3);transition:.28s;font-size:13px}
@@ -345,6 +345,38 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 .cimg{position:relative;background:linear-gradient(90deg,var(--bg3) 25%,var(--card2) 50%,var(--bg3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .cimg img{position:relative;z-index:1;transition:opacity .3s}
+
+/* ACCORDION OPEN STATE */
+.skcard.open{border-color:rgba(232,160,32,.4);background:rgba(232,160,32,.04)}
+.skcard.open .sk-num{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.ocard.open{border-color:rgba(239,68,68,.25)}
+.ocard.open .oq{background:rgba(239,68,68,.08)}
+.fin-cat.open{border-color:rgba(59,130,246,.25)}
+/* Prevent sticky active on mobile */
+.skcard,.ocard,.fin-cat{-webkit-tap-highlight-color:transparent;cursor:pointer}
+/* SVG icon sizing inside ot/gt/pkc/gs/hc */
+.ot-ico svg,.gt-ico svg,.pkc-ico svg,.gs-ico svg,.hc-ico svg{width:100%;height:100%}
+.ot-ico{width:24px;height:24px;margin:0 auto 4px}
+.gt-ico{width:22px;height:22px;margin:0 auto 4px}
+.pkc-ico{width:24px;height:24px;margin:0 auto 4px}
+.gs-ico{width:20px;height:20px;margin:0 auto 3px}
+.hc-ico{width:26px;height:26px;margin:0 auto 5px}
+.ac-ico svg{width:100%;height:100%}
+.ac-ico{width:26px;height:26px;margin-bottom:6px}
+.sb-ic svg{width:100%;height:100%}
+
+/* CLEAN ACCORDION STATE */
+.skcard{transition:border-color .2s,background .2s}
+.skcard.open{border-color:rgba(232,160,32,.5)!important;background:rgba(232,160,32,.05)!important}
+.ocard{transition:border-color .2s}
+.ocard.open{border-color:rgba(239,68,68,.3)!important}
+.ocard.open .oq{background:rgba(239,68,68,.07)!important}
+.fin-cat{transition:border-color .2s}
+.fin-cat.open{border-color:rgba(59,130,246,.3)!important}
+/* Chevron */
+.sk-chev,.oc,.fin-chev{transition:transform .25s ease;display:inline-block}
+/* NO hover bg on mobile cards */
+@media(hover:none){.skcard:hover,.ocard:hover,.fin-cat:hover{background:inherit}}
 </style>
 </head>
 <body>
@@ -379,7 +411,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 
   <!-- ALU -->
   <div class="sc on" id="kit-alu">
-    <div class="ib bl"><span>🏗️</span><div>الهيكل = <strong>إطار ألومنيوم + دواخل فايبر</strong> — ثابت في الـ 3 أنواع. كل الضلف والأدراج <strong>سوفت كلوز شاملة في السعر.</strong> السعر على <strong>1800 جرام</strong> — العود <strong>3 متر.</strong></div></div>
+    <div class="ib bl"><span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="11" width="16" height="7" rx="1"/><path d="M5 11V6l5-3 5 3v5"/><path d="M8 11v4h4v-4"/></svg></span><div>الهيكل = <strong>إطار ألومنيوم + دواخل فايبر</strong> — ثابت في الـ 3 أنواع. كل الضلف والأدراج <strong>سوفت كلوز شاملة في السعر.</strong> السعر على <strong>1800 جرام</strong> — العود <strong>3 متر.</strong></div></div>
     <div class="card">
       <div class="cimg"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80" alt="">
         <div class="cimg-ov"><div><div class="cbadge ac">الأساسي</div><div class="ctitle">كلادينج</div><div class="cpr">4,500 ج / متر — 1800 جرام</div></div></div></div>
@@ -390,7 +422,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="cfoot"><strong>مناسب لـ</strong>ميزانية محدودة — شكل نظيف</div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1556912173-46c336c7fd86?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1565183928294-7063f23ce0f8?auto=format&fit=crop&w=800&q=80" alt="">
         <div class="cimg-ov"><div><div class="cbadge or">الأكثر مبيعاً</div><div class="ctitle">شيت ألومنيوم</div><div class="cpr">5,000 ج / متر — 1800 جرام</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">الضلفة</span><span class="sval">شيت ألومنيوم يدخل الفرن — ألوان مخصصة</span></div>
@@ -399,7 +431,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="cfoot"><strong>مناسب لـ</strong>عايز ألوان وأشكال مخصصة</div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1556909172-8c2f041fca1e?auto=format&fit=crop&w=800&q=80" alt="">
         <div class="cimg-ov"><div><div class="cbadge" style="background:var(--accent2);color:#000">المميز</div><div class="ctitle">خشمنيوم</div><div class="cpr">5,500 ج / متر — 1800 جرام</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">الضلفة</span><span class="sval">شيت خشمنيوم يدخل الفرن</span></div>
@@ -407,21 +439,21 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       </div>
       <div class="cfoot"><strong>مناسب لـ</strong>عايز لون يشبه الخشب بخامة ألومنيوم</div>
     </div>
-    <div class="sb"><div class="sb-ic">⚡</div><div class="sb-txt"><strong>شيت الألومنيوم = الخشمنيوم في الخامة والمتانة</strong><span>الفرق الوحيد هو اللون — الخشمنيوم بيدي لون أقرب للخشب</span></div></div>
+    <div class="sb"><div class="sb-ic" style="width:28px;height:28px;display:flex"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 6h12M4 10h12M4 14h12"/><path d="M9 4l-2 2 2 2M11 12l2 2-2 2"/></svg></div><div class="sb-txt"><strong>شيت الألومنيوم = الخشمنيوم في الخامة والمتانة</strong><span>الفرق الوحيد هو اللون — الخشمنيوم بيدي لون أقرب للخشب</span></div></div>
   </div>
 
   <!-- WOOD -->
   <div class="sc" id="kit-wood">
     <div class="sdiv">كيف بيتبني مطبخ الخشب</div>
     <div class="wflow">
-      <div class="fb"><div class="fb-ico">🏗️</div><div class="fb-lbl">الهيكل</div><div class="fb-val">خشب كونتر</div><div class="fb-sub">ثابت دايماً</div></div>
+      <div class="fb"><div class="fb-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="11" width="16" height="7" rx="1"/><path d="M5 11V6l5-3 5 3v5"/><path d="M8 11v4h4v-4"/></svg></div><div class="fb-lbl">الهيكل</div><div class="fb-val">خشب كونتر</div><div class="fb-sub">ثابت دايماً</div></div>
       <div class="fa">+</div>
-      <div class="fb"><div class="fb-ico">🚪</div><div class="fb-lbl">الضلفة</div><div class="fb-val">بتتغير</div><div class="fb-sub">حسب الخامة</div></div>
+      <div class="fb"><div class="fb-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="10" height="14" rx="1"/><circle cx="13" cy="10" r="1" fill="currentColor" stroke="none"/></svg></div><div class="fb-lbl">الضلفة</div><div class="fb-val">بتتغير</div><div class="fb-sub">حسب الخامة</div></div>
       <div class="fa">+</div>
-      <div class="fb"><div class="fb-ico">🟫</div><div class="fb-lbl">كونتر الداخل</div><div class="fb-val">الشرقاوي</div><div class="fb-sub">شامل في السعر</div></div>
+      <div class="fb"><div class="fb-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="16" height="9" rx="1"/><path d="M2 9c0-3 16-3 16 0"/><path d="M6 9V6M10 9V5M14 9V6"/></svg></div><div class="fb-lbl">كونتر الداخل</div><div class="fb-val">الشرقاوي</div><div class="fb-sub">شامل في السعر</div></div>
     </div>
-    <div class="ib bl"><span>💡</span><div>السعر على <strong>كونتر الشرقاوي + جرين لام</strong> — أي ماركة تانية بيتفق على الفرق منفصل</div></div>
-    <div class="ib go"><span>🗣️</span><div><strong>السؤال الصح:</strong> "بتفضل الناعم اللامع ولا الخشن المط؟"</div></div>
+    <div class="ib bl"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 2a5 5 0 0 1 3 9l-1 1H8l-1-1a5 5 0 0 1 3-9z"/><path d="M8 15h4M9 18h2"/></svg></span><div>السعر على <strong>كونتر الشرقاوي + جرين لام</strong> — أي ماركة تانية بيتفق على الفرق منفصل</div></div>
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>السؤال الصح:</strong> "بتفضل الناعم اللامع ولا الخشن المط؟"</div></div>
     <div class="sdiv">الخامات المتاحة</div>
     <div class="fg">
       <div class="fc"><div class="fc-top ft1"><div class="fc-name">HPL</div><div class="fc-en">Green Lam — أساسي</div></div><div class="fc-body"><div class="fspec"><span class="fl">الضلفة</span><span class="fv">شيت مكبوس</span></div><div class="fspec"><span class="fl">الشكل</span><span class="fv">خشن مط</span></div><div class="fspec"><span class="fl">المقاومة</span><span class="fv">عالية جداً</span></div></div></div>
@@ -431,8 +463,8 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="fc"><div class="fc-top ft5"><div class="fc-name">بولي باك</div><div class="fc-en">Poly Back</div></div><div class="fc-body"><div class="fspec"><span class="fl">الضلفة</span><span class="fv">لوح جاهز</span></div><div class="fspec"><span class="fl">الشكل</span><span class="fv">ناعم لامع</span></div><div class="fspec"><span class="fl">المقاومة</span><span class="fv">متوسطة</span></div></div></div>
       <div style="background:rgba(255,255,255,.03);border:1.5px dashed var(--border2);border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;text-align:center"><div style="font-size:22px;margin-bottom:4px">🪟</div><div style="font-size:12px;font-weight:700;color:var(--text3)">زجاج</div><div style="font-size:10px;color:var(--text3);margin-top:2px">الفرق بس</div></div>
     </div>
-    <div class="bcard mn"><div class="bcard-name">🌿 جرين لام — Green Lam</div><div class="bcard-desc">شركة هندية عالمية — من أكبر منتجي الـ HPL. السعر بيتحسب عليها.</div><span class="btag mn">⭐ الأساسية في السعر</span></div>
-    <div class="bcard"><div class="bcard-name">🎨 فيرست وود — الشرقاوي — جود وود</div><div class="bcard-desc">ماركات تانية متاحة حسب طلب العميل — الفرق بيتفق منفصل.</div><span class="btag op">فرق السعر بالاتفاق</span></div>
+    <div class="bcard mn"><div class="bcard-name">جرين لام — Green Lam</div><div class="bcard-desc">شركة هندية عالمية — من أكبر منتجي الـ HPL. السعر بيتحسب عليها.</div><span class="btag mn">الأساسية في السعر</span></div>
+    <div class="bcard"><div class="bcard-name">فيرست وود — الشرقاوي — جود وود</div><div class="bcard-desc">ماركات تانية متاحة حسب طلب العميل — الفرق بيتفق منفصل.</div><span class="btag op">فرق السعر بالاتفاق</span></div>
   </div>
 
   <!-- COUNTER -->
@@ -442,58 +474,58 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="cbox sc"><div class="cbox-t">🪨 كونتر الحجر</div><div class="cbox-d">جرانيت/كوارتز/رخام فوق الوحدات. <strong>بيتحسب منفصل.</strong></div></div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1556578977-5f72c1c02de0?auto=format&fit=crop&w=800&q=80" alt="">
         <div class="cimg-ov"><div><div class="cbadge gy">اقتصادي</div><div class="ctitle">جرانيت</div></div></div></div>
       <div class="cbody">
-        <div class="srow"><span class="slbl">🔥 الحرارة</span><span class="sval g">مقاوم جداً ✓</span></div>
-        <div class="srow"><span class="slbl">💧 البقع</span><span class="sval">يحتاج تلميع دوري</span></div>
-        <div class="srow"><span class="slbl">💰 السعر</span><span class="sval">الأوفر — مصري ومستورد</span></div>
+        <div class="srow"><span class="slbl">الحرارة</span><span class="sval g">مقاوم جداً ✓</span></div>
+        <div class="srow"><span class="slbl">البقع</span><span class="sval">يحتاج تلميع دوري</span></div>
+        <div class="srow"><span class="slbl">السعر</span><span class="sval">الأوفر — مصري ومستورد</span></div>
       </div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1565538220435-5ed66e074db3?auto=format&fit=crop&w=800&q=80" alt="">
         <div class="cimg-ov"><div><div class="cbadge bl">متوسط</div><div class="ctitle">كوارتز</div></div></div></div>
       <div class="cbody">
-        <div class="srow"><span class="slbl">🧽 التنظيف</span><span class="sval g">سهل جداً — بدون تلميع ✓</span></div>
-        <div class="srow"><span class="slbl">🔨 الخدش</span><span class="sval g">أقوى من الجرانيت ✓</span></div>
+        <div class="srow"><span class="slbl">التنظيف</span><span class="sval g">سهل جداً — بدون تلميع ✓</span></div>
+        <div class="srow"><span class="slbl">الخدش</span><span class="sval g">أقوى من الجرانيت ✓</span></div>
         <div class="srow"><span class="slbl">⚠️ الحرارة</span><span class="sval">أقل مقاومة للحرارة الشديدة</span></div>
       </div>
-      <div class="cfoot"><strong>ترقية جاهزة 🗣️</strong>"الكوارتز بيريّح في التنظيف — مش محتاج تلميع خالص."</div>
+      <div class="cfoot"><strong>ترقية جاهزة</strong>"الكوارتز بيريّح في التنظيف — مش محتاج تلميع خالص."</div>
     </div>
     <div class="card">
       <div class="cimg"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="">
         <div class="cimg-ov"><div><div class="cbadge ac">Premium</div><div class="ctitle">رخام</div></div></div></div>
       <div class="cbody">
-        <div class="srow"><span class="slbl">👑 المظهر</span><span class="sval">أفخم مظهر — لا مثيل له</span></div>
+        <div class="srow"><span class="slbl">المظهر</span><span class="sval">أفخم مظهر — لا مثيل له</span></div>
         <div class="srow"><span class="slbl">⚠️ الصيانة</span><span class="sval">يتأثر بالأحماض — يحتاج عناية</span></div>
-        <div class="srow"><span class="slbl">💎 لمين</span><span class="sval">اللي الفخامة أولويته</span></div>
+        <div class="srow"><span class="slbl">لمين</span><span class="sval">اللي الفخامة أولويته</span></div>
       </div>
     </div>
   </div>
 
   <!-- HINGES -->
   <div class="sc" id="kit-hinges">
-    <div class="ib gr"><span>✅</span><div><strong>التركي سوفت كلوز شامل في سعر المتر</strong> — الإيطالي والنمساوي إضافة بالفرق</div></div>
+    <div class="ib gr"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><polyline points="6.5,10 8.5,12.5 13.5,7.5"/></svg></span><div><strong>التركي سوفت كلوز شامل في سعر المتر</strong> — الإيطالي والنمساوي إضافة بالفرق</div></div>
     <div class="hg">
-      <div class="hc gc"><div class="hc-inc">شامل ✓</div><div class="hc-ico">🔩</div><div class="hc-name">تركي</div><div class="hc-pr g">مشمول</div><div class="hc-desc">سوفت كلوز — بيقفل بهدوء</div></div>
-      <div class="hc oc"><div class="hc-ico">⚙️</div><div class="hc-name">إيطالي</div><div class="hc-pr o">+40ج/باب</div><div class="hc-desc">8 أبواب = +320 ج</div></div>
-      <div class="hc ac"><div class="hc-ico">🏆</div><div class="hc-name">نمساوي</div><div class="hc-pr a">+110ج/باب</div><div class="hc-desc">8 أبواب = +880 ج</div></div>
+      <div class="hc gc"><div class="hc-inc">شامل ✓</div><div class="hc-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="5" cy="10" r="2"/><circle cx="15" cy="10" r="2"/><path d="M7 10h6"/></svg></div><div class="hc-name">تركي</div><div class="hc-pr g">مشمول</div><div class="hc-desc">سوفت كلوز — بيقفل بهدوء</div></div>
+      <div class="hc oc"><div class="hc-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="7" width="5" height="6" rx="1"/><rect x="12" y="7" width="5" height="6" rx="1"/><path d="M8 10h4"/></svg></div><div class="hc-name">إيطالي</div><div class="hc-pr o">+40ج/باب</div><div class="hc-desc">8 أبواب = +320 ج</div></div>
+      <div class="hc ac"><div class="hc-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="10" cy="10" r="3"/><path d="M10 4v3M10 13v3M4 10h3M13 10h3"/><circle cx="10" cy="10" r="1" fill="currentColor"/></svg></div><div class="hc-name">نمساوي</div><div class="hc-pr a">+110ج/باب</div><div class="hc-desc">8 أبواب = +880 ج</div></div>
     </div>
-    <div class="ib go"><span>🗣️</span><div>"السعر شامل تركي سوفت كلوز — لو عايز نمساوي، الإضافة على 8 أبواب بس 880 جنيه في المطبخ كله."</div></div>
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div>"السعر شامل تركي سوفت كلوز — لو عايز نمساوي، الإضافة على 8 أبواب بس 880 جنيه في المطبخ كله."</div></div>
   </div>
 
   <!-- ACC -->
   <div class="sc" id="kit-acc">
     <div class="sdiv">إكسسوارات استانلس داخل المطبخ</div>
     <div class="g2">
-      <div class="ac-card"><div class="ac-ico">📦</div><div class="ac-name">مطبقية</div><div class="ac-desc">قطعة استانلس داخل الوحدة لتنظيم الأطباق</div><span class="ac-tag bl">استانلس داخلي</span></div>
-      <div class="ac-card"><div class="ac-ico">🔄</div><div class="ac-name">تروللي</div><div class="ac-desc">جرار استانلس متحرك على سكك داخل المطبخ</div><span class="ac-tag bl">جرار استانلس</span></div>
-      <div class="ac-card"><div class="ac-ico">🌿</div><div class="ac-name">بامبو</div><div class="ac-desc">درج خوص للخضار بفتحات تهوية طبيعية</div><span class="ac-tag gr">تهوية طبيعية</span></div>
-      <div class="ac-card"><div class="ac-ico">🍽️</div><div class="ac-name">تقسيمات صواني</div><div class="ac-desc">حواجز رأسية لترتيب الصواني والأطباق</div><span class="ac-tag bl">بالاتفاق</span></div>
-      <div class="ac-card"><div class="ac-ico">🥄</div><div class="ac-name">تقسيمات معالق</div><div class="ac-desc">تقسيمات للأدوات والسكاكين داخل الأدراج</div><span class="ac-tag bl">بالاتفاق</span></div>
-      <div class="ac-card"><div class="ac-ico">🏛️</div><div class="ac-name">كورنيشة</div><div class="ac-desc">إطار ديكوري فوق الوحدات العلوية</div><span class="ac-tag or">ديكوري</span></div>
-      <div class="ac-card"><div class="ac-ico">🔲</div><div class="ac-name">بلت إن</div><div class="ac-desc">مقبض في الضلفة بلون مختلف — شكل عصري</div><span class="ac-tag bl">بالاتفاق</span></div>
-      <div class="ac-card"><div class="ac-ico">🪝</div><div class="ac-name">مقابض مخصصة</div><div class="ac-desc">أشكال وأحجام مختلفة — كلاسيك أو مودرن</div><span class="ac-tag bl">بالاتفاق</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="10" cy="10" r="7"/><circle cx="10" cy="10" r="4"/><circle cx="10" cy="10" r="1" fill="currentColor"/></svg></div><div class="ac-name">مطبقية</div><div class="ac-desc">قطعة استانلس داخل الوحدة لتنظيم الأطباق</div><span class="ac-tag bl">استانلس داخلي</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="6" width="16" height="8" rx="1"/><circle cx="6" cy="17" r="1.5"/><circle cx="14" cy="17" r="1.5"/><path d="M2 10h16"/></svg></div><div class="ac-name">تروللي</div><div class="ac-desc">جرار استانلس متحرك على سكك داخل المطبخ</div><span class="ac-tag bl">جرار استانلس</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 2v16M12 2v16"/><path d="M8 6h4M8 10h4M8 14h4"/><path d="M6 2h8M6 18h8"/></svg></div><div class="ac-name">بامبو</div><div class="ac-desc">درج خوص للخضار بفتحات تهوية طبيعية</div><span class="ac-tag gr">تهوية طبيعية</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="16" height="14" rx="1"/><path d="M6 3v14M10 3v14M14 3v14"/></svg></div><div class="ac-name">تقسيمات صواني</div><div class="ac-desc">حواجز رأسية لترتيب الصواني والأطباق</div><span class="ac-tag bl">بالاتفاق</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M7 2v8a3 3 0 0 0 6 0V2"/><line x1="10" y1="2" x2="10" y2="18"/></svg></div><div class="ac-name">تقسيمات معالق</div><div class="ac-desc">تقسيمات للأدوات والسكاكين داخل الأدراج</div><span class="ac-tag bl">بالاتفاق</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 16h16M2 16c0-4 3-8 8-8s8 4 8 8M6 16V8M14 16V8"/></svg></div><div class="ac-name">كورنيشة</div><div class="ac-desc">إطار ديكوري فوق الوحدات العلوية</div><span class="ac-tag or">ديكوري</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="6" width="14" height="8" rx="1.5"/><path d="M7 10h6" stroke-width="2"/></svg></div><div class="ac-name">بلت إن</div><div class="ac-desc">مقبض في الضلفة بلون مختلف — شكل عصري</div><span class="ac-tag bl">بالاتفاق</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="5" y="8" width="10" height="4" rx="2"/><path d="M8 8V6M12 8V6"/></svg></div><div class="ac-name">مقابض مخصصة</div><div class="ac-desc">أشكال وأحجام مختلفة — كلاسيك أو مودرن</div><span class="ac-tag bl">بالاتفاق</span></div>
     </div>
     <div class="sdiv">ركنة L vs الدوارة</div>
     <div class="g2">
@@ -502,11 +534,11 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     </div>
     <div class="sdiv">ضلفة الزجاج</div>
     <div class="gcalc">
-      <div class="gcalc-title">🪟 كيف بتتحسب ضلفة الزجاج</div>
+      <div class="gcalc-title">كيف بتتحسب ضلفة الزجاج</div>
       <div class="gsteps">
-        <div class="gs"><div class="gs-ico">🚪</div><div class="gs-lbl">الضلفة</div><div class="gs-val">تتخصم</div></div>
+        <div class="gs"><div class="gs-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="2" width="16" height="16" rx="1"/><path d="M2 7h16M2 13h16M7 7v6M13 7v6"/></svg></div><div class="gs-lbl">الضلفة</div><div class="gs-val">تتخصم</div></div>
         <div class="gop">−</div>
-        <div class="gs"><div class="gs-ico">🪟</div><div class="gs-lbl">الزجاج</div><div class="gs-val">يتضاف</div></div>
+        <div class="gs"><div class="gs-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="14" height="14" rx="1"/><path d="M7 3v14M3 7h4"/></svg></div><div class="gs-lbl">الزجاج</div><div class="gs-val">يتضاف</div></div>
         <div class="gop">=</div>
         <div class="gres"><div class="gres-lbl">بتدفع الفرق بس</div><div class="gres-val">زجاج − ضلفة</div></div>
       </div>
@@ -530,9 +562,9 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 
   <!-- WIN ALU -->
   <div class="sc on" id="win-alu">
-    <div class="ib bl"><span>🔧</span><div>شباك الألومنيوم — الخامة الأكثر انتشاراً في مصر. <strong>سعر مناسب + صيانة سهلة + ألوان كتير.</strong></div></div>
+    <div class="ib bl"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 2h4v10H8z"/><path d="M6 12h8l1 6H5z"/></svg></span><div>شباك الألومنيوم — الخامة الأكثر انتشاراً في مصر. <strong>سعر مناسب + صيانة سهلة + ألوان كتير.</strong></div></div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1513694203-a9839809ac41?auto=format&fit=crop&w=800&q=80" alt="ألومنيوم">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" alt="ألومنيوم">
         <div class="cimg-ov"><div><div class="cbadge or">الأكثر انتشاراً</div><div class="ctitle">ألومنيوم عادي</div><div class="cpr">السعر حسب المواصفات والمتر</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">السماكة</span><span class="sval">1.2 مم — 1.6 مم — 2 مم</span></div>
@@ -545,25 +577,25 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 
     <div class="sdiv">أنواع الفتح</div>
     <div class="open-types">
-      <div class="ot"><div class="ot-ico">🪟</div><div class="ot-name">شومس</div><div class="ot-desc">بيفتح للخارج — الأكثر شيوعاً</div></div>
-      <div class="ot"><div class="ot-ico">↕️</div><div class="ot-name">كسر زراع</div><div class="ot-desc">يفتح للداخل أو يميل — تهوية ممتازة</div></div>
-      <div class="ot"><div class="ot-ico">↔️</div><div class="ot-name">منزلق</div><div class="ot-desc">بيتحرك على سكة — للفتحات الكبيرة</div></div>
-      <div class="ot"><div class="ot-ico">🔲</div><div class="ot-name">ثابت</div><div class="ot-desc">بدون فتح — للإضاءة فقط</div></div>
+      <div class="ot"><div class="ot-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="16" height="14" rx="1.5"/><path d="M10 3v14"/><path d="M10 10H2M10 10h8" stroke-width=".8"/></svg></div><div class="ot-name">شومس</div><div class="ot-desc">بيفتح للخارج — الأكثر شيوعاً</div></div>
+      <div class="ot"><div class="ot-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="16" height="14" rx="1.5"/><path d="M2 17l16-14"/></svg></div><div class="ot-name">كسر زراع</div><div class="ot-desc">يفتح للداخل أو يميل — تهوية ممتازة</div></div>
+      <div class="ot"><div class="ot-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="16" height="14" rx="1.5"/><rect x="2" y="3" width="9" height="14"/><path d="M5 10h3"/></svg></div><div class="ot-name">منزلق</div><div class="ot-desc">بيتحرك على سكة — للفتحات الكبيرة</div></div>
+      <div class="ot"><div class="ot-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="16" height="14" rx="1.5"/><line x1="10" y1="3" x2="10" y2="17"/><line x1="2" y1="10" x2="18" y2="10"/></svg></div><div class="ot-name">ثابت</div><div class="ot-desc">بدون فتح — للإضاءة فقط</div></div>
     </div>
 
     <div class="sdiv">الإضافات والإكسسوارات</div>
     <div class="g2">
-      <div class="ac-card"><div class="ac-ico">🕸️</div><div class="ac-name">موسكيتو / نت</div><div class="ac-desc">شبكة ناموسية على إطار ألومنيوم — ثابتة أو متحركة</div><span class="ac-tag bl">بالاتفاق</span></div>
-      <div class="ac-card"><div class="ac-ico">🔒</div><div class="ac-name">لوك أمان</div><div class="ac-desc">قفل إضافي — متعدد النقاط لأمان أعلى</div><span class="ac-tag bl">بالاتفاق</span></div>
-      <div class="ac-card"><div class="ac-ico">🌡️</div><div class="ac-name">تيرمال بريك</div><div class="ac-desc">حاجز حراري داخل الإطار — بيقلل نقل الحرارة بشكل كبير</div><span class="ac-tag or">ترقية مهمة</span></div>
-      <div class="ac-card"><div class="ac-ico">🎨</div><div class="ac-name">دهان بودرة</div><div class="ac-desc">طلاء إليكتروستاتيك — ألوان لا نهائية وأكثر متانة من الأنودايز</div><span class="ac-tag bl">بالاتفاق</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="2" width="16" height="16" rx="1"/><path d="M5 2v16M8 2v16M11 2v16M14 2v16M2 5h16M2 8h16M2 11h16M2 14h16" stroke-width=".8"/></svg></div><div class="ac-name">موسكيتو / نت</div><div class="ac-desc">شبكة ناموسية على إطار ألومنيوم — ثابتة أو متحركة</div><span class="ac-tag bl">بالاتفاق</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="4" y="9" width="12" height="9" rx="2"/><path d="M7 9V6a3 3 0 0 1 6 0v3"/></svg></div><div class="ac-name">لوك أمان</div><div class="ac-desc">قفل إضافي — متعدد النقاط لأمان أعلى</div><span class="ac-tag bl">بالاتفاق</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 2v9m0 0a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm-2.5 0h5"/></svg></div><div class="ac-name">تيرمال بريك</div><div class="ac-desc">حاجز حراري داخل الإطار — بيقلل نقل الحرارة بشكل كبير</div><span class="ac-tag or">ترقية مهمة</span></div>
+      <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="10" cy="10" r="7"/><circle cx="10" cy="10" r="3"/></svg></div><div class="ac-name">دهان بودرة</div><div class="ac-desc">طلاء إليكتروستاتيك — ألوان لا نهائية وأكثر متانة من الأنودايز</div><span class="ac-tag bl">بالاتفاق</span></div>
     </div>
-    <div class="ib go"><span>🗣️</span><div><strong>عرض الترقية:</strong> "التيرمال بريك بيقلل الحرارة الداخلة في الصيف ويوفر في التكييف — استثمار بيرجع على العميل كل شهر."</div></div>
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>عرض الترقية:</strong> "التيرمال بريك بيقلل الحرارة الداخلة في الصيف ويوفر في التكييف — استثمار بيرجع على العميل كل شهر."</div></div>
   </div>
 
   <!-- PVC -->
   <div class="sc" id="win-pvc">
-    <div class="ib te"><span>🏆</span><div>الـ PVC بيدي <strong>عزل حراري وصوتي أعلى بكتير</strong> من الألومنيوم — مناسب للأدوار العالية والمناطق الصاخبة.</div></div>
+    <div class="ib te"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="10" cy="8" r="5"/><path d="M7 12l-3 6h12l-3-6"/><circle cx="10" cy="8" r="2" fill="currentColor" stroke="none"/></svg></span><div>الـ PVC بيدي <strong>عزل حراري وصوتي أعلى بكتير</strong> من الألومنيوم — مناسب للأدوار العالية والمناطق الصاخبة.</div></div>
     <div class="card">
       <div class="cimg"><img src="https://images.unsplash.com/photo-1600210492-7059820397be?auto=format&fit=crop&w=800&q=80" alt="PVC">
         <div class="cimg-ov"><div><div class="cbadge te">عزل ممتاز</div><div class="ctitle">PVC / UPVC</div><div class="cpr">السعر أعلى من الألومنيوم</div></div></div></div>
@@ -590,23 +622,23 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
         <div class="ac-tag te" style="margin-top:8px;display:inline-block">Premium</div>
       </div>
     </div>
-    <div class="ib go"><span>🗣️</span><div><strong>مقارنة للعميل:</strong> "الـ PVC أغلى شوية من الألومنيوم — بس بيوفر في فاتورة التكييف وبيقلل الضوضاء. على المدى البعيد الأكيد."</div></div>
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>مقارنة للعميل:</strong> "الـ PVC أغلى شوية من الألومنيوم — بس بيوفر في فاتورة التكييف وبيقلل الضوضاء. على المدى البعيد الأكيد."</div></div>
   </div>
 
   <!-- GLASS -->
   <div class="sc" id="win-glass">
-    <div class="ib bl"><span>🪟</span><div>نوع الزجاج بيأثر على <strong>العزل والأمان والشكل</strong> — كل نوع ليه استخدام مختلف.</div></div>
+    <div class="ib bl"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="16" height="14" rx="1.5"/><line x1="10" y1="3" x2="10" y2="17"/><line x1="2" y1="10" x2="18" y2="10"/></svg></span><div>نوع الزجاج بيأثر على <strong>العزل والأمان والشكل</strong> — كل نوع ليه استخدام مختلف.</div></div>
     <div class="sdiv">أنواع الزجاج</div>
     <div class="glass-types">
-      <div class="gt"><div class="gt-ico">🔲</div><div class="gt-name">عادي</div><div class="gt-desc">5 مم أو 6 مم — الأساسي</div></div>
-      <div class="gt rec"><div class="gt-ico">🌡️</div><div class="gt-name">دبل جلاس</div><div class="gt-desc">طبقتين + فراغ هواء — عزل ممتاز</div></div>
-      <div class="gt"><div class="gt-ico">🌟</div><div class="gt-name">رفليكتور</div><div class="gt-desc">بيعكس الشمس — للواجهات</div></div>
-      <div class="gt"><div class="gt-ico">🛡️</div><div class="gt-name">سيكيوريت</div><div class="gt-desc">مقسى — أمان عالي عند الكسر</div></div>
-      <div class="gt"><div class="gt-ico">🔒</div><div class="gt-name">لاميناتد</div><div class="gt-desc">طبقتين ملصوقين — مقاوم جداً</div></div>
-      <div class="gt"><div class="gt-ico">🎨</div><div class="gt-name">ملون / فروستد</div><div class="gt-desc">للخصوصية والديكور</div></div>
+      <div class="gt"><div class="gt-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="14" height="14" rx="1"/><path d="M7 3v14M3 7h4"/></svg></div><div class="gt-name">عادي</div><div class="gt-desc">5 مم أو 6 مم — الأساسي</div></div>
+      <div class="gt rec"><div class="gt-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="4" width="6" height="12" rx="1"/><rect x="12" y="4" width="6" height="12" rx="1"/><path d="M8 10h4" stroke-dasharray="1.5 1.5"/></svg></div><div class="gt-name">دبل جلاس</div><div class="gt-desc">طبقتين + فراغ هواء — عزل ممتاز</div></div>
+      <div class="gt"><div class="gt-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="16" height="14" rx="1.5"/><path d="M6 3L2 7M10 3L2 11M14 3L2 15M18 3L4 17M18 7L8 17M18 11L12 17" stroke-width=".9" opacity=".5"/></svg></div><div class="gt-name">رفليكتور</div><div class="gt-desc">بيعكس الشمس — للواجهات</div></div>
+      <div class="gt"><div class="gt-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="16" height="14" rx="1.5"/><path d="M10 7l1.5 2.5L15 10l-2.5 2.5.5 3L10 14l-3 1.5.5-3L5 10l3.5-.5z" stroke-width="1"/></svg></div><div class="gt-name">سيكيوريت</div><div class="gt-desc">مقسى — أمان عالي عند الكسر</div></div>
+      <div class="gt"><div class="gt-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="4" width="16" height="12" rx="1"/><rect x="4" y="6" width="12" height="8" rx=".5" stroke-dasharray="2 1"/></svg></div><div class="gt-name">لاميناتد</div><div class="gt-desc">طبقتين ملصوقين — مقاوم جداً</div></div>
+      <div class="gt"><div class="gt-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="16" height="14" rx="1.5"/><path d="M2 3l16 14M2 17l16-14" stroke-width=".8" opacity=".4"/><circle cx="10" cy="10" r="4" stroke-width="1.2"/></svg></div><div class="gt-name">ملون / فروستد</div><div class="gt-desc">للخصوصية والديكور</div></div>
     </div>
-    <div class="ib go"><span>🗣️</span><div><strong>ترقية الدبل جلاس:</strong> "الدبل جلاس بيقلل الحرارة اللي بتدخل بنسبة كبيرة — العميل بيحس بالفرق في التكييف من الشهر الأول."</div></div>
-    <div class="ib or"><span>⚠️</span><div><strong>تنبيه مهم:</strong> الرفليكتور مش بينفع في الداخل — للواجهات الخارجية بس. لو العميل طالبه للداخل وضّحله.</div></div>
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>ترقية الدبل جلاس:</strong> "الدبل جلاس بيقلل الحرارة اللي بتدخل بنسبة كبيرة — العميل بيحس بالفرق في التكييف من الشهر الأول."</div></div>
+    <div class="ib or"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 3L2 17h16z"/><line x1="10" y1="10" x2="10" y2="13"/><circle cx="10" cy="15.5" r=".8" fill="currentColor" stroke="none"/></svg></span><div><strong>تنبيه مهم:</strong> الرفليكتور مش بينفع في الداخل — للواجهات الخارجية بس. لو العميل طالبه للداخل وضّحله.</div></div>
   </div>
 
   <!-- COMPARE -->
@@ -628,7 +660,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="rrow"><span class="rl">سيكيوريت</span><span class="rv">الأأمن عند الكسر</span></div>
       <div class="rrow"><span class="rl">رفليكتور</span><span class="rv">للواجهات فقط</span></div>
     </div>
-    <div class="ib go"><span>🗣️</span><div><strong>السؤال الصح:</strong> "الشباك للمعيشة ولا غرفة نوم؟ وفي ضوضاء من الشارع؟" — الإجابة بتحدد ألومنيوم أو PVC وعادي أو دبل.</div></div>
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>السؤال الصح:</strong> "الشباك للمعيشة ولا غرفة نوم؟ وفي ضوضاء من الشارع؟" — الإجابة بتحدد ألومنيوم أو PVC وعادي أو دبل.</div></div>
   </div>
 </div>
 
@@ -640,10 +672,10 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     <div class="ph-desc">دهانات — سيراميك — جبس — باركيه — سباكة — كهرباء — محارة</div>
   </div>
   <div style="padding:12px 16px 0">
-    <div class="ib go"><span>💡</span><div>اضغط على أي قسم عشان تشوف التفاصيل الكاملة</div></div>
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 2a5 5 0 0 1 3 9l-1 1H8l-1-1a5 5 0 0 1 3-9z"/><path d="M8 15h4M9 18h2"/></svg></span><div>اضغط على أي قسم عشان تشوف التفاصيل الكاملة</div></div>
 
     <!-- PAINT -->
-    <div class="fin-cat" onclick="toggleFin(this)">
+    <div class="fin-cat" onclick="toggleFin(this)" ontouchstart="">
       <div class="fin-cat-head">
         <div class="fin-cat-ico ico-paint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><path d="M12 11v4"/><path d="M8 15c0 2.5 1.5 4 4 4s4-1.5 4-4"/></svg></div>
         <div class="fin-cat-txt"><div class="fin-cat-name">دهانات</div><div class="fin-cat-sub">بلاستيك — زيت — جرافيت — ديكور</div></div>
@@ -657,14 +689,14 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
             <div class="pcard"><div class="pcard-top p3">جرافيت ثلاثي الأبعاد</div><div class="pcard-body"><div class="pspec"><strong>الاستخدام:</strong> ديكور وتشطيب راقي</div><div class="pspec"><strong>التأثير:</strong> نقوش وملمس يدوي</div><div class="pspec"><strong>الأسلوب:</strong> بخاخ أو أدوات يدوية</div><div class="pspec"><strong>المميز:</strong> لا يتكرر — فريد</div></div></div>
             <div class="pcard"><div class="pcard-top p4">ستوكو / ديكوريتيف</div><div class="pcard-body"><div class="pspec"><strong>الاستخدام:</strong> واجهات وديكور داخلي</div><div class="pspec"><strong>التأثير:</strong> ملمس إيطالي راقي</div><div class="pspec"><strong>الماركات:</strong> Baumit، Mapei</div><div class="pspec"><strong>المميز:</strong> أطول عمر من البلاستيك</div></div></div>
           </div>
-          <div class="ib or"><span>⚠️</span><div><strong>تنبيه:</strong> البلاستيك في الحمام بدون بايمر مضاد رطوبة = بيتقشر في سنة. لازم 2 وجه بايمر أساس أولاً.</div></div>
-          <div class="ib go"><span>🗣️</span><div><strong>سؤال الترقية:</strong> "الحوائط هتتلمس كتير؟ لو أيوه الجرافيت أو الستوكو أحسن بكتير من البلاستيك العادي — وشكله مختلف تماماً."</div></div>
+          <div class="ib or"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 3L2 17h16z"/><line x1="10" y1="10" x2="10" y2="13"/><circle cx="10" cy="15.5" r=".8" fill="currentColor" stroke="none"/></svg></span><div><strong>تنبيه:</strong> البلاستيك في الحمام بدون بايمر مضاد رطوبة = بيتقشر في سنة. لازم 2 وجه بايمر أساس أولاً.</div></div>
+          <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>سؤال الترقية:</strong> "الحوائط هتتلمس كتير؟ لو أيوه الجرافيت أو الستوكو أحسن بكتير من البلاستيك العادي — وشكله مختلف تماماً."</div></div>
         </div>
       </div>
     </div>
 
     <!-- CERAMIC -->
-    <div class="fin-cat" onclick="toggleFin(this)">
+    <div class="fin-cat" onclick="toggleFin(this)" ontouchstart="">
       <div class="fin-cat-head">
         <div class="fin-cat-ico ico-ceramic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg></div>
         <div class="fin-cat-txt"><div class="fin-cat-name">سيراميك وبورسلين</div><div class="fin-cat-sub">أرضيات — حوائط — حمامات</div></div>
@@ -688,13 +720,13 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
             <div class="rrow"><span class="rl">امتصاص الماء</span><span class="rv" style="color:var(--teal)">بورسلين أقل بكتير</span></div>
             <div class="rrow"><span class="rl">الاستخدام الأمثل</span><span class="rv">حمام/مطبخ = بورسلين</span></div>
           </div>
-          <div class="ib go"><span>🗣️</span><div><strong>ترقية الحجم:</strong> "الـ 60×60 أو 80×80 بيخلي الأوضة تبان أكبر بكتير وبيقلل عدد الفواصل — الشكل مختلف تماماً."</div></div>
+          <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>ترقية الحجم:</strong> "الـ 60×60 أو 80×80 بيخلي الأوضة تبان أكبر بكتير وبيقلل عدد الفواصل — الشكل مختلف تماماً."</div></div>
         </div>
       </div>
     </div>
 
     <!-- GYPSUM -->
-    <div class="fin-cat" onclick="toggleFin(this)">
+    <div class="fin-cat" onclick="toggleFin(this)" ontouchstart="">
       <div class="fin-cat-head">
         <div class="fin-cat-ico ico-gyp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6"/><path d="M3 9v3l9 6 9-6V9"/><path d="M12 3v18"/></svg></div>
         <div class="fin-cat-txt"><div class="fin-cat-name">جبس وأسقف</div><div class="fin-cat-sub">جبس بورد — كورنيش — غرف — أسقف معلقة</div></div>
@@ -703,20 +735,20 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="fin-body">
         <div class="fin-inner">
           <div class="gyp-types">
-            <div class="gyp-card"><div class="gyp-name">🏛️ كورنيش جبس</div><div class="gyp-desc">إطار ديكوري بين الحائط والسقف — كلاسيك وراقي — متوفر بأشكال كتير</div></div>
-            <div class="gyp-card"><div class="gyp-name">🔵 غرف نوم / طرح</div><div class="gyp-desc">لوحة جبس مزخرفة في منتصف السقف — بتحط فيها الإضاءة</div></div>
-            <div class="gyp-card"><div class="gyp-name">📋 جبس بورد</div><div class="gyp-desc">لوح جبس على هيكل معدني — لتخفيض السقف أو إخفاء الأسلاك والمواسير</div></div>
-            <div class="gyp-card"><div class="gyp-name">💡 أسقف معلقة</div><div class="gyp-desc">سقف كامل من جبس بورد مع إضاءة LED مخفية — شكل عصري احترافي</div></div>
-            <div class="gyp-card"><div class="gyp-name">🌊 جبس مزخرف 3D</div><div class="gyp-desc">تصاميم ثلاثية الأبعاد على الحائط أو السقف — ديكور فاخر ومميز</div></div>
-            <div class="gyp-card"><div class="gyp-name">🧱 جدران جبسية</div><div class="gyp-desc">فواصل خفيفة من جبس بورد — بديل أسرع وأخف من الطوب</div></div>
+            <div class="gyp-card"><div class="gyp-name">كورنيش جبس</div><div class="gyp-desc">إطار ديكوري بين الحائط والسقف — كلاسيك وراقي — متوفر بأشكال كتير</div></div>
+            <div class="gyp-card"><div class="gyp-name">غرف نوم / طرح</div><div class="gyp-desc">لوحة جبس مزخرفة في منتصف السقف — بتحط فيها الإضاءة</div></div>
+            <div class="gyp-card"><div class="gyp-name">جبس بورد</div><div class="gyp-desc">لوح جبس على هيكل معدني — لتخفيض السقف أو إخفاء الأسلاك والمواسير</div></div>
+            <div class="gyp-card"><div class="gyp-name">أسقف معلقة</div><div class="gyp-desc">سقف كامل من جبس بورد مع إضاءة LED مخفية — شكل عصري احترافي</div></div>
+            <div class="gyp-card"><div class="gyp-name">جبس مزخرف 3D</div><div class="gyp-desc">تصاميم ثلاثية الأبعاد على الحائط أو السقف — ديكور فاخر ومميز</div></div>
+            <div class="gyp-card"><div class="gyp-name">جدران جبسية</div><div class="gyp-desc">فواصل خفيفة من جبس بورد — بديل أسرع وأخف من الطوب</div></div>
           </div>
-          <div class="ib go"><span>🗣️</span><div><strong>السؤال الصح:</strong> "الأوضة فيها أسلاك أو مواسير ظاهرة؟ الجبس بورد بيخبيها ويدي السقف شكل نظيف — وبنركب فيه LED مخفي."</div></div>
+          <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>السؤال الصح:</strong> "الأوضة فيها أسلاك أو مواسير ظاهرة؟ الجبس بورد بيخبيها ويدي السقف شكل نظيف — وبنركب فيه LED مخفي."</div></div>
         </div>
       </div>
     </div>
 
     <!-- PARQUET -->
-    <div class="fin-cat" onclick="toggleFin(this)">
+    <div class="fin-cat" onclick="toggleFin(this)" ontouchstart="">
       <div class="fin-cat-head">
         <div class="fin-cat-ico ico-wood"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="14" width="20" height="6" rx="1"/><rect x="2" y="8" width="9" height="6"/><rect x="13" y="8" width="9" height="6"/><rect x="2" y="2" width="20" height="6" rx="1"/></svg></div>
         <div class="fin-cat-txt"><div class="fin-cat-name">باركيه وأرضيات</div><div class="fin-cat-sub">لامينيت — SPC — خشب طبيعي — فينيل</div></div>
@@ -725,9 +757,9 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="fin-body">
         <div class="fin-inner">
           <div class="park-types">
-            <div class="pkc"><div class="pkc-ico">🌲</div><div class="pkc-name">لامينيت</div><div class="pkc-desc">الأكثر انتشاراً — ألوان كتير — سعر مناسب</div></div>
-            <div class="pkc"><div class="pkc-ico">💧</div><div class="pkc-name">SPC</div><div class="pkc-desc">مقاوم للمياه 100% — مثالي للحمامات والمطابخ</div></div>
-            <div class="pkc"><div class="pkc-ico">🏅</div><div class="pkc-name">خشب طبيعي</div><div class="pkc-desc">أعلى جودة وأطول عمر — سعر مرتفع</div></div>
+            <div class="pkc"><div class="pkc-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="13" width="16" height="5" rx=".5"/><rect x="2" y="7" width="7" height="6"/><rect x="11" y="7" width="7" height="6"/><rect x="2" y="2" width="16" height="5" rx=".5"/></svg></div><div class="pkc-name">لامينيت</div><div class="pkc-desc">الأكثر انتشاراً — ألوان كتير — سعر مناسب</div></div>
+            <div class="pkc"><div class="pkc-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="2" width="16" height="16" rx="1"/><path d="M2 8h16M2 14h16M6 8v6M14 8v6"/><path d="M4 5l2-1M4 11l2-1M4 17l2-1" stroke-width=".8"/></svg></div><div class="pkc-name">SPC</div><div class="pkc-desc">مقاوم للمياه 100% — مثالي للحمامات والمطابخ</div></div>
+            <div class="pkc"><div class="pkc-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="15" width="16" height="3" rx=".5"/><rect x="2" y="11" width="16" height="3" rx=".5"/><rect x="2" y="7" width="16" height="3" rx=".5"/><rect x="2" y="3" width="16" height="3" rx=".5"/></svg></div><div class="pkc-name">خشب طبيعي</div><div class="pkc-desc">أعلى جودة وأطول عمر — سعر مرتفع</div></div>
           </div>
           <div class="rtbl">
             <div class="rtbl-t">مقارنة الأنواع</div>
@@ -737,13 +769,13 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
             <div class="rrow"><span class="rl">سهولة التركيب</span><span class="rv" style="color:var(--green)">لامينيت وSPC أسهل</span></div>
             <div class="rrow"><span class="rl">الحمامات والمطابخ</span><span class="rv" style="color:var(--teal)">SPC بس</span></div>
           </div>
-          <div class="ib go"><span>🗣️</span><div><strong>ترقية SPC:</strong> "اللامينيت في الحمام أو المطبخ بيتلف من الرطوبة — الـ SPC مصمم للمياه من الأساس. فرق السعر بسيط مقارنة بالفرق في العمر."</div></div>
+          <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>ترقية SPC:</strong> "اللامينيت في الحمام أو المطبخ بيتلف من الرطوبة — الـ SPC مصمم للمياه من الأساس. فرق السعر بسيط مقارنة بالفرق في العمر."</div></div>
         </div>
       </div>
     </div>
 
     <!-- ELECTRIC -->
-    <div class="fin-cat" onclick="toggleFin(this)">
+    <div class="fin-cat" onclick="toggleFin(this)" ontouchstart="">
       <div class="fin-cat-head">
         <div class="fin-cat-ico ico-elec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <div class="fin-cat-txt"><div class="fin-cat-name">كهرباء وإضاءة</div><div class="fin-cat-sub">تمديدات — لوحات — نقاط — إضاءة LED</div></div>
@@ -752,18 +784,18 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="fin-body">
         <div class="fin-inner">
           <div class="g2">
-            <div class="ac-card"><div class="ac-ico">🔌</div><div class="ac-name">تمديدات كهرباء</div><div class="ac-desc">مواسير PVC + أسلاك نحاس معتمدة — حسب المعايير المصرية</div><span class="ac-tag bl">أساسي</span></div>
-            <div class="ac-card"><div class="ac-ico">⚡</div><div class="ac-name">لوحة كهرباء</div><div class="ac-desc">لوحة تأمين بالقواطع — قاطع رئيسي + قواطع لكل غرفة</div><span class="ac-tag bl">أساسي</span></div>
-            <div class="ac-card"><div class="ac-ico">💡</div><div class="ac-name">نقاط إضاءة وبرايز</div><div class="ac-desc">نقاط سقف + برايز جدارية + سبوت لايت + مخارج USB</div><span class="ac-tag bl">بالاتفاق</span></div>
-            <div class="ac-card"><div class="ac-ico">🌈</div><div class="ac-name">إضاءة LED ديكور</div><div class="ac-desc">شرايط LED مخفية في الجبس — تغيير ألوان — ذكية</div><span class="ac-tag or">ترقية</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 14c0-4 1-7 2-9h8c1 2 2 5 2 9"/><path d="M2 14h16"/><rect x="7" y="14" width="6" height="4" rx="1"/></svg></div><div class="ac-name">تمديدات كهرباء</div><div class="ac-desc">مواسير PVC + أسلاك نحاس معتمدة — حسب المعايير المصرية</div><span class="ac-tag bl">أساسي</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="4" y="2" width="12" height="16" rx="1.5"/><path d="M8 6h4M8 9h4M8 12h4"/><circle cx="10" cy="15" r="1" fill="currentColor"/></svg></div><div class="ac-name">لوحة كهرباء</div><div class="ac-desc">لوحة تأمين بالقواطع — قاطع رئيسي + قواطع لكل غرفة</div><span class="ac-tag bl">أساسي</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="4" y="4" width="12" height="12" rx="1.5"/><circle cx="10" cy="10" r="2"/><path d="M8 7v.5M12 7v.5"/></svg></div><div class="ac-name">نقاط إضاءة وبرايز</div><div class="ac-desc">نقاط سقف + برايز جدارية + سبوت لايت + مخارج USB</div><span class="ac-tag bl">بالاتفاق</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="10" cy="9" r="4"/><path d="M10 2v2M10 16v2M2 9h2M16 9h2M4.5 4.5l1.4 1.4M14.1 13.1l1.4 1.4M4.5 13.5l1.4-1.4M14.1 6.9l1.4-1.4"/></svg></div><div class="ac-name">إضاءة LED ديكور</div><div class="ac-desc">شرايط LED مخفية في الجبس — تغيير ألوان — ذكية</div><span class="ac-tag or">ترقية</span></div>
           </div>
-          <div class="ib or"><span>⚠️</span><div><strong>تنبيه:</strong> التمديدات الكهربائية لازم تتعمل قبل أي تشطيب — مش ممكن تتعمل بعد السيراميك والدهانات.</div></div>
+          <div class="ib or"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 3L2 17h16z"/><line x1="10" y1="10" x2="10" y2="13"/><circle cx="10" cy="15.5" r=".8" fill="currentColor" stroke="none"/></svg></span><div><strong>تنبيه:</strong> التمديدات الكهربائية لازم تتعمل قبل أي تشطيب — مش ممكن تتعمل بعد السيراميك والدهانات.</div></div>
         </div>
       </div>
     </div>
 
     <!-- PLUMBING -->
-    <div class="fin-cat" onclick="toggleFin(this)">
+    <div class="fin-cat" onclick="toggleFin(this)" ontouchstart="">
       <div class="fin-cat-head">
         <div class="fin-cat-ico ico-plumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a7 7 0 1 0 14 0 7 7 0 0 0-14 0z"/><path d="M12 8v4l3 3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg></div>
         <div class="fin-cat-txt"><div class="fin-cat-name">سباكة وأدوات صحية</div><div class="fin-cat-sub">تمديدات — أدوات صحية — بانيو — شاور</div></div>
@@ -772,18 +804,18 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="fin-body">
         <div class="fin-inner">
           <div class="g2">
-            <div class="ac-card"><div class="ac-ico">🔧</div><div class="ac-name">تمديدات سباكة</div><div class="ac-desc">مواسير PPR للمياه الساخنة والباردة — أطول عمر من الحديد</div><span class="ac-tag gr">PPR موصى به</span></div>
-            <div class="ac-card"><div class="ac-ico">🚽</div><div class="ac-name">أدوات صحية</div><div class="ac-desc">طقم حمام كامل — توالت، حوض، خلاط. ماركات: Ideal Standard، RAK، Grohe</div><span class="ac-tag bl">بالاتفاق</span></div>
-            <div class="ac-card"><div class="ac-ico">🛁</div><div class="ac-name">بانيو / شاور</div><div class="ac-desc">أكريليك أو حجر راتنج — كابينة شاور زجاج مقسى</div><span class="ac-tag bl">بالاتفاق</span></div>
-            <div class="ac-card"><div class="ac-ico">🌡️</div><div class="ac-name">سخان مياه</div><div class="ac-desc">كهرباء أو سولار — حجم حسب عدد الأفراد (50-150 لتر)</div><span class="ac-tag bl">بالاتفاق</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 10c0-3 1-6 6-6s6 3 6 6"/><path d="M4 10v6M16 10v6M4 16h12"/></svg></div><div class="ac-name">تمديدات سباكة</div><div class="ac-desc">مواسير PPR للمياه الساخنة والباردة — أطول عمر من الحديد</div><span class="ac-tag gr">PPR موصى به</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 5c0-2 8-2 8 0v4H6V5z"/><path d="M4 9h12v2H4z"/><path d="M8 11v5M12 11v5M6 16h8" /></svg></div><div class="ac-name">أدوات صحية</div><div class="ac-desc">طقم حمام كامل — توالت، حوض، خلاط. ماركات: Ideal Standard، RAK، Grohe</div><span class="ac-tag bl">بالاتفاق</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="14" cy="6" r="3"/><path d="M12 8l-8 8"/><path d="M5 13l-2 4M8 16l-2 2M3 11l4-2"/><circle cx="4" cy="15" r=".5" fill="currentColor"/><circle cx="7" cy="17" r=".5" fill="currentColor"/><circle cx="2" cy="13" r=".5" fill="currentColor"/></svg></div><div class="ac-name">بانيو / شاور</div><div class="ac-desc">أكريليك أو حجر راتنج — كابينة شاور زجاج مقسى</div><span class="ac-tag bl">بالاتفاق</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 2v9m0 0a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm-2.5 0h5"/></svg></div><div class="ac-name">سخان مياه</div><div class="ac-desc">كهرباء أو سولار — حجم حسب عدد الأفراد (50-150 لتر)</div><span class="ac-tag bl">بالاتفاق</span></div>
           </div>
-          <div class="ib or"><span>⚠️</span><div><strong>تنبيه:</strong> التمديدات لازم قبل السيراميك — والمواسير PPR أفضل من الجالفاني بكتير في المدى البعيد.</div></div>
+          <div class="ib or"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 3L2 17h16z"/><line x1="10" y1="10" x2="10" y2="13"/><circle cx="10" cy="15.5" r=".8" fill="currentColor" stroke="none"/></svg></span><div><strong>تنبيه:</strong> التمديدات لازم قبل السيراميك — والمواسير PPR أفضل من الجالفاني بكتير في المدى البعيد.</div></div>
         </div>
       </div>
     </div>
 
     <!-- WALLS / MAHARAH -->
-    <div class="fin-cat" onclick="toggleFin(this)">
+    <div class="fin-cat" onclick="toggleFin(this)" ontouchstart="">
       <div class="fin-cat-head">
         <div class="fin-cat-ico ico-wall"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="5" rx="1"/><rect x="2" y="9" width="8" height="5" rx="1"/><rect x="14" y="9" width="8" height="5" rx="1"/><rect x="2" y="17" width="20" height="5" rx="1"/></svg></div>
         <div class="fin-cat-txt"><div class="fin-cat-name">محارة وتشطيب حوائط</div><div class="fin-cat-sub">بلاطة — لياسة — فلين — بانيلات ديكور</div></div>
@@ -792,12 +824,12 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="fin-body">
         <div class="fin-inner">
           <div class="g2">
-            <div class="ac-card"><div class="ac-ico">🧱</div><div class="ac-name">محارة / لياسة</div><div class="ac-desc">تسوية الحوائط بالجبس أو الأسمنت — الأساس قبل أي تشطيب</div><span class="ac-tag bl">أساسي</span></div>
-            <div class="ac-card"><div class="ac-ico">🔲</div><div class="ac-name">بانيلات MDF</div><div class="ac-desc">ألواح MDF على الحوائط — ديكور أنيق وعازل للصوت</div><span class="ac-tag or">ديكور</span></div>
-            <div class="ac-card"><div class="ac-ico">🌊</div><div class="ac-name">فلين / كليديال</div><div class="ac-desc">خامة حائط ناعمة ثلاثية الأبعاد — شكل فاخر ومميز</div><span class="ac-tag or">ديكور</span></div>
-            <div class="ac-card"><div class="ac-ico">🏠</div><div class="ac-name">طوب ديكوري</div><div class="ac-desc">طوب مكشوف أو طوب صناعي — للديكور والأكسنت وول</div><span class="ac-tag or">ديكور</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="2" width="16" height="16" rx="1"/><path d="M6 2v16M10 2v16M14 2v16M2 6h4M2 10h4M2 14h4" stroke-width=".9"/></svg></div><div class="ac-name">محارة / لياسة</div><div class="ac-desc">تسوية الحوائط بالجبس أو الأسمنت — الأساس قبل أي تشطيب</div><span class="ac-tag bl">أساسي</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="6" width="14" height="8" rx="1.5"/><path d="M7 10h6" stroke-width="2"/></svg></div><div class="ac-name">بانيلات MDF</div><div class="ac-desc">ألواح MDF على الحوائط — ديكور أنيق وعازل للصوت</div><span class="ac-tag or">ديكور</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="2" width="16" height="16" rx="2"/><circle cx="6" cy="6" r="1.5"/><circle cx="10" cy="6" r="1.5"/><circle cx="14" cy="6" r="1.5"/><circle cx="6" cy="10" r="1.5"/><circle cx="10" cy="10" r="1.5"/><circle cx="14" cy="10" r="1.5"/><circle cx="6" cy="14" r="1.5"/><circle cx="10" cy="14" r="1.5"/><circle cx="14" cy="14" r="1.5"/></svg></div><div class="ac-name">فلين / كليديال</div><div class="ac-desc">خامة حائط ناعمة ثلاثية الأبعاد — شكل فاخر ومميز</div><span class="ac-tag or">ديكور</span></div>
+            <div class="ac-card"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="2" width="7" height="4" rx=".5"/><rect x="11" y="2" width="7" height="4" rx=".5"/><rect x="2" y="8" width="4" height="4" rx=".5"/><rect x="8" y="8" width="4" height="4" rx=".5"/><rect x="14" y="8" width="4" height="4" rx=".5"/><rect x="2" y="14" width="7" height="4" rx=".5"/><rect x="11" y="14" width="7" height="4" rx=".5"/></svg></div><div class="ac-name">طوب ديكوري</div><div class="ac-desc">طوب مكشوف أو طوب صناعي — للديكور والأكسنت وول</div><span class="ac-tag or">ديكور</span></div>
           </div>
-          <div class="ib go"><span>🗣️</span><div><strong>ترقية الأكسنت وول:</strong> "حائط واحد بتشطيب مختلف — بانيل أو طوب ديكوري — بيغير شكل الأوضة كلها بتكلفة بسيطة."</div></div>
+          <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>ترقية الأكسنت وول:</strong> "حائط واحد بتشطيب مختلف — بانيل أو طوب ديكوري — بيغير شكل الأوضة كلها بتكلفة بسيطة."</div></div>
         </div>
       </div>
     </div>
@@ -854,13 +886,13 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
   </div>
 
   <div class="sc" id="furn-sofa">
-    <div class="st"><div class="st-hdr sh1">🌲 خشب سويدي — بالمتر</div>
+    <div class="st"><div class="st-hdr sh1">خشب سويدي — بالمتر</div>
       <div class="st-row"><span class="sl">ركنة — بوصة وربع</span><span class="sp">1,500 ج</span></div>
       <div class="st-row"><span class="sl">ركنة — بوصة ونص</span><span class="sp">1,650 ج</span></div>
       <div class="st-row"><span class="sl">أنتريه — بوصة وربع</span><span class="sp">1,600 ج</span></div>
       <div class="st-row"><span class="sl">أنتريه — بوصة ونص</span><span class="sp">1,750 ج</span></div>
     </div>
-    <div class="st"><div class="st-hdr sh2">🏅 خشب زان — الأعلى جودة</div>
+    <div class="st"><div class="st-hdr sh2">خشب زان — الأعلى جودة</div>
       <div class="st-row"><span class="sl">ركنة — بوصة ونص</span><span class="sp">2,500 ج</span></div>
       <div class="st-row"><span class="sl">أنتريه — بوصة ونص</span><span class="sp">2,500 ج</span></div>
       <div class="st-row" style="font-size:11px"><span class="sl" style="color:var(--text3);font-style:italic">الزان أثقل وأمتن — للاستخدام الكتير</span><span></span></div>
@@ -868,9 +900,9 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
   </div>
 
   <div class="sc" id="furn-units">
-    <div class="mc"><div class="mc-name">📺 وحدة شاشة L — قطعتين</div><div class="mc-pr">4,500 ج <span>/ الوحدة</span></div><div class="mc-desc">على حرف L — قطعتين. للصالة الكبيرة.</div></div>
-    <div class="mc"><div class="mc-name">📺 وحدة شاشة — قطعة واحدة</div><div class="mc-pr">3,500 ج <span>/ الوحدة</span></div><div class="mc-desc">180×40 سم — معلق أو على رجول.</div></div>
-    <div class="mc"><div class="mc-name">👟 الجزامة</div><div class="mc-pr">4,500 ج <span>/ الوحدة</span></div><div class="mc-desc">وحدة كاملة للمدخل — عملية وشكلها حلو.</div></div>
+    <div class="mc"><div class="mc-name">وحدة شاشة L — قطعتين</div><div class="mc-pr">4,500 ج <span>/ الوحدة</span></div><div class="mc-desc">على حرف L — قطعتين. للصالة الكبيرة.</div></div>
+    <div class="mc"><div class="mc-name">وحدة شاشة — قطعة واحدة</div><div class="mc-pr">3,500 ج <span>/ الوحدة</span></div><div class="mc-desc">180×40 سم — معلق أو على رجول.</div></div>
+    <div class="mc"><div class="mc-name">الجزامة</div><div class="mc-pr">4,500 ج <span>/ الوحدة</span></div><div class="mc-desc">وحدة كاملة للمدخل — عملية وشكلها حلو.</div></div>
   </div>
 </div>
 
@@ -889,23 +921,23 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
   </div>
 
   <div class="sc on" id="scr-steps">
-    <div class="ib go"><span>🎯</span><div>اضغط على كل خطوة عشان تشوف الكلام الجاهز</div></div>
-    <div class="skcard" onclick="togSk(this)"><div class="sk-head"><div class="sk-num">1</div><div class="sk-ht"><div class="sk-ph">الاستقبال</div><div class="sk-title">أول رد على العميل</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"أهلاً 🙏 مبروك على الشقة! عندنا مطابخ وشبابيك وأثاث وتشطيبات كاملة. إيه اللي أهم بالنسبالك — السعر، ولا شغل يعيش معك سنين؟"</div><div class="sk-tip"><span class="ti">💡</span> اسأل قبل ما تعرض</div></div></div>
-    <div class="skcard" onclick="togSk(this)"><div class="sk-head"><div class="sk-num">2</div><div class="sk-ht"><div class="sk-ph">الاستكشاف</div><div class="sk-title">افهم الاحتياج</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"المطبخ كام متر؟ وبتفضل الناعم اللامع ولا الخشن المط؟ — وإيه اللي تاني محتاج: شبابيك؟ تشطيبات؟ أثاث؟"</div><div class="sk-tip"><span class="ti">💡</span> اعرف كل الاحتياجات من الأول — ده بيزيد حجم الصفقة</div></div></div>
-    <div class="skcard" onclick="togSk(this)"><div class="sk-head"><div class="sk-num">3</div><div class="sk-ht"><div class="sk-ph">الشرح</div><div class="sk-title">قدم خيارين بس</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"عندي ليك خيارين للمطبخ: شيت ألومنيوم — الأكثر مبيعاً. أو خشب HPL — مقاومة أعلى. الفرق على 5 متر [X جنيه] — إيه اللي بيميل قلبك؟"</div><div class="sk-tip"><span class="ti">💡</span> 2 خيارات بس — كتير = العميل ميختارش</div></div></div>
-    <div class="skcard" onclick="togSk(this)"><div class="sk-head"><div class="sk-num">4</div><div class="sk-ht"><div class="sk-ph">الترقية</div><div class="sk-title">ارفع الفاتورة بمبرر</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"السعر شامل تركي سوفت كلوز — الإضافة للنمساوي 880 جنيه بس على 8 أبواب. والشباك لو ضفنا دبل جلاس هيوفر في التكييف كل شهر."</div><div class="sk-tip"><span class="ti">💡</span> الترقية لازم يبقى فيها مبرر عملي للعميل</div></div></div>
-    <div class="skcard" onclick="togSk(this)"><div class="sk-head"><div class="sk-num">5</div><div class="sk-ht"><div class="sk-ph">الإغلاق</div><div class="sk-title">احجز المعاينة</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"المعاينة مجانية وبتاخد 30 دقيقة — بعدها تصميم وسعر نهائي كامل. تحب بكرة الصبح ولا بعد الضهر؟"</div><div class="sk-tip"><span class="ti">💡</span> اختم بسؤال مفيهوش "لأ"</div></div></div>
+    <div class="ib go"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><circle cx="10" cy="10" r="4"/><circle cx="10" cy="10" r="1.5" fill="currentColor" stroke="none"/></svg></span><div>اضغط على كل خطوة عشان تشوف الكلام الجاهز</div></div>
+    <div class="skcard" onclick="togSk(this)" ontouchstart=""><div class="sk-head"><div class="sk-num">1</div><div class="sk-ht"><div class="sk-ph">الاستقبال</div><div class="sk-title">أول رد على العميل</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"أهلاً 🙏 مبروك على الشقة! عندنا مطابخ وشبابيك وأثاث وتشطيبات كاملة. إيه اللي أهم بالنسبالك — السعر، ولا شغل يعيش معك سنين؟"</div><div class="sk-tip"><span class="ti" style="display:inline-flex;width:14px;height:14px;flex-shrink:0"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2a5 5 0 0 1 3 9l-1 1H8l-1-1a5 5 0 0 1 3-9z"/><path d="M8 15h4M9 18h2"/></svg></span> اسأل قبل ما تعرض</div></div></div>
+    <div class="skcard" onclick="togSk(this)" ontouchstart=""><div class="sk-head"><div class="sk-num">2</div><div class="sk-ht"><div class="sk-ph">الاستكشاف</div><div class="sk-title">افهم الاحتياج</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"المطبخ كام متر؟ وبتفضل الناعم اللامع ولا الخشن المط؟ — وإيه اللي تاني محتاج: شبابيك؟ تشطيبات؟ أثاث؟"</div><div class="sk-tip"><span class="ti" style="display:inline-flex;width:14px;height:14px;flex-shrink:0"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2a5 5 0 0 1 3 9l-1 1H8l-1-1a5 5 0 0 1 3-9z"/><path d="M8 15h4M9 18h2"/></svg></span> اعرف كل الاحتياجات من الأول — ده بيزيد حجم الصفقة</div></div></div>
+    <div class="skcard" onclick="togSk(this)" ontouchstart=""><div class="sk-head"><div class="sk-num">3</div><div class="sk-ht"><div class="sk-ph">الشرح</div><div class="sk-title">قدم خيارين بس</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"عندي ليك خيارين للمطبخ: شيت ألومنيوم — الأكثر مبيعاً. أو خشب HPL — مقاومة أعلى. الفرق على 5 متر [X جنيه] — إيه اللي بيميل قلبك؟"</div><div class="sk-tip"><span class="ti" style="display:inline-flex;width:14px;height:14px;flex-shrink:0"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2a5 5 0 0 1 3 9l-1 1H8l-1-1a5 5 0 0 1 3-9z"/><path d="M8 15h4M9 18h2"/></svg></span> 2 خيارات بس — كتير = العميل ميختارش</div></div></div>
+    <div class="skcard" onclick="togSk(this)" ontouchstart=""><div class="sk-head"><div class="sk-num">4</div><div class="sk-ht"><div class="sk-ph">الترقية</div><div class="sk-title">ارفع الفاتورة بمبرر</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"السعر شامل تركي سوفت كلوز — الإضافة للنمساوي 880 جنيه بس على 8 أبواب. والشباك لو ضفنا دبل جلاس هيوفر في التكييف كل شهر."</div><div class="sk-tip"><span class="ti" style="display:inline-flex;width:14px;height:14px;flex-shrink:0"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2a5 5 0 0 1 3 9l-1 1H8l-1-1a5 5 0 0 1 3-9z"/><path d="M8 15h4M9 18h2"/></svg></span> الترقية لازم يبقى فيها مبرر عملي للعميل</div></div></div>
+    <div class="skcard" onclick="togSk(this)" ontouchstart=""><div class="sk-head"><div class="sk-num">5</div><div class="sk-ht"><div class="sk-ph">الإغلاق</div><div class="sk-title">احجز المعاينة</div></div><span class="sk-chev">▼</span></div><div class="sk-body"><div class="speech">"المعاينة مجانية وبتاخد 30 دقيقة — بعدها تصميم وسعر نهائي كامل. تحب بكرة الصبح ولا بعد الضهر؟"</div><div class="sk-tip"><span class="ti" style="display:inline-flex;width:14px;height:14px;flex-shrink:0"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2a5 5 0 0 1 3 9l-1 1H8l-1-1a5 5 0 0 1 3-9z"/><path d="M8 15h4M9 18h2"/></svg></span> اختم بسؤال مفيهوش "لأ"</div></div></div>
   </div>
 
   <div class="sc" id="scr-obj">
-    <div class="ocard" onclick="togObj(this)"><div class="oq"><span>😤</span><span class="oq-txt">"لاقيت أرخص عند حد تاني"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"السؤال مش السعر — إيه وزن الألومنيوم؟ إيه المفصلة؟ لو قارن بنفس المواصفات هيلاقي إننا تنافسيين. <strong>ضمان مكتوب وجدول تسليم واضح.</strong>"</div></div></div>
-    <div class="ocard" onclick="togObj(this)"><div class="oq"><span>😤</span><span class="oq-txt">"الخشمنيوم أمتن من شيت الألومنيوم؟"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"لأ — الاتنين <strong>نفس الخامة ونفس المتانة.</strong> الفرق في اللون بس."</div></div></div>
-    <div class="ocard" onclick="togObj(this)"><div class="oq"><span>😤</span><span class="oq-txt">"النمساوي غالي"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"الإضافة على 8 أبواب بس <strong>880 جنيه في المطبخ كله</strong> — وبيعيش ضعف المدة."</div></div></div>
-    <div class="ocard" onclick="togObj(this)"><div class="oq"><span>😤</span><span class="oq-txt">"الـ PVC بيهيج من الشمس؟"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"الـ UPVC المعتمد مقاوم للأشعة فوق البنفسجية ومش بيصفر. المهم إننا نستخدم <strong>UPVC وليس PVC عادي.</strong>"</div></div></div>
-    <div class="ocard" onclick="togObj(this)"><div class="oq"><span>😤</span><span class="oq-txt">"الدبل جلاس مش ضروري"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"على المدى البعيد الدبل جلاس <strong>بيوفر في فاتورة التكييف كل شهر.</strong> فرق السعر بيرجع خلال سنة أو سنتين."</div></div></div>
-    <div class="ocard" onclick="togObj(this)"><div class="oq"><span>😤</span><span class="oq-txt">"عايز سلة الركنة الدوارة"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"متوفرة. بس <strong>ركنة L أسهل وأعملي في الاستخدام اليومي.</strong> كتير عملاء بعد ما جربوا الدوارة رجعوا للـ L."</div></div></div>
-    <div class="ocard" onclick="togObj(this)"><div class="oq"><span>😤</span><span class="oq-txt">"الرخام بيتوسخ بسرعة؟"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"لو الفخامة أهم حاجة <strong>الرخام مفيش زيه.</strong> لو عايز صيانة أقل <strong>الكوارتز أنسب.</strong>"</div></div></div>
-    <div class="ocard" onclick="togObj(this)"><div class="oq"><span>😤</span><span class="oq-txt">"مش محتاج معاينة"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"المعاينة مش بس للمقاسات — بنشوف <strong>اتجاه الأبواب ومكان البنية التحتية.</strong> وهي مجانية."</div></div></div>
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"لاقيت أرخص عند حد تاني"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"السؤال مش السعر — إيه وزن الألومنيوم؟ إيه المفصلة؟ لو قارن بنفس المواصفات هيلاقي إننا تنافسيين. <strong>ضمان مكتوب وجدول تسليم واضح.</strong>"</div></div></div>
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"الخشمنيوم أمتن من شيت الألومنيوم؟"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"لأ — الاتنين <strong>نفس الخامة ونفس المتانة.</strong> الفرق في اللون بس."</div></div></div>
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"النمساوي غالي"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"الإضافة على 8 أبواب بس <strong>880 جنيه في المطبخ كله</strong> — وبيعيش ضعف المدة."</div></div></div>
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"الـ PVC بيهيج من الشمس؟"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"الـ UPVC المعتمد مقاوم للأشعة فوق البنفسجية ومش بيصفر. المهم إننا نستخدم <strong>UPVC وليس PVC عادي.</strong>"</div></div></div>
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"الدبل جلاس مش ضروري"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"على المدى البعيد الدبل جلاس <strong>بيوفر في فاتورة التكييف كل شهر.</strong> فرق السعر بيرجع خلال سنة أو سنتين."</div></div></div>
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"عايز سلة الركنة الدوارة"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"متوفرة. بس <strong>ركنة L أسهل وأعملي في الاستخدام اليومي.</strong> كتير عملاء بعد ما جربوا الدوارة رجعوا للـ L."</div></div></div>
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"الرخام بيتوسخ بسرعة؟"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"لو الفخامة أهم حاجة <strong>الرخام مفيش زيه.</strong> لو عايز صيانة أقل <strong>الكوارتز أنسب.</strong>"</div></div></div>
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"مش محتاج معاينة"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"المعاينة مش بس للمقاسات — بنشوف <strong>اتجاه الأبواب ومكان البنية التحتية.</strong> وهي مجانية."</div></div></div>
   </div>
 
   <div class="sc" id="scr-ref">
@@ -940,7 +972,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
   </div>
 
   <div class="sc" id="scr-del">
-    <div class="ib go"><span>🗣️</span><div>"النقل بنحسبه بعد ما نعرف العنوان — بيعتمد على المسافة والطابق. هنحدد معاك الرقم النهائي قبل التعاقد."</div></div>
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div>"النقل بنحسبه بعد ما نعرف العنوان — بيعتمد على المسافة والطابق. هنحدد معاك الرقم النهائي قبل التعاقد."</div></div>
     <div class="dg">
       <div class="dc"><div class="dc-city">🏙️ القاهرة</div><div class="dc-note">حسب المنطقة والطابق</div><div class="dc-inc">نقل + تركيب</div></div>
       <div class="dc"><div class="dc-city">🌊 الإسكندرية</div><div class="dc-note">بيتحدد مسبقاً</div><div class="dc-inc">نقل + تركيب</div></div>
@@ -980,25 +1012,43 @@ function tab(page,name,el){
   if(el)el.classList.add('on');
 }
 function togSk(card){
-  var body=card.querySelector('.sk-body');
-  var chev=card.querySelector('.sk-chev');
-  var isOpen=body.classList.contains('op');
-  document.querySelectorAll('.sk-body.op').forEach(b=>{b.classList.remove('op');b.closest('.skcard').querySelector('.sk-chev').style.transform='';});
-  if(!isOpen){body.classList.add('op');chev.style.transform='rotate(180deg)';}
+  var wasOpen=card.classList.contains('open');
+  document.querySelectorAll('.skcard').forEach(function(c){
+    c.classList.remove('open');
+    c.querySelector('.sk-body').classList.remove('op');
+    c.querySelector('.sk-chev').style.transform='';
+  });
+  if(!wasOpen){
+    card.classList.add('open');
+    card.querySelector('.sk-body').classList.add('op');
+    card.querySelector('.sk-chev').style.transform='rotate(180deg)';
+  }
 }
 function togObj(card){
-  var body=card.querySelector('.ob');
-  var chev=card.querySelector('.oc');
-  var isOpen=body.classList.contains('op');
-  document.querySelectorAll('.ob.op').forEach(b=>{b.classList.remove('op');b.closest('.ocard').querySelector('.oc').style.transform='';});
-  if(!isOpen){body.classList.add('op');chev.style.transform='rotate(180deg)';}
+  var wasOpen=card.classList.contains('open');
+  document.querySelectorAll('.ocard').forEach(function(c){
+    c.classList.remove('open');
+    c.querySelector('.ob').classList.remove('op');
+    c.querySelector('.oc').style.transform='';
+  });
+  if(!wasOpen){
+    card.classList.add('open');
+    card.querySelector('.ob').classList.add('op');
+    card.querySelector('.oc').style.transform='rotate(180deg)';
+  }
 }
 function toggleFin(card){
-  var body=card.querySelector('.fin-body');
-  var chev=card.querySelector('.fin-chev');
-  var isOpen=body.classList.contains('op');
-  document.querySelectorAll('.fin-body.op').forEach(b=>{b.classList.remove('op');b.closest('.fin-cat').querySelector('.fin-chev').style.transform='';});
-  if(!isOpen){body.classList.add('op');chev.style.transform='rotate(180deg)';}
+  var wasOpen=card.classList.contains('open');
+  document.querySelectorAll('.fin-cat').forEach(function(c){
+    c.classList.remove('open');
+    c.querySelector('.fin-body').classList.remove('op');
+    c.querySelector('.fin-chev').style.transform='';
+  });
+  if(!wasOpen){
+    card.classList.add('open');
+    card.querySelector('.fin-body').classList.add('op');
+    card.querySelector('.fin-chev').style.transform='rotate(180deg)';
+  }
 }
 </script>
 </body>
