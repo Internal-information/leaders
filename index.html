@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>دليل السيلز</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0f1a;--bg2:#111827;--bg3:#1a2236;--bg4:#222d42;
+  --card:#161e2e;--card2:#1e2a3d;
+  --accent:#e8a020;--accent2:#f5c842;--accent3:rgba(232,160,32,.12);
+  --blue:#3b82f6;--blue2:#1d4ed8;--blue-soft:rgba(59,130,246,.12);
+  --green:#22c55e;--green-soft:rgba(34,197,94,.12);
+  --red:#ef4444;--red-soft:rgba(239,68,68,.1);
+  --orange:#f97316;--orange-soft:rgba(249,115,22,.12);
+  --purple:#a855f7;--purple-soft:rgba(168,85,247,.1);
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --nav-h:64px;--header-h:56px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif}
+
+/* ── APP SHELL ── */
+#app{height:100vh;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+/* ── HEADER ── */
+.app-header{height:var(--header-h);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;position:relative;z-index:20}
+.header-icon{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.header-title{font-family:'Tajawal',sans-serif;font-size:17px;font-weight:800;color:var(--text);flex:1}
+.header-sub{font-size:11px;color:var(--text3);font-weight:400}
+.header-badge{background:var(--accent3);border:1px solid rgba(232,160,32,.3);color:var(--accent);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
+
+/* ── PAGES ── */
+#pages{flex:1;overflow:hidden;position:relative}
+.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + 16px);opacity:0;pointer-events:none;transform:translateX(30px);transition:opacity .25s ease,transform .25s ease;-webkit-overflow-scrolling:touch}
+.page.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.page.out-left{transform:translateX(-30px)}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{height:var(--nav-h);background:var(--bg2);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);flex-shrink:0;position:relative;z-index:30}
+.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:.2s;position:relative;border:none;background:none;color:var(--text3);padding:8px 4px}
+.nav-btn .nav-icon{font-size:20px;transition:.2s;line-height:1}
+.nav-btn .nav-label{font-size:10px;font-weight:600;transition:.2s}
+.nav-btn.active{color:var(--accent)}
+.nav-btn.active .nav-icon{transform:translateY(-2px)}
+.nav-indicator{position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:3px;background:var(--accent);border-radius:0 0 3px 3px;opacity:0;transition:.2s}
+.nav-btn.active .nav-indicator{opacity:1}
+
+/* ── PAGE HEADER ── */
+.page-hero{padding:20px 16px 0;margin-bottom:4px}
+.page-hero-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+.page-hero-title{font-family:'Tajawal',sans-serif;font-size:24px;font-weight:900;color:var(--text);line-height:1.2;margin-bottom:6px}
+.page-hero-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* ── SUB TABS ── */
+.sub-tabs{display:flex;gap:8px;padding:14px 16px 0;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.sub-tabs::-webkit-scrollbar{display:none}
+.sub-tab{flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:.2s;border:1.5px solid var(--border2);color:var(--text2);background:transparent;white-space:nowrap}
+.sub-tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.sub-content{display:none;padding:14px 16px}
+.sub-content.active{display:block}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:12px;transition:.2s}
+.card:active{transform:scale(.98)}
+.card-img{height:160px;overflow:hidden;position:relative;background:var(--bg3)}
+.card-img img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.card-img-overlay{position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(0,0,0,.8));display:flex;align-items:flex-end;padding:14px}
+.card-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;margin-bottom:5px}
+.card-badge.accent{background:var(--accent);color:#000}
+.card-badge.green{background:var(--green);color:#000}
+.card-badge.blue{background:var(--blue);color:#fff}
+.card-badge.orange{background:var(--orange);color:#fff}
+.card-title{font-family:'Tajawal',sans-serif;font-size:20px;font-weight:800;color:#fff}
+.card-price{font-size:12px;color:rgba(255,255,255,.6)}
+.card-body{padding:14px}
+.spec-list{display:flex;flex-direction:column;gap:0}
+.spec-item{display:flex;align-items:flex-start;gap:8px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}
+.spec-item:last-child{border-bottom:none}
+.spec-item-label{color:var(--text3);min-width:62px;font-size:11px;flex-shrink:0;padding-top:1px}
+.spec-item-val{color:var(--text);font-weight:600;flex:1;line-height:1.5}
+.spec-item-val.inc{color:var(--green)}
+.card-footer{padding:12px 14px;background:var(--card2);border-top:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.6}
+.card-footer strong{color:var(--accent);display:block;margin-bottom:2px;font-size:11px;letter-spacing:.5px}
+
+/* ── INFO BOXES ── */
+.info-box{border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;gap:10px;font-size:13px;line-height:1.6}
+.info-box span:first-child{font-size:18px;flex-shrink:0;margin-top:1px}
+.info-box.gold{background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.25);color:#d4930a}
+.info-box.blue{background:var(--blue-soft);border:1px solid rgba(59,130,246,.2);color:#60a5fa}
+.info-box.green{background:var(--green-soft);border:1px solid rgba(34,197,94,.25);color:#4ade80}
+.info-box.orange{background:var(--orange-soft);border:1px solid rgba(249,115,22,.25);color:#fb923c}
+.info-box .info-text strong{color:inherit;font-weight:700}
+
+/* ── SAME BADGE ── */
+.same-badge{background:linear-gradient(135deg,var(--bg3),var(--card2));border:1px solid var(--border2);border-radius:12px;padding:14px;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.same-badge-icon{font-size:28px;flex-shrink:0}
+.same-badge-text strong{color:var(--accent2);font-size:13px;display:block;margin-bottom:3px}
+.same-badge-text span{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* ── HINGE CARDS ── */
+.hinge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.hinge-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;transition:.2s;position:relative;overflow:hidden}
+.hinge-card.included{border-color:rgba(34,197,94,.35)}
+.hinge-card.mid{border-color:rgba(249,115,22,.3)}
+.hinge-card.top{border-color:rgba(232,160,32,.35)}
+.hinge-card-inc{position:absolute;top:6px;right:6px;background:var(--green-soft);color:var(--green);font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px}
+.hinge-icon{font-size:24px;margin-bottom:6px}
+.hinge-name{font-family:'Tajawal',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:2px}
+.hinge-price{font-size:13px;font-weight:700;margin-bottom:6px}
+.hinge-price.green{color:var(--green)}.hinge-price.orange{color:var(--orange)}.hinge-price.gold{color:var(--accent)}
+.hinge-desc{font-size:10px;color:var(--text3);line-height:1.5;background:var(--bg3);border-radius:7px;padding:6px 8px}
+
+/* ── ACC GRID ── */
+.acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.acc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:.2s}
+.acc-card:active{transform:scale(.97)}
+.acc-card.warn{border-style:dashed;opacity:.75}
+.acc-icon{font-size:26px;margin-bottom:7px}
+.acc-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.acc-desc{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:6px}
+.acc-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+.acc-tag.blue{background:var(--blue-soft);color:#60a5fa}
+.acc-tag.green{background:var(--green-soft);color:var(--green)}
+.acc-tag.orange{background:var(--orange-soft);color:var(--orange)}
+
+/* ── GLASS CALC ── */
+.glass-calc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px}
+.glass-calc-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.glass-steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:6px;margin-bottom:12px}
+.glass-step{text-align:center}
+.glass-step-icon{font-size:22px;margin-bottom:4px}
+.glass-step-label{font-size:10px;color:var(--text3);margin-bottom:2px}
+.glass-step-val{font-size:12px;font-weight:700;color:var(--text)}
+.glass-op{font-size:18px;color:var(--text3);text-align:center}
+.glass-result{background:var(--green-soft);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:10px;text-align:center}
+.glass-result-label{font-size:10px;color:var(--green);font-weight:600;margin-bottom:3px}
+.glass-result-val{font-size:13px;font-weight:700;color:var(--green)}
+
+/* ── WOOD SYSTEM ── */
+.wood-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:6px;margin-bottom:12px}
+.flow-box{background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:12px 8px;text-align:center}
+.flow-box-icon{font-size:20px;margin-bottom:4px}
+.flow-box-label{font-size:9px;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.flow-box-val{font-size:12px;font-weight:700;color:var(--text)}
+.flow-box-sub{font-size:10px;color:var(--accent);margin-top:2px}
+.flow-arrow{font-size:16px;color:var(--text3);text-align:center}
+
+/* ── FINISH CARDS ── */
+.finish-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.finish-card{border-radius:12px;overflow:hidden;border:1.5px solid var(--border);transition:.2s}
+.finish-card:active{transform:scale(.97)}
+.finish-top{padding:12px 12px 10px}
+.ft-hpl{background:linear-gradient(135deg,#2d1a1a,#1a0d0d)}
+.ft-poly{background:linear-gradient(135deg,#2d1a0a,#1a0d05)}
+.ft-acrylic{background:linear-gradient(135deg,#0a1a2d,#050d1a)}
+.ft-melamine{background:linear-gradient(135deg,#1a1a2d,#0d0d1a)}
+.ft-polybak{background:linear-gradient(135deg,#0a1a14,#050d0a)}
+.ft-glass{background:linear-gradient(135deg,#0a1a2d,#050d1a);border-style:dashed}
+.finish-name{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;color:#fff;margin-bottom:2px}
+.finish-name-en{font-size:10px;color:rgba(255,255,255,.3)}
+.finish-body-inner{background:rgba(0,0,0,.2);padding:10px 12px}
+.finish-spec{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px}
+.finish-spec:last-child{border-bottom:none}
+.finish-spec .fl{color:rgba(255,255,255,.3)}
+.finish-spec .fv{color:rgba(255,255,255,.75);font-weight:600;text-align:left}
+
+/* ── HPL BRANDS ── */
+.brand-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:12px}
+.brand-card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px;transition:.2s}
+.brand-card.main{border-color:rgba(232,160,32,.4);background:rgba(232,160,32,.05)}
+.brand-card-name{font-family:'Tajawal',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px}
+.brand-card-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px}
+.brand-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
+.brand-tag.main{background:rgba(232,160,32,.2);color:var(--accent)}
+.brand-tag.opt{background:var(--bg3);color:var(--text3)}
+
+/* ── COUNTER ── */
+.clarify-box{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.clarify-card{border-radius:12px;padding:12px;border:1.5px solid}
+.clarify-card.wood-c{background:var(--green-soft);border-color:rgba(34,197,94,.3)}
+.clarify-card.stone-c{background:rgba(232,160,32,.08);border-color:rgba(232,160,32,.25)}
+.clarify-title{font-size:12px;font-weight:700;margin-bottom:5px}
+.clarify-card.wood-c .clarify-title{color:var(--green)}
+.clarify-card.stone-c .clarify-title{color:var(--accent)}
+.clarify-desc{font-size:11px;color:var(--text2);line-height:1.5}
+
+/* ── FURNITURE ── */
+.price-tag{display:inline-block;background:var(--accent);color:#000;font-size:13px;font-weight:800;padding:4px 14px;border-radius:20px;margin-bottom:8px}
+.includes-box{background:var(--bg3);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.includes-title{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:5px}
+.includes-text{font-size:12px;color:var(--text2);line-height:1.7}
+.extras-box{border-top:1px solid var(--border);padding-top:10px}
+.extras-title{font-size:10px;font-weight:700;color:var(--orange);letter-spacing:.5px;margin-bottom:5px}
+.extra-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px}
+.extra-row .el{color:var(--text2)}.extra-row .ep{font-weight:700;color:var(--text)}
+
+/* ── SOFA TABLES ── */
+.sofa-table{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.sofa-header{padding:12px 14px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.sh-s{background:linear-gradient(135deg,#1a4a2a,#0d2818)}
+.sh-z{background:linear-gradient(135deg,#3a2a10,#201808)}
+.sofa-row{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--border);font-size:12px}
+.sofa-row:last-child{border-bottom:none}
+.sofa-row .sl{color:var(--text2)}.sofa-row .sp{font-weight:700;color:var(--blue)}
+
+/* ── MISC CARDS ── */
+.misc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px}
+.misc-name{font-family:'Tajawal',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px}
+.misc-price{font-size:20px;font-weight:700;color:var(--blue);margin-bottom:5px}
+.misc-price span{font-size:12px;font-weight:400;color:var(--text3)}
+.misc-desc{font-size:12px;color:var(--text2)}
+
+/* ── SCRIPTS ── */
+.script-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:10px;cursor:pointer;transition:.2s}
+.script-card:active{transform:scale(.98)}
+.script-head{display:flex;align-items:center;gap:12px;padding:14px}
+.step-num{width:36px;height:36px;border-radius:10px;background:var(--accent);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0}
+.script-head-text{flex:1}
+.script-phase{font-size:10px;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.script-title{font-size:14px;font-weight:700;color:var(--text)}
+.script-chevron{color:var(--text3);transition:.3s;font-size:14px}
+.script-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.script-body.open{max-height:300px}
+.speech-bubble{margin:0 14px 14px;background:rgba(255,255,255,.04);border-right:3px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.7;font-style:italic}
+.script-tip{margin:0 14px 14px;font-size:11px;color:var(--text3);display:flex;align-items:flex-start;gap:5px}
+.tip-ic{color:var(--accent);font-style:normal}
+
+/* ── OBJECTIONS ── */
+.obj-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:10px;cursor:pointer;transition:.2s}
+.obj-card:active{transform:scale(.98)}
+.obj-q{display:flex;align-items:center;gap:10px;padding:13px 14px;background:rgba(239,68,68,.05);border-bottom:1px solid rgba(239,68,68,.1)}
+.obj-q-icon{font-size:18px}
+.obj-q-text{font-size:13px;font-weight:700;color:#fca5a5;flex:1}
+.obj-chevron{color:var(--text3);transition:.3s;font-size:13px}
+.obj-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.obj-body.open{max-height:200px}
+.obj-a{padding:13px 14px;font-size:13px;color:var(--text2);line-height:1.7}
+.obj-a strong{color:var(--green)}
+
+/* ── REF TABLE ── */
+.ref-section{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px}
+.ref-section-title{padding:12px 14px;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;background:var(--card2);border-bottom:1px solid var(--border)}
+.ref-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);font-size:12px}
+.ref-row:last-child{border-bottom:none}
+.ref-row .rl{color:var(--text2)}.ref-row .rv{font-weight:700;color:var(--text)}
+.ref-row .rv.ac{color:var(--accent2)}
+.ref-row .rv.green{color:var(--green)}
+
+/* ── DELIVERY ── */
+.delivery-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.delivery-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+.delivery-city{font-family:'Tajawal',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:5px}
+.delivery-note{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:8px}
+.delivery-inc{display:inline-block;background:var(--accent3);color:var(--accent);font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px}
+
+/* ── SECTION DIVIDER ── */
+.sec-div{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;padding:16px 0 8px;display:flex;align-items:center;gap:8px}
+.sec-div::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── SCROLLBAR ── */
+.page::-webkit-scrollbar{width:3px}
+.page::-webkit-scrollbar-track{background:transparent}
+.page::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* ── DESKTOP ADJUST ── */
+@media(min-width:640px){
+  #app{max-width:440px;margin:0 auto;box-shadow:0 0 60px rgba(0,0,0,.5)}
+  html,body{background:#050a14;display:flex;align-items:center;justify-content:center;height:100vh}
+  #app{height:100vh;border-radius:0}
+}
+
+/* ── ANIM ── */
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.sub-content.active > *{animation:slideUp .2s ease forwards}
+.sub-content.active > *:nth-child(2){animation-delay:.03s;opacity:0}
+.sub-content.active > *:nth-child(3){animation-delay:.06s;opacity:0}
+.sub-content.active > *:nth-child(4){animation-delay:.09s;opacity:0}
+.sub-content.active > *:nth-child(5){animation-delay:.12s;opacity:0}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- HEADER -->
+  <div class="app-header">
+    <div class="header-icon">🏠</div>
+    <div style="flex:1">
+      <div class="header-title">دليل السيلز</div>
+      <div class="header-sub">مطابخ · أثاث · كونتر</div>
+    </div>
+    <div class="header-badge">داخلي فقط</div>
+  </div>
+
+  <!-- PAGES -->
+  <div id="pages">
+
+    <!-- ══════ PAGE 1: ALUMINUM ══════ -->
+    <div class="page active" id="page-alu">
+      <div class="page-hero">
+        <div class="page-hero-label">القسم الأول</div>
+        <div class="page-hero-title">مطابخ الألومنيوم</div>
+        <div class="page-hero-desc">الهيكل واحد في الـ 3 أنواع — الفرق في الضلفة حسب الخامة</div>
+      </div>
+      <div class="sub-tabs">
+        <div class="sub-tab active" onclick="showSubTab('alu','types',this)">الأنواع</div>
+        <div class="sub-tab" onclick="showSubTab('alu','hinges',this)">المفصلات</div>
+        <div class="sub-tab" onclick="showSubTab('alu','accessories',this)">الإضافات</div>
+        <div class="sub-tab" onclick="showSubTab('alu','compare',this)">مقارنة</div>
+      </div>
+
+      <!-- TYPES -->
+      <div class="sub-content active" id="alu-types">
+        <div class="info-box blue">
+          <span>🏗️</span>
+          <div class="info-text">الهيكل = <strong>إطار ألومنيوم + دواخل فايبر</strong> — ثابت في الـ 3. كل الضلف والأدراج <strong>سوفت كلوز شاملة في السعر.</strong> السعر على <strong>1800 جرام</strong> — العود <strong>3 متر.</strong></div>
+        </div>
+
+        <div class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=600&q=70" alt="كلادينج">
+            <div class="card-img-overlay"><div><div class="card-badge accent">الأساسي</div><div class="card-title">كلادينج</div><div class="card-price">4,500 ج / متر — 1800 جرام</div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="spec-list">
+              <div class="spec-item"><span class="spec-item-label">الضلفة</span><span class="spec-item-val">ألواح كلادينج جاهزة من المصنع</span></div>
+              <div class="spec-item"><span class="spec-item-label">التصنيع</span><span class="spec-item-val">جاهزة — بدون فرن</span></div>
+              <div class="spec-item"><span class="spec-item-label">الأدراج</span><span class="spec-item-val inc">سوفت كلوز ✓ شامل</span></div>
+            </div>
+          </div>
+          <div class="card-footer"><strong>🎯 مناسب لمين؟</strong>ميزانية محدودة — سعر معقول وشكل نظيف</div>
+        </div>
+
+        <div class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=600&q=70" alt="شيت">
+            <div class="card-img-overlay"><div><div class="card-badge orange">الأكثر مبيعاً</div><div class="card-title">شيت ألومنيوم</div><div class="card-price">5,000 ج / متر — 1800 جرام</div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="spec-list">
+              <div class="spec-item"><span class="spec-item-label">الضلفة</span><span class="spec-item-val">شيت ألومنيوم يدخل الفرن</span></div>
+              <div class="spec-item"><span class="spec-item-label">التصنيع</span><span class="spec-item-val">بيتصنع ويدخل الفرن — ألوان مخصصة</span></div>
+              <div class="spec-item"><span class="spec-item-label">الأدراج</span><span class="spec-item-val inc">سوفت كلوز ✓ شامل</span></div>
+            </div>
+          </div>
+          <div class="card-footer"><strong>🎯 مناسب لمين؟</strong>عايز ألوان وأشكال مخصصة بسعر معقول</div>
+        </div>
+
+        <div class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1556909172-8c2f041fca1e?auto=format&fit=crop&w=600&q=70" alt="خشمنيوم">
+            <div class="card-img-overlay"><div><div class="card-badge" style="background:var(--accent2);color:#000">المميز</div><div class="card-title">خشمنيوم</div><div class="card-price">5,500 ج / متر — 1800 جرام</div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="spec-list">
+              <div class="spec-item"><span class="spec-item-label">الضلفة</span><span class="spec-item-val">شيت خشمنيوم يدخل الفرن</span></div>
+              <div class="spec-item"><span class="spec-item-label">التصنيع</span><span class="spec-item-val">نفس الشيت ألومنيوم — فرق اللون بس</span></div>
+              <div class="spec-item"><span class="spec-item-label">الأدراج</span><span class="spec-item-val inc">سوفت كلوز ✓ شامل</span></div>
+            </div>
+          </div>
+          <div class="card-footer"><strong>🎯 مناسب لمين؟</strong>عايز لون يشبه الخشب — إحساس دافئ بخامة ألومنيوم</div>
+        </div>
+
+        <div class="same-badge">
+          <div class="same-badge-icon">⚡</div>
+          <div class="same-badge-text">
+            <strong>شيت الألومنيوم وخشمنيوم = نفس الخامة ونفس المتانة</strong>
+            <span>الفرق الوحيد هو اللون — الخشمنيوم بيدي لون أقرب للخشب</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HINGES -->
+      <div class="sub-content" id="alu-hinges">
+        <div class="info-box green">
+          <span>✅</span>
+          <div class="info-text"><strong>التركي سوفت كلوز شامل في سعر المتر</strong> — الإيطالي والنمساوي إضافة بالفرق فقط</div>
+        </div>
+        <div class="hinge-grid">
+          <div class="hinge-card included">
+            <div class="hinge-card-inc">شامل ✓</div>
+            <div class="hinge-icon">🔩</div>
+            <div class="hinge-name">تركي</div>
+            <div class="hinge-price green">مشمول</div>
+            <div class="hinge-desc">سوفت كلوز — شامل في السعر. بيقفل بهدوء.</div>
+          </div>
+          <div class="hinge-card mid">
+            <div class="hinge-icon">⚙️</div>
+            <div class="hinge-name">إيطالي</div>
+            <div class="hinge-price orange">+40ج/باب</div>
+            <div class="hinge-desc">8 أبواب = +320 ج بس في المطبخ كله</div>
+          </div>
+          <div class="hinge-card top">
+            <div class="hinge-icon">🏆</div>
+            <div class="hinge-name">نمساوي</div>
+            <div class="hinge-price gold">+110ج/باب</div>
+            <div class="hinge-desc">8 أبواب = +880 ج — أعلى جودة وأطول عمر</div>
+          </div>
+        </div>
+        <div class="info-box gold">
+          <span>🗣️</span>
+          <div class="info-text"><strong>قولها كده:</strong> "السعر شامل تركي سوفت كلوز — لو عايز نمساوي، الإضافة على 8 أبواب بس 880 جنيه في المطبخ كله."</div>
+        </div>
+      </div>
+
+      <!-- ACCESSORIES -->
+      <div class="sub-content" id="alu-accessories">
+        <div class="sec-div">إكسسوارات داخل المطبخ</div>
+        <div class="acc-grid">
+          <div class="acc-card">
+            <div class="acc-icon">📦</div>
+            <div class="acc-name">مطبقية</div>
+            <div class="acc-desc">قطعة استانلس تتحط داخل الوحدة لتنظيم الأطباق</div>
+            <span class="acc-tag blue">استانلس داخلي</span>
+          </div>
+          <div class="acc-card">
+            <div class="acc-icon">🔄</div>
+            <div class="acc-name">تروللي</div>
+            <div class="acc-desc">جرار استانلس متحرك على سكك داخل المطبخ</div>
+            <span class="acc-tag blue">جرار داخلي</span>
+          </div>
+          <div class="acc-card">
+            <div class="acc-icon">🌿</div>
+            <div class="acc-name">بامبو</div>
+            <div class="acc-desc">درج خوص للخضار بفتحات تهوية طبيعية</div>
+            <span class="acc-tag green">تهوية طبيعية</span>
+          </div>
+          <div class="acc-card">
+            <div class="acc-icon">🍽️</div>
+            <div class="acc-name">تقسيم صواني</div>
+            <div class="acc-desc">حواجز رأسية لترتيب الصواني والأطباق الكبيرة</div>
+            <span class="acc-tag blue">بالاتفاق</span>
+          </div>
+          <div class="acc-card">
+            <div class="acc-icon">🥄</div>
+            <div class="acc-name">تقسيم معالق</div>
+            <div class="acc-desc">تقسيمات داخل الأدراج للأدوات والسكاكين</div>
+            <span class="acc-tag blue">بالاتفاق</span>
+          </div>
+          <div class="acc-card">
+            <div class="acc-icon">🏛️</div>
+            <div class="acc-name">كورنيشة</div>
+            <div class="acc-desc">إطار ديكوري فوق الوحدات العلوية</div>
+            <span class="acc-tag blue">ديكوري</span>
+          </div>
+          <div class="acc-card">
+            <div class="acc-icon">🔲</div>
+            <div class="acc-name">بلت إن</div>
+            <div class="acc-desc">مقبض في الضلفة نفسها بلون مختلف — شكل عصري</div>
+            <span class="acc-tag blue">بالاتفاق</span>
+          </div>
+          <div class="acc-card">
+            <div class="acc-icon">🪝</div>
+            <div class="acc-name">مقابض</div>
+            <div class="acc-desc">أشكال وأحجام مختلفة — كلاسيك أو مودرن</div>
+            <span class="acc-tag blue">بالاتفاق</span>
+          </div>
+        </div>
+
+        <div class="sec-div">ضلفة الزجاج</div>
+        <div class="glass-calc">
+          <div class="glass-calc-title">🪟 حساب ضلفة الزجاج</div>
+          <div class="glass-steps">
+            <div class="glass-step"><div class="glass-step-icon">🚪</div><div class="glass-step-label">الضلفة الأصلية</div><div class="glass-step-val">تتخصم</div></div>
+            <div class="glass-op">−</div>
+            <div class="glass-step"><div class="glass-step-icon">🪟</div><div class="glass-step-label">سعر الزجاج</div><div class="glass-step-val">يتضاف</div></div>
+            <div class="glass-op">=</div>
+            <div class="glass-result"><div class="glass-result-label">بتدفع الفرق بس</div><div class="glass-result-val">زجاج − ضلفة</div></div>
+          </div>
+        </div>
+
+        <div class="sec-div">ركنة L vs الدوارة</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+          <div style="background:var(--orange-soft);border:1.5px dashed rgba(249,115,22,.3);border-radius:12px;padding:12px">
+            <div style="font-size:13px;font-weight:700;color:var(--orange);margin-bottom:5px">⚠️ دوارة</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.6">مش عملية في الاستخدام اليومي — بتتعب مع الوقت. متوفرة للي طالبها بالتحديد.</div>
+          </div>
+          <div style="background:var(--green-soft);border:1.5px solid rgba(34,197,94,.3);border-radius:12px;padding:12px">
+            <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:5px">✅ ركنة L</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.6">نفس المساحة — أسهل وأعملي بكتير في الاستخدام الفعلي.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARE -->
+      <div class="sub-content" id="alu-compare">
+        <div class="ref-section">
+          <div class="ref-section-title">مقارنة الأنواع الـ 3</div>
+          <div class="ref-row"><span class="rl">كلادينج</span><span class="rv ac">4,500 ج/م</span></div>
+          <div class="ref-row"><span class="rl">شيت ألومنيوم</span><span class="rv ac">5,000 ج/م</span></div>
+          <div class="ref-row"><span class="rl">خشمنيوم</span><span class="rv ac">5,500 ج/م</span></div>
+          <div class="ref-row"><span class="rl">الأوزان الـ 3 متاحة</span><span class="rv green">في الكل ✓</span></div>
+          <div class="ref-row"><span class="rl">كلاسيك / مودرن</span><span class="rv green">في الكل ✓</span></div>
+          <div class="ref-row"><span class="rl">سوفت كلوز شامل</span><span class="rv green">في الكل ✓</span></div>
+          <div class="ref-row"><span class="rl">شيت ألومنيوم vs خشمنيوم</span><span class="rv">نفس الخامة — فرق اللون</span></div>
+        </div>
+        <div class="ref-section">
+          <div class="ref-section-title">المفصلات — الإضافة عن التركي</div>
+          <div class="ref-row"><span class="rl">تركي سوفت كلوز</span><span class="rv green">شامل ✓</span></div>
+          <div class="ref-row"><span class="rl">إيطالي / باب</span><span class="rv">+40 ج</span></div>
+          <div class="ref-row"><span class="rl">نمساوي / باب</span><span class="rv">+110 ج</span></div>
+          <div class="ref-row"><span class="rl">تركي → نمساوي (8 أبواب)</span><span class="rv ac">+880 ج بس</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════ PAGE 2: WOOD ══════ -->
+    <div class="page" id="page-wood">
+      <div class="page-hero">
+        <div class="page-hero-label">القسم الثاني</div>
+        <div class="page-hero-title">مطابخ الخشب</div>
+        <div class="page-hero-desc">الهيكل ثابت — الضلفة بتتغير حسب الخامة المختارة</div>
+      </div>
+      <div class="sub-tabs">
+        <div class="sub-tab active" onclick="showSubTab('wood','system',this)">النظام</div>
+        <div class="sub-tab" onclick="showSubTab('wood','finishes',this)">الخامات</div>
+        <div class="sub-tab" onclick="showSubTab('wood','hpl',this)">HPL</div>
+      </div>
+
+      <!-- SYSTEM -->
+      <div class="sub-content active" id="wood-system">
+        <div class="sec-div">كيف بيتبني مطبخ الخشب</div>
+        <div class="wood-flow" style="margin-bottom:14px">
+          <div class="flow-box"><div class="flow-box-icon">🏗️</div><div class="flow-box-label">الهيكل</div><div class="flow-box-val">خشب كونتر</div><div class="flow-box-sub">ثابت دايماً</div></div>
+          <div class="flow-arrow">+</div>
+          <div class="flow-box"><div class="flow-box-icon">🚪</div><div class="flow-box-label">الضلفة</div><div class="flow-box-val">بتتغير</div><div class="flow-box-sub">حسب الخامة</div></div>
+          <div class="flow-arrow">+</div>
+          <div class="flow-box"><div class="flow-box-icon">🟫</div><div class="flow-box-label">كونتر الداخل</div><div class="flow-box-val">الشرقاوي</div><div class="flow-box-sub">شامل في السعر</div></div>
+        </div>
+        <div class="info-box blue">
+          <span>💡</span>
+          <div class="info-text">السعر متسعّر على <strong>كونتر الشرقاوي</strong> — لو العميل عايز ماركة تانية بيتفق على الفرق منفصل.</div>
+        </div>
+        <div class="info-box gold">
+          <span>🗣️</span>
+          <div class="info-text"><strong>السؤال الصح للعميل:</strong> "بتفضل الناعم اللامع ولا الخشن المط؟" — الإجابة دي بتحدد الخامة مباشرة.</div>
+        </div>
+
+        <div class="sec-div">ما الـ HPL بالظبط؟</div>
+        <div class="card" style="background:var(--card)">
+          <div class="card-body">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <div style="font-size:28px">🪵</div>
+              <div><div style="font-size:15px;font-weight:700;color:var(--text)">High Pressure Laminate</div><div style="font-size:11px;color:var(--text3)">جرين لام — الهند</div></div>
+            </div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.7;background:var(--bg3);border-radius:9px;padding:12px">الـ HPL زي ورق الحائط — بيتجاب كشيت وبيتكبس على خشب الكونتر في ماكينات ضغط مخصصة. النتيجة: سطح صلب مقاوم للخدش والحرارة والرطوبة.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FINISHES -->
+      <div class="sub-content" id="wood-finishes">
+        <div class="info-box blue">
+          <span>🎨</span>
+          <div class="info-text"><strong>الضلفة بس هي اللي بتتغير</strong> — الهيكل وكونتر الداخل ثابتين في كل الخامات</div>
+        </div>
+        <div class="finish-grid">
+          <div class="finish-card">
+            <div class="finish-top ft-hpl"><div class="finish-name">HPL</div><div class="finish-name-en">Green Lam — أساسي</div></div>
+            <div class="finish-body-inner">
+              <div class="finish-spec"><span class="fl">الضلفة</span><span class="fv">شيت مكبوس</span></div>
+              <div class="finish-spec"><span class="fl">المقاومة</span><span class="fv">عالية جداً</span></div>
+              <div class="finish-spec"><span class="fl">الشكل</span><span class="fv">خشن مط</span></div>
+            </div>
+          </div>
+          <div class="finish-card">
+            <div class="finish-top ft-poly"><div class="finish-name">بولي لاك</div><div class="finish-name-en">High Gloss</div></div>
+            <div class="finish-body-inner">
+              <div class="finish-spec"><span class="fl">الضلفة</span><span class="fv">MDF + طلاء</span></div>
+              <div class="finish-spec"><span class="fl">المقاومة</span><span class="fv">متوسطة</span></div>
+              <div class="finish-spec"><span class="fl">الشكل</span><span class="fv">ناعم لامع</span></div>
+            </div>
+          </div>
+          <div class="finish-card">
+            <div class="finish-top ft-polybak"><div class="finish-name">بولي باك</div><div class="finish-name-en">Poly Back</div></div>
+            <div class="finish-body-inner">
+              <div class="finish-spec"><span class="fl">الضلفة</span><span class="fv">لوح جاهز</span></div>
+              <div class="finish-spec"><span class="fl">المقاومة</span><span class="fv">متوسطة</span></div>
+              <div class="finish-spec"><span class="fl">الشكل</span><span class="fv">ناعم لامع</span></div>
+            </div>
+          </div>
+          <div class="finish-card">
+            <div class="finish-top ft-acrylic"><div class="finish-name">أكريليك</div><div class="finish-name-en">Acrylic</div></div>
+            <div class="finish-body-inner">
+              <div class="finish-spec"><span class="fl">الضلفة</span><span class="fv">لوح أكريليك</span></div>
+              <div class="finish-spec"><span class="fl">المقاومة</span><span class="fv">عالية</span></div>
+              <div class="finish-spec"><span class="fl">الشكل</span><span class="fv">ناعم لامع جداً</span></div>
+            </div>
+          </div>
+          <div class="finish-card">
+            <div class="finish-top ft-melamine"><div class="finish-name">ميلامين</div><div class="finish-name-en">Melamine</div></div>
+            <div class="finish-body-inner">
+              <div class="finish-spec"><span class="fl">الضلفة</span><span class="fv">MDF + ورق</span></div>
+              <div class="finish-spec"><span class="fl">المقاومة</span><span class="fv">متوسطة</span></div>
+              <div class="finish-spec"><span class="fl">الشكل</span><span class="fv">خشن مط</span></div>
+            </div>
+          </div>
+          <div class="finish-card ft-glass" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100px;padding:14px;text-align:center">
+            <div style="font-size:24px;margin-bottom:6px">🪟</div>
+            <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.5)">زجاج</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:3px">فرق السعر فقط</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+          <div style="background:var(--card);border:1.5px solid rgba(34,197,94,.25);border-radius:12px;padding:12px">
+            <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:5px">🌿 خشن مط</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.6">HPL — ميلامين<br>كتير استخدام ومقاومة</div>
+          </div>
+          <div style="background:var(--card);border:1.5px solid rgba(59,130,246,.25);border-radius:12px;padding:12px">
+            <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:5px">✨ ناعم لامع</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.6">بولي لاك — أكريليك<br>شكل فاخر وإستعراضي</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HPL -->
+      <div class="sub-content" id="wood-hpl">
+        <div class="sec-div">الماركات المتاحة</div>
+        <div class="brand-grid">
+          <div class="brand-card main">
+            <div class="brand-card-name">🌿 جرين لام — Green Lam</div>
+            <div class="brand-card-desc">شركة هندية عالمية — من أكبر منتجي الـ HPL. السعر الأساسي بيتحسب على جرين لام.</div>
+            <span class="brand-tag main">⭐ الأساسية في السعر</span>
+          </div>
+          <div class="brand-card">
+            <div class="brand-card-name">🎨 ماركات أخرى حسب الطلب</div>
+            <div class="brand-card-desc">فيرست وود، الشرقاوي، جود وود وغيرهم — كلها متاحة، والفرق بيتفق عليه منفصل.</div>
+            <span class="brand-tag opt">فرق السعر بالاتفاق</span>
+          </div>
+        </div>
+        <div class="info-box gold">
+          <span>🗣️</span>
+          <div class="info-text"><strong>للعميل:</strong> "الـ HPL زي ورق الحائط — بيتكبس على الخشب بضغط عالي جداً. مقاوم للخدش والحرارة والرطوبة. جرين لام من أكبر المنتجين في العالم."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════ PAGE 3: COUNTER ══════ -->
+    <div class="page" id="page-counter">
+      <div class="page-hero">
+        <div class="page-hero-label">سطح العمل</div>
+        <div class="page-hero-title">الكونتر</div>
+        <div class="page-hero-desc">في فرق مهم بين الكونترين — السيلز لازم يعرفه</div>
+      </div>
+      <div style="padding:14px 16px 0">
+        <div class="clarify-box">
+          <div class="clarify-card wood-c">
+            <div class="clarify-title">🪵 كونتر الخشب</div>
+            <div class="clarify-desc">داخل الوحدات — HPL جرين لام على شرقاوي. <strong>شامل في السعر.</strong></div>
+          </div>
+          <div class="clarify-card stone-c">
+            <div class="clarify-title">🪨 كونتر الحجر</div>
+            <div class="clarify-desc">جرانيت / كوارتز / رخام — فوق الوحدات السفلية. <strong>بيتحسب منفصل.</strong></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=70" alt="جرانيت">
+            <div class="card-img-overlay"><div><div class="card-badge" style="background:#555;color:#fff">اقتصادي—متوسط</div><div class="card-title">جرانيت</div><div class="card-price">Granite — حجر طبيعي 100%</div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="spec-list">
+              <div class="spec-item"><span class="spec-item-label">🪨 النوع</span><span class="spec-item-val">حجر طبيعي — كل قطعة فريدة</span></div>
+              <div class="spec-item"><span class="spec-item-label">🔥 الحرارة</span><span class="spec-item-val inc">مقاوم جداً ✓</span></div>
+              <div class="spec-item"><span class="spec-item-label">💧 البقع</span><span class="spec-item-val">يحتاج تلميع دوري</span></div>
+              <div class="spec-item"><span class="spec-item-label">💰 السعر</span><span class="spec-item-val">الأوفر — مصري ومستورد</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1556909198-2b7f12975ed7?auto=format&fit=crop&w=600&q=70" alt="كوارتز">
+            <div class="card-img-overlay"><div><div class="card-badge blue">متوسط—جيد</div><div class="card-title">كوارتز</div><div class="card-price">Quartz — مصنوع هندسياً</div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="spec-list">
+              <div class="spec-item"><span class="spec-item-label">✨ الشكل</span><span class="spec-item-val">ألوان موحدة وثابتة</span></div>
+              <div class="spec-item"><span class="spec-item-label">🧽 التنظيف</span><span class="spec-item-val inc">سهل جداً — بدون تلميع ✓</span></div>
+              <div class="spec-item"><span class="spec-item-label">🔨 الخدش</span><span class="spec-item-val inc">أكتر مقاومة من الجرانيت ✓</span></div>
+              <div class="spec-item"><span class="spec-item-label">⚠️ الحرارة</span><span class="spec-item-val">أقل مقاومة للحرارة الشديدة</span></div>
+            </div>
+          </div>
+          <div class="card-footer"><strong>🗣️ ترقية جاهزة:</strong>"الكوارتز بيريّح في التنظيف أكتر — مش محتاج تلميع. الترقية مريحة جداً للعميل على المدى البعيد."</div>
+        </div>
+
+        <div class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=70" alt="رخام">
+            <div class="card-img-overlay"><div><div class="card-badge" style="background:var(--accent2);color:#000">Premium</div><div class="card-title">رخام</div><div class="card-price">Marble — حجر طبيعي فاخر</div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="spec-list">
+              <div class="spec-item"><span class="spec-item-label">👑 المظهر</span><span class="spec-item-val">أفخم مظهر — لا مثيل له</span></div>
+              <div class="spec-item"><span class="spec-item-label">❄️ الحرارة</span><span class="spec-item-val">بارد طبيعياً — للعجن مثالي</span></div>
+              <div class="spec-item"><span class="spec-item-label">⚠️ الأحماض</span><span class="spec-item-val">يتأثر بالأحماض والبقع</span></div>
+              <div class="spec-item"><span class="spec-item-label">💎 مناسب لـ</span><span class="spec-item-val">العميل اللي الفخامة أولويته</span></div>
+            </div>
+          </div>
+          <div class="card-footer"><strong>🗣️ لو سألك عن الرخام:</strong>"الرخام فعلاً يحتاج عناية أكتر. لو الفخامة أهم حاجة فمفيش زيه — لو عايز صيانة أقل الكوارتز أنسب."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════ PAGE 4: FURNITURE ══════ -->
+    <div class="page" id="page-furniture">
+      <div class="page-hero">
+        <div class="page-hero-label">القسم الثالث</div>
+        <div class="page-hero-title">الأثاث</div>
+        <div class="page-hero-desc">الغرف الكاملة — الركنة بالمتر — الوحدات</div>
+      </div>
+      <div class="sub-tabs">
+        <div class="sub-tab active" onclick="showSubTab('furn','rooms',this)">الغرف</div>
+        <div class="sub-tab" onclick="showSubTab('furn','sofa',this)">ركنة وأنتريه</div>
+        <div class="sub-tab" onclick="showSubTab('furn','units',this)">وحدات</div>
+      </div>
+
+      <!-- ROOMS -->
+      <div class="sub-content active" id="furn-rooms">
+        <div class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=600&q=70" alt="غرفة نوم">
+            <div class="card-img-overlay"><div><div class="card-badge accent">45,000 ج</div><div class="card-title">غرفة النوم الكبيرة</div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="includes-box">
+              <div class="includes-title">المشتملات الكاملة</div>
+              <div class="includes-text">سرير 160 — دولاب 270 — بانكيت 160×40 — تسريحة 150×40 — 2 كمودينو 50×40 — كرسي تسريحة — علاقة</div>
+            </div>
+            <div class="extras-box">
+              <div class="extras-title">إضافات بسعر منفصل</div>
+              <div class="extra-row"><span class="el">ميكانيزم السرير (ذراعين معدن)</span><span class="ep">800 ج</span></div>
+              <div class="extra-row"><span class="el">قشرة خارج الدولاب</span><span class="ep">3,000 ج</span></div>
+              <div class="extra-row"><span class="el">استاليس / CNC إضافي</span><span class="ep">بالاتفاق</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1587124341776-8b5f05e3a24b?auto=format&fit=crop&w=600&q=70" alt="أطفال">
+            <div class="card-img-overlay"><div><div class="card-badge accent">35,000 ج</div><div class="card-title">غرفة الأطفال</div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="includes-box">
+              <div class="includes-title">المشتملات الكاملة</div>
+              <div class="includes-text">دولاب 200 سم — 2 سرير 120 سم — كمودينو 50×40</div>
+            </div>
+            <div class="extras-box">
+              <div class="extras-title">إضافات بسعر منفصل</div>
+              <div class="extra-row"><span class="el">ميكانيزم السرير</span><span class="ep">800 ج</span></div>
+              <div class="extra-row"><span class="el">استاليس / CNC</span><span class="ep">بالاتفاق</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=600&q=70" alt="سفرة">
+            <div class="card-img-overlay"><div><div class="card-badge accent">45,000 ج</div><div class="card-title">غرفة السفرة</div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="includes-box">
+              <div class="includes-title">المشتملات الكاملة</div>
+              <div class="includes-text">2 نيش 60 أو نيش 120 — بوفيه 150 — ترابيزة — 6 كراسي</div>
+            </div>
+            <div class="extras-box">
+              <div class="extras-title">إضافات بسعر منفصل</div>
+              <div class="extra-row"><span class="el">زجاج مضاء للبوفيه</span><span class="ep">بالاتفاق</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOFA -->
+      <div class="sub-content" id="furn-sofa">
+        <div class="sofa-table">
+          <div class="sofa-header sh-s">🌲 خشب سويدي — بالمتر</div>
+          <div class="sofa-row"><span class="sl">ركنة — بوصة وربع</span><span class="sp">1,500 ج</span></div>
+          <div class="sofa-row"><span class="sl">ركنة — بوصة ونص</span><span class="sp">1,650 ج</span></div>
+          <div class="sofa-row"><span class="sl">أنتريه — بوصة وربع</span><span class="sp">1,600 ج</span></div>
+          <div class="sofa-row"><span class="sl">أنتريه — بوصة ونص</span><span class="sp">1,750 ج</span></div>
+        </div>
+        <div class="sofa-table">
+          <div class="sofa-header sh-z">🏅 خشب زان — الأعلى جودة</div>
+          <div class="sofa-row"><span class="sl">ركنة — بوصة ونص</span><span class="sp">2,500 ج</span></div>
+          <div class="sofa-row"><span class="sl">أنتريه — بوصة ونص</span><span class="sp">2,500 ج</span></div>
+          <div class="sofa-row" style="font-size:11px"><span class="sl" style="color:var(--text3);font-style:italic">الزان أثقل وأمتن — للاستخدام الكتير</span><span></span></div>
+        </div>
+        <div class="info-box gold">
+          <span>🗣️</span>
+          <div class="info-text"><strong>ترقية من سويدي لزان:</strong>"الزان أثقل وأمتن — بيحس العميل بالجودة من أول ما بيلمسه. الفرق في الراحة اليومية واضح."</div>
+        </div>
+      </div>
+
+      <!-- UNITS -->
+      <div class="sub-content" id="furn-units">
+        <div class="misc-card">
+          <div class="misc-name">📺 وحدة شاشة L — قطعتين</div>
+          <div class="misc-price">4,500 ج <span>/ الوحدة</span></div>
+          <div class="misc-desc">على حرف L — قطعتين جنب بعض. مناسبة للصالة الكبيرة.</div>
+        </div>
+        <div class="misc-card">
+          <div class="misc-name">📺 وحدة شاشة — قطعة واحدة</div>
+          <div class="misc-price">3,500 ج <span>/ الوحدة</span></div>
+          <div class="misc-desc">180×40 سم — معلق بالحائط أو على رجول.</div>
+        </div>
+        <div class="misc-card">
+          <div class="misc-name">👟 الجزامة</div>
+          <div class="misc-price">4,500 ج <span>/ الوحدة</span></div>
+          <div class="misc-desc">وحدة كاملة للمدخل — عملية وشكلها حلو للأنتريه.</div>
+        </div>
+        <div class="info-box blue">
+          <span>💡</span>
+          <div class="info-text"><strong>أساسيات الخشب:</strong> سويدي أو زان — أبلكاش مصنع ث44/ث9/ث14 — سواسات 14مم كل 9.5-10 سم — ظهر الدولاب 17مم — دهانات ديكو فرن.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════ PAGE 5: SCRIPT ══════ -->
+    <div class="page" id="page-script">
+      <div class="page-hero">
+        <div class="page-hero-label">أدوات البيع</div>
+        <div class="page-hero-title">السكريبت والمرجع</div>
+        <div class="page-hero-desc">كلام جاهز — رد الاعتراضات — كل الأرقام</div>
+      </div>
+      <div class="sub-tabs">
+        <div class="sub-tab active" onclick="showSubTab('script','steps',this)">السكريبت</div>
+        <div class="sub-tab" onclick="showSubTab('script','objections',this)">الاعتراضات</div>
+        <div class="sub-tab" onclick="showSubTab('script','ref',this)">المرجع</div>
+        <div class="sub-tab" onclick="showSubTab('script','delivery',this)">النقل</div>
+      </div>
+
+      <!-- SCRIPT STEPS -->
+      <div class="sub-content active" id="script-steps">
+        <div class="info-box gold"><span>🎯</span><div class="info-text">اضغط على كل خطوة عشان تشوف الكلام الجاهز</div></div>
+        <div class="script-card" onclick="toggleScript(this)">
+          <div class="script-head"><div class="step-num">1</div><div class="script-head-text"><div class="script-phase">الاستقبال</div><div class="script-title">أول رد على العميل</div></div><span class="script-chevron">▼</span></div>
+          <div class="script-body"><div class="speech-bubble">"أهلاً 🙏 مبروك على الشقة! عندنا مطابخ ألومنيوم وخشب وأثاث كامل. إيه اللي أهم بالنسبالك — السعر، ولا شغل يعيش معك سنين؟"</div><div class="script-tip"><span class="tip-ic">💡</span> اسأل قبل ما تعرض — العميل اللي بيتكلم بيبيع نفسه</div></div>
+        </div>
+        <div class="script-card" onclick="toggleScript(this)">
+          <div class="script-head"><div class="step-num">2</div><div class="script-head-text"><div class="script-phase">الاستكشاف</div><div class="script-title">افهم الخامة المناسبة</div></div><span class="script-chevron">▼</span></div>
+          <div class="script-body"><div class="speech-bubble">"المطبخ كام متر؟ وبتفضل الناعم اللامع ولا الخشن المط؟ — ده بيساعدني أوصيك بالخامة المناسبة."</div><div class="script-tip"><span class="tip-ic">💡</span> الناعم اللامع / الخشن المط — سؤال بيحدد الخامة مباشرة</div></div>
+        </div>
+        <div class="script-card" onclick="toggleScript(this)">
+          <div class="script-head"><div class="step-num">3</div><div class="script-head-text"><div class="script-phase">الشرح</div><div class="script-title">قدم خيارين بس</div></div><span class="script-chevron">▼</span></div>
+          <div class="script-body"><div class="speech-bubble">"عندي ليك خيارين: شيت ألومنيوم — الأكثر مبيعاً. أو خشب HPL — مقاومة أعلى وشكل مميز. الفرق على 5 متر [X جنيه] — إيه اللي بيميل قلبك؟"</div><div class="script-tip"><span class="tip-ic">💡</span> 2 خيارات بس — كتير = العميل ميختارش</div></div>
+        </div>
+        <div class="script-card" onclick="toggleScript(this)">
+          <div class="script-head"><div class="step-num">4</div><div class="script-head-text"><div class="script-phase">الترقية</div><div class="script-title">ارفع الفاتورة بمبرر</div></div><span class="script-chevron">▼</span></div>
+          <div class="script-body"><div class="speech-bubble">"السعر شامل تركي سوفت كلوز — لو عايز نمساوي، الإضافة على 8 أبواب بس 880 جنيه. والكوارتز بيريّح في التنظيف أكتر من الجرانيت."</div><div class="script-tip"><span class="tip-ic">💡</span> قول الفرق الإجمالي مش سعر الوحدة</div></div>
+        </div>
+        <div class="script-card" onclick="toggleScript(this)">
+          <div class="script-head"><div class="step-num">5</div><div class="script-head-text"><div class="script-phase">الإغلاق</div><div class="script-title">احجز المعاينة</div></div><span class="script-chevron">▼</span></div>
+          <div class="script-body"><div class="speech-bubble">"المعاينة مجانية وبتاخد 30 دقيقة — بعدها تصميم وسعر نهائي كامل مع النقل. تحب بكرة الصبح ولا بعد الضهر؟"</div><div class="script-tip"><span class="tip-ic">💡</span> اختم بسؤال مفيهوش "لأ" — مش "هتيجي؟" لكن "بكرة ولا بعده؟"</div></div>
+        </div>
+      </div>
+
+      <!-- OBJECTIONS -->
+      <div class="sub-content" id="script-objections">
+        <div class="obj-card" onclick="toggleObj(this)">
+          <div class="obj-q"><span class="obj-q-icon">😤</span><span class="obj-q-text">"لاقيت أرخص عند حد تاني"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="obj-a">"السؤال مش السعر — إيه وزن الألومنيوم؟ إيه المفصلة؟ لو قارن بنفس المواصفات هيلاقي إننا تنافسيين. وعندنا <strong>ضمان مكتوب وجدول تسليم واضح.</strong>"</div></div>
+        </div>
+        <div class="obj-card" onclick="toggleObj(this)">
+          <div class="obj-q"><span class="obj-q-icon">😤</span><span class="obj-q-text">"الخشمنيوم أمتن من شيت الألومنيوم؟"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="obj-a">"لأ — الاتنين <strong>نفس الخامة تماماً ونفس المتانة.</strong> الخشمنيوم بيدي لون أقرب للخشب — الفرق في اللون بس."</div></div>
+        </div>
+        <div class="obj-card" onclick="toggleObj(this)">
+          <div class="obj-q"><span class="obj-q-icon">😤</span><span class="obj-q-text">"النمساوي غالي"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="obj-a">"السعر شامل تركي سوفت كلوز. الإضافة للنمساوي على 8 أبواب بس <strong>880 جنيه في المطبخ كله</strong> — وبيعيش ضعف المدة."</div></div>
+        </div>
+        <div class="obj-card" onclick="toggleObj(this)">
+          <div class="obj-q"><span class="obj-q-icon">😤</span><span class="obj-q-text">"عايز سلة الركنة الدوارة"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="obj-a">"متوفرة. بس الأفضل نقولك — <strong>ركنة L بتديك نفس المساحة وأسهل في الاستخدام اليومي.</strong> كتير عملاء جربوا الدوارة وبعدين رجعوا للـ L."</div></div>
+        </div>
+        <div class="obj-card" onclick="toggleObj(this)">
+          <div class="obj-q"><span class="obj-q-icon">😤</span><span class="obj-q-text">"الـ HPL مش بيتخدش؟"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="obj-a">"الـ HPL من أكتر الخامات مقاومة للخدش — شيت مكبوس بضغط عالي على الخشب. <strong>جرين لام</strong> من أكبر المنتجين عالمياً."</div></div>
+        </div>
+        <div class="obj-card" onclick="toggleObj(this)">
+          <div class="obj-q"><span class="obj-q-icon">😤</span><span class="obj-q-text">"الرخام بيتوسخ بسرعة؟"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="obj-a">"الرخام فعلاً يحتاج عناية. لو الفخامة أهم حاجة <strong>الرخام مفيش زيه</strong> — لو عايز صيانة أقل <strong>الكوارتز أنسب.</strong>"</div></div>
+        </div>
+        <div class="obj-card" onclick="toggleObj(this)">
+          <div class="obj-q"><span class="obj-q-icon">😤</span><span class="obj-q-text">"ضلفة الزجاج بتاخد فلوس زيادة؟"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="obj-a">"لأ — <strong>بنخصم ثمن الضلفة العادية وبتدفع الفرق بس.</strong> الترقية أرخص مما بتتخيل."</div></div>
+        </div>
+        <div class="obj-card" onclick="toggleObj(this)">
+          <div class="obj-q"><span class="obj-q-icon">😤</span><span class="obj-q-text">"مش محتاج معاينة"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="obj-a">"المعاينة مش بس للمقاسات — بنشوف <strong>اتجاه الأبواب ومكان البنية التحتية.</strong> ده بيحمي الاتنين من المفاجآت. وهي مجانية."</div></div>
+        </div>
+      </div>
+
+      <!-- QUICK REF -->
+      <div class="sub-content" id="script-ref">
+        <div class="ref-section">
+          <div class="ref-section-title">الألومنيوم / متر (1800 جرام)</div>
+          <div class="ref-row"><span class="rl">كلادينج</span><span class="rv ac">4,500 ج</span></div>
+          <div class="ref-row"><span class="rl">شيت ألومنيوم</span><span class="rv ac">5,000 ج</span></div>
+          <div class="ref-row"><span class="rl">خشمنيوم</span><span class="rv ac">5,500 ج</span></div>
+          <div class="ref-row"><span class="rl">العود</span><span class="rv">3 متر</span></div>
+          <div class="ref-row"><span class="rl">الأدراج والضلف</span><span class="rv green">سوفت كلوز شامل ✓</span></div>
+        </div>
+        <div class="ref-section">
+          <div class="ref-section-title">المفصلات — الإضافة عن التركي</div>
+          <div class="ref-row"><span class="rl">تركي سوفت كلوز</span><span class="rv green">شامل ✓</span></div>
+          <div class="ref-row"><span class="rl">إيطالي / باب</span><span class="rv">+40 ج</span></div>
+          <div class="ref-row"><span class="rl">نمساوي / باب</span><span class="rv">+110 ج</span></div>
+          <div class="ref-row"><span class="rl">تركي → نمساوي (8 أبواب)</span><span class="rv ac">+880 ج</span></div>
+        </div>
+        <div class="ref-section">
+          <div class="ref-section-title">الأثاث</div>
+          <div class="ref-row"><span class="rl">غرفة نوم كبيرة</span><span class="rv ac">45,000 ج</span></div>
+          <div class="ref-row"><span class="rl">غرفة أطفال</span><span class="rv ac">35,000 ج</span></div>
+          <div class="ref-row"><span class="rl">غرفة سفرة</span><span class="rv ac">45,000 ج</span></div>
+          <div class="ref-row"><span class="rl">وحدة شاشة L</span><span class="rv">4,500 ج</span></div>
+          <div class="ref-row"><span class="rl">وحدة شاشة قطعة</span><span class="rv">3,500 ج</span></div>
+          <div class="ref-row"><span class="rl">الجزامة</span><span class="rv">4,500 ج</span></div>
+          <div class="ref-row"><span class="rl">ميكانيزم سرير</span><span class="rv">800 ج</span></div>
+        </div>
+        <div class="ref-section">
+          <div class="ref-section-title">ركنة وأنتريه / متر</div>
+          <div class="ref-row"><span class="rl">ركنة سويدي بوصة وربع</span><span class="rv">1,500 ج</span></div>
+          <div class="ref-row"><span class="rl">ركنة سويدي بوصة ونص</span><span class="rv">1,650 ج</span></div>
+          <div class="ref-row"><span class="rl">أنتريه سويدي بوصة وربع</span><span class="rv">1,600 ج</span></div>
+          <div class="ref-row"><span class="rl">أنتريه سويدي بوصة ونص</span><span class="rv">1,750 ج</span></div>
+          <div class="ref-row"><span class="rl">ركنة / أنتريه زان</span><span class="rv">2,500 ج</span></div>
+        </div>
+      </div>
+
+      <!-- DELIVERY -->
+      <div class="sub-content" id="script-delivery">
+        <div class="info-box gold">
+          <span>🗣️</span>
+          <div class="info-text"><strong>قولها للعميل:</strong>"النقل بنحسبه بعد ما نعرف العنوان — بيعتمد على المسافة والطابق. هنحدد معاك الرقم النهائي قبل التعاقد."</div>
+        </div>
+        <div class="delivery-grid">
+          <div class="delivery-card"><div class="delivery-city">🏙️ القاهرة</div><div class="delivery-note">حسب المنطقة والطابق</div><div class="delivery-inc">نقل + تركيب</div></div>
+          <div class="delivery-card"><div class="delivery-city">🌊 الإسكندرية</div><div class="delivery-note">بيتحدد مسبقاً</div><div class="delivery-inc">نقل + تركيب</div></div>
+          <div class="delivery-card"><div class="delivery-city">🌾 الدقهلية</div><div class="delivery-note">المنصورة والمحلة</div><div class="delivery-inc">نقل + تركيب</div></div>
+          <div class="delivery-card"><div class="delivery-city">☀️ سوهاج</div><div class="delivery-note">بيتفق عليه أول</div><div class="delivery-inc">نقل + تركيب</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pages -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nav-btn active" onclick="showPage('alu',this)">
+      <div class="nav-indicator"></div>
+      <span class="nav-icon">🔧</span>
+      <span class="nav-label">ألومنيوم</span>
+    </button>
+    <button class="nav-btn" onclick="showPage('wood',this)">
+      <div class="nav-indicator"></div>
+      <span class="nav-icon">🪵</span>
+      <span class="nav-label">الخشب</span>
+    </button>
+    <button class="nav-btn" onclick="showPage('counter',this)">
+      <div class="nav-indicator"></div>
+      <span class="nav-icon">🪨</span>
+      <span class="nav-label">الكونتر</span>
+    </button>
+    <button class="nav-btn" onclick="showPage('furniture',this)">
+      <div class="nav-indicator"></div>
+      <span class="nav-icon">🛋️</span>
+      <span class="nav-label">الأثاث</span>
+    </button>
+    <button class="nav-btn" onclick="showPage('script',this)">
+      <div class="nav-indicator"></div>
+      <span class="nav-icon">🎯</span>
+      <span class="nav-label">السكريبت</span>
+    </button>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.classList.add('out-left');
+    setTimeout(() => p.classList.remove('out-left'), 300);
+  });
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const page = document.getElementById('page-' + name);
+  if (page) { page.classList.add('active'); page.scrollTop = 0; }
+  if (btn) btn.classList.add('active');
+}
+
+function showSubTab(page, tab, el) {
+  const prefix = page + '-';
+  document.querySelectorAll('[id^="' + prefix + '"]').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('#page-' + {'alu':'alu','wood':'wood','furn':'furniture','script':'script'}[page] + ' .sub-tab').forEach(t => t.classList.remove('active'));
+  const content = document.getElementById(prefix + tab);
+  if (content) content.classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+function toggleScript(card) {
+  const body = card.querySelector('.script-body');
+  const chevron = card.querySelector('.script-chevron');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.script-body.open').forEach(b => {
+    b.classList.remove('open');
+    b.closest('.script-card').querySelector('.script-chevron').style.transform = '';
+  });
+  if (!isOpen) { body.classList.add('open'); chevron.style.transform = 'rotate(180deg)'; }
+}
+
+function toggleObj(card) {
+  const body = card.querySelector('.obj-body');
+  const chevron = card.querySelector('.obj-chevron');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.obj-body.open').forEach(b => {
+    b.classList.remove('open');
+    b.closest('.obj-card').querySelector('.obj-chevron').style.transform = '';
+  });
+  if (!isOpen) { body.classList.add('open'); chevron.style.transform = 'rotate(180deg)'; }
+}
+</script>
+</body>
+</html>
