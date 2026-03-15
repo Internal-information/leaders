@@ -34,8 +34,8 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 
 /* PAGES */
 #pages{flex:1;overflow:hidden;position:relative}
-.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 20px);opacity:0;pointer-events:none;transform:translateX(24px);transition:opacity .22s ease,transform .22s ease;-webkit-overflow-scrolling:touch}
-.page.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 20px);scroll-behavior:smooth;opacity:0;pointer-events:none;transform:translateX(24px);transition:opacity .22s ease,transform .22s ease;-webkit-overflow-scrolling:touch}
+.page.active{opacity:1;pointer-events:auto;transform:translateX(0)}
 .page::-webkit-scrollbar{width:3px}
 .page::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
 
@@ -220,7 +220,6 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 
 /* SCRIPT */
 .skcard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:9px;cursor:pointer;transition:.18s}
-.skcard{cursor:pointer}
 .sk-head{display:flex;align-items:center;gap:11px;padding:13px}
 .sk-num{width:34px;height:34px;border-radius:9px;background:var(--accent);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
 .sk-ht{flex:1}
@@ -327,11 +326,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 .gyp-name{font-size:13px;font-weight:700;margin-bottom:3px}
 .gyp-desc{font-size:11px;color:var(--text3);line-height:1.5}
 
-/* DESKTOP */
-@media(min-width:640px){
-  body{background:#050a14;display:flex;align-items:center;justify-content:center}
-  #app{max-width:430px;box-shadow:0 0 80px rgba(0,0,0,.6)}
-}
+
 
 /* ANIM */
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -346,12 +341,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .cimg img{position:relative;z-index:1;transition:opacity .3s}
 
-/* ACCORDION OPEN STATE */
-.skcard.open{border-color:rgba(232,160,32,.4);background:rgba(232,160,32,.04)}
-.skcard.open .sk-num{background:linear-gradient(135deg,var(--accent),var(--accent2))}
-.ocard.open{border-color:rgba(239,68,68,.25)}
-.ocard.open .oq{background:rgba(239,68,68,.08)}
-.fin-cat.open{border-color:rgba(59,130,246,.25)}
+/* ACCORDION OPEN STATE — kept in CLEAN ACCORDION block below */
 /* Prevent sticky active on mobile */
 .skcard,.ocard,.fin-cat{-webkit-tap-highlight-color:transparent;cursor:pointer}
 /* SVG icon sizing inside ot/gt/pkc/gs/hc */
@@ -377,6 +367,292 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 .sk-chev,.oc,.fin-chev{transition:transform .25s ease;display:inline-block}
 /* NO hover bg on mobile cards */
 @media(hover:none){.skcard:hover,.ocard:hover,.fin-cat:hover{background:inherit}}
+
+
+
+/* ════════════════════════════════════════════════════════
+   DESKTOP LAYOUT  (1024px+)
+   ════════════════════════════════════════════════════════ */
+@media(min-width:1024px){
+
+  /* ── Body + App shell ── */
+  body{background:#030712;overflow:hidden}
+  #app{
+    position:fixed;inset:0;
+    display:grid;
+    grid-template-areas:
+      "sidebar header"
+      "sidebar content";
+    grid-template-columns:240px 1fr;
+    grid-template-rows:56px 1fr;
+    overflow:hidden;
+  }
+
+  /* ── Header ── */
+  .hdr{
+    grid-area:header;
+    padding:0 28px;
+    background:var(--bg2);
+    border-bottom:1px solid var(--border);
+    border-right:none;
+  }
+
+  /* ── Bottom nav → Left sidebar ── */
+  .bnav{
+    grid-area:sidebar;
+    display:flex !important;
+    flex-direction:column;
+    width:240px;
+    height:100%;
+    padding:20px 10px 28px;
+    background:var(--bg2);
+    border-left:1px solid var(--border);
+    border-top:none;
+    overflow-y:auto;
+    gap:3px;
+  }
+
+  /* Sidebar top brand strip */
+  .bnav::before{
+    content:'Leaders';
+    display:block;
+    font-family:'Tajawal',sans-serif;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--accent);
+    padding:0 14px 14px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:10px;
+  }
+
+  /* Nav buttons */
+  .nb{
+    display:flex !important;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+    gap:11px;
+    padding:10px 14px;
+    height:auto;
+    border-radius:10px;
+    border:1.5px solid transparent;
+    flex:unset;
+    width:100%;
+    text-align:right;
+    color:var(--text2);
+    transition:background .15s,border-color .15s,color .15s;
+  }
+  .nb:hover{background:rgba(255,255,255,.05);color:var(--text)}
+  .nb.active{
+    background:rgba(232,160,32,.1);
+    border-color:rgba(232,160,32,.25);
+    color:var(--accent);
+  }
+  .nb-bar{display:none}
+  .nb.active .ni{transform:none !important}
+  .nb .ni{
+    width:20px !important;
+    height:20px !important;
+    flex-shrink:0;
+  }
+  .nb .nl{
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0;
+    opacity:1;
+  }
+
+  /* ── Pages container ── */
+  #pages{
+    grid-area:content;
+    position:relative;
+    overflow:hidden;
+    background:var(--bg);
+  }
+
+  /* ── Individual page ── */
+  .page{
+    padding:28px 32px 40px !important;
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+
+  /* ── Page hero ── */
+  .ph{padding:0 0 4px !important}
+  .ph-title{font-size:26px}
+
+  /* ── Sub tabs ── */
+  .stabs{padding:14px 0 0 !important;gap:8px}
+  .stab{font-size:13px;padding:7px 18px}
+
+  /* ── sc (section content) wrapper ── */
+  .sc{padding:0}
+
+  /* ────────────────────────────────────────
+     KITCHEN — 2-col card grid
+  ──────────────────────────────────────── */
+  #kit-alu .card,
+  #kit-wood .card,
+  #kit-counter .card{
+    margin-bottom:0;
+  }
+  /* Kitchen sections — 2-col grid */
+  #kit-alu,#kit-wood,#kit-counter{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+  }
+  /* Full-width elements inside grid */
+  #kit-alu > .ib,
+  #kit-alu > .sb,
+  #kit-wood > .ib,
+  #kit-wood > .sb,
+  #kit-counter > .ib,
+  #kit-counter > .sb,
+  #kit-counter > .ccl{
+    grid-column:1 / -1;
+  }
+  /* Hinges 4-up */
+  .hg{grid-template-columns:repeat(4,1fr)}
+  /* Accessories 3-up */
+  #kit-acc .g2,
+  #kit-acc .g3{grid-template-columns:repeat(3,1fr) !important}
+  /* Counter comparison boxes */
+  .ccl{grid-template-columns:repeat(3,1fr)}
+
+  /* ────────────────────────────────────────
+     WINDOWS — 2-col + side-by-side tables
+  ──────────────────────────────────────── */
+  #win-alu,#win-pvc{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+  }
+  #win-alu > .ib,
+  #win-pvc > .ib{grid-column:1 / -1}
+  #win-glass .g2{grid-template-columns:repeat(3,1fr)}
+  /* Win compare: 2 tables side by side */
+  #win-compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  #win-compare > .ib{grid-column:1 / -1}
+
+  /* ────────────────────────────────────────
+     FINISHING — 2-col accordion layout
+  ──────────────────────────────────────── */
+  .fin-wrap{
+    padding:12px 16px 0;
+  }
+  #pg-fin .fin-wrap{
+    columns:2;
+    column-gap:14px;
+    padding:0;
+  }
+  #pg-fin .fin-cat{
+    break-inside:avoid;
+    display:inline-block;
+    width:100%;
+    margin-bottom:12px;
+  }
+  /* Finish grid inside fin bodies */
+  .fg{grid-template-columns:repeat(3,1fr)}
+
+  /* ────────────────────────────────────────
+     FURNITURE — 2-col cards
+  ──────────────────────────────────────── */
+  #furn-rooms{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+  }
+  #furn-rooms > .ib{grid-column:1 / -1}
+  #furn-rooms > .card{margin-bottom:0}
+  /* Sofa/misc wider */
+  #furn-sofa,#furn-units{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+  }
+  #furn-sofa > .ib{grid-column:1 / -1}
+
+  /* ────────────────────────────────────────
+     SCRIPT — 2-col + ref tables side by side
+  ──────────────────────────────────────── */
+  /* Script steps & objections */
+  #scr-steps,#scr-obj{
+    columns:2;
+    column-gap:14px;
+  }
+  #scr-steps .skcard,
+  #scr-obj .ocard{
+    break-inside:avoid;
+    display:inline-block;
+    width:100%;
+    margin-bottom:9px;
+  }
+  #scr-steps > .ib{
+    column-span:all;
+    display:block;
+  }
+  /* Reference tables 3-col grid */
+  #scr-ref{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:12px;
+    align-items:start;
+  }
+  #scr-ref > .ib{grid-column:1 / -1}
+  #scr-ref > .rtbl{margin-bottom:0}
+  /* Delivery section */
+  #scr-del{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+  }
+  #scr-del > .ib{grid-column:1 / -1}
+
+  /* ── Card image height ── */
+  .cimg{height:200px}
+
+  /* ── No scale on click (desktop) ── */
+  .card:active,.skcard:active,.ocard:active{transform:none}
+
+  /* ── Scrollbar styling ── */
+  #pages ::-webkit-scrollbar{width:5px}
+  #pages ::-webkit-scrollbar-track{background:transparent}
+  #pages ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+}
+
+/* ════════════════════════════════════════════════════════
+   LARGE DESKTOP  (1400px+)
+   ════════════════════════════════════════════════════════ */
+@media(min-width:1400px){
+  #app{grid-template-columns:260px 1fr}
+  .bnav{width:260px;padding:22px 12px 32px}
+  .nb{padding:11px 16px}
+  .nb .nl{font-size:14px}
+  .page{padding:32px 40px 48px !important}
+  .ph-title{font-size:28px}
+  .cimg{height:220px}
+  /* 3-col cards on large screens */
+  #kit-alu,#kit-wood,
+  #furn-rooms{
+    grid-template-columns:1fr 1fr 1fr;
+  }
+  #scr-ref{grid-template-columns:repeat(4,1fr)}
+  .hg{grid-template-columns:repeat(4,1fr)}
+  .fg{grid-template-columns:repeat(4,1fr)}
+}
+
 </style>
 </head>
 <body>
@@ -386,7 +662,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 <div class="hdr">
   <div class="hdr-ico" style="color:#000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10.85L12 4l7 6.85V21"/><path d="M9 21v-5h6v5"/><path d="M10 4h4"/></svg></div>
   <div style="flex:1">
-    <div class="hdr-title">دليل السيلز</div>
+    <div class="hdr-title">دليل السيلز<span id="hdr-pg" style="font-weight:400;font-size:13px;color:var(--text3);margin-right:10px"></span></div>
     <div class="hdr-sub">مطابخ · شبابيك · تشطيبات · أثاث</div>
   </div>
   <div class="hdr-badge">داخلي</div>
@@ -413,7 +689,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
   <div class="sc on" id="kit-alu">
     <div class="ib bl"><span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="11" width="16" height="7" rx="1"/><path d="M5 11V6l5-3 5 3v5"/><path d="M8 11v4h4v-4"/></svg></span><div>الهيكل = <strong>إطار ألومنيوم + دواخل فايبر</strong> — ثابت في الـ 3 أنواع. كل الضلف والأدراج <strong>سوفت كلوز شاملة في السعر.</strong> السعر على <strong>1800 جرام</strong> — العود <strong>3 متر.</strong></div></div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80" alt="مطبخ كلادينج">
         <div class="cimg-ov"><div><div class="cbadge ac">الأساسي</div><div class="ctitle">كلادينج</div><div class="cpr">4,500 ج / متر — 1800 جرام</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">الضلفة</span><span class="sval">ألواح كلادينج جاهزة — بدون فرن</span></div>
@@ -422,7 +698,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="cfoot"><strong>مناسب لـ</strong>ميزانية محدودة — شكل نظيف</div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1565183928294-7063f23ce0f8?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1565183928294-7063f23ce0f8?auto=format&fit=crop&w=800&q=80" alt="مطبخ شيت ألومنيوم">
         <div class="cimg-ov"><div><div class="cbadge or">الأكثر مبيعاً</div><div class="ctitle">شيت ألومنيوم</div><div class="cpr">5,000 ج / متر — 1800 جرام</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">الضلفة</span><span class="sval">شيت ألومنيوم يدخل الفرن — ألوان مخصصة</span></div>
@@ -431,7 +707,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="cfoot"><strong>مناسب لـ</strong>عايز ألوان وأشكال مخصصة</div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1556911073-a517e752729c?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1556911073-a517e752729c?auto=format&fit=crop&w=800&q=80" alt="مطبخ خشمنيوم">
         <div class="cimg-ov"><div><div class="cbadge" style="background:var(--accent2);color:#000">المميز</div><div class="ctitle">خشمنيوم</div><div class="cpr">5,500 ج / متر — 1800 جرام</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">الضلفة</span><span class="sval">شيت خشمنيوم يدخل الفرن</span></div>
@@ -474,7 +750,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="cbox sc"><div class="cbox-t">🪨 كونتر الحجر</div><div class="cbox-d">جرانيت/كوارتز/رخام فوق الوحدات. <strong>بيتحسب منفصل.</strong></div></div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1556578977-5f72c1c02de0?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1556578977-5f72c1c02de0?auto=format&fit=crop&w=800&q=80" alt="كونتر جرانيت">
         <div class="cimg-ov"><div><div class="cbadge gy">اقتصادي</div><div class="ctitle">جرانيت</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">الحرارة</span><span class="sval g">مقاوم جداً ✓</span></div>
@@ -483,7 +759,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       </div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1565538220435-5ed66e074db3?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1565538220435-5ed66e074db3?auto=format&fit=crop&w=800&q=80" alt="كونتر كوارتز">
         <div class="cimg-ov"><div><div class="cbadge bl">متوسط</div><div class="ctitle">كوارتز</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">التنظيف</span><span class="sval g">سهل جداً — بدون تلميع ✓</span></div>
@@ -493,7 +769,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="cfoot"><strong>ترقية جاهزة</strong>"الكوارتز بيريّح في التنظيف — مش محتاج تلميع خالص."</div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="كونتر رخام">
         <div class="cimg-ov"><div><div class="cbadge ac">Premium</div><div class="ctitle">رخام</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">المظهر</span><span class="sval">أفخم مظهر — لا مثيل له</span></div>
@@ -564,7 +840,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
   <div class="sc on" id="win-alu">
     <div class="ib bl"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 2h4v10H8z"/><path d="M6 12h8l1 6H5z"/></svg></span><div>شباك الألومنيوم — الخامة الأكثر انتشاراً في مصر. <strong>سعر مناسب + صيانة سهلة + ألوان كتير.</strong></div></div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" alt="ألومنيوم">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" alt="شباك ألومنيوم">
         <div class="cimg-ov"><div><div class="cbadge or">الأكثر انتشاراً</div><div class="ctitle">ألومنيوم عادي</div><div class="cpr">السعر حسب المواصفات والمتر</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">السماكة</span><span class="sval">1.2 مم — 1.6 مم — 2 مم</span></div>
@@ -597,7 +873,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
   <div class="sc" id="win-pvc">
     <div class="ib te"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="10" cy="8" r="5"/><path d="M7 12l-3 6h12l-3-6"/><circle cx="10" cy="8" r="2" fill="currentColor" stroke="none"/></svg></span><div>الـ PVC بيدي <strong>عزل حراري وصوتي أعلى بكتير</strong> من الألومنيوم — مناسب للأدوار العالية والمناطق الصاخبة.</div></div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1600210492-7059820397be?auto=format&fit=crop&w=800&q=80" alt="PVC">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1600210492-7059820397be?auto=format&fit=crop&w=800&q=80" alt="شباك PVC">
         <div class="cimg-ov"><div><div class="cbadge te">عزل ممتاز</div><div class="ctitle">PVC / UPVC</div><div class="cpr">السعر أعلى من الألومنيوم</div></div></div></div>
       <div class="cbody">
         <div class="srow"><span class="slbl">الحجرات</span><span class="sval">3 حجرات (أساسي) — 5 حجرات (ممتاز)</span></div>
@@ -671,7 +947,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     <div class="ph-title">التشطيبات</div>
     <div class="ph-desc">دهانات — سيراميك — جبس — باركيه — سباكة — كهرباء — محارة</div>
   </div>
-  <div style="padding:12px 16px 0">
+  <div class="fin-wrap">
     <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 2a5 5 0 0 1 3 9l-1 1H8l-1-1a5 5 0 0 1 3-9z"/><path d="M8 15h4M9 18h2"/></svg></span><div>اضغط على أي قسم عشان تشوف التفاصيل الكاملة</div></div>
 
     <!-- PAINT -->
@@ -851,7 +1127,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 
   <div class="sc on" id="furn-rooms">
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80" alt="غرفة نوم">
         <div class="cimg-ov"><div><div class="cbadge ac">45,000 ج</div><div class="ctitle">غرفة النوم الكبيرة</div></div></div></div>
       <div class="cbody">
         <div class="inc-box"><div class="inc-t">المشتملات</div><div class="inc-txt">سرير 160 — دولاب 270 — بانكيت 160×40 — تسريحة 150×40 — 2 كمودينو 50×40 — كرسي تسريحة — علاقة</div></div>
@@ -863,7 +1139,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       </div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80" alt="غرفة أطفال">
         <div class="cimg-ov"><div><div class="cbadge ac">35,000 ج</div><div class="ctitle">غرفة الأطفال</div></div></div></div>
       <div class="cbody">
         <div class="inc-box"><div class="inc-t">المشتملات</div><div class="inc-txt">دولاب 200 — 2 سرير 120 — كمودينو 50×40</div></div>
@@ -874,7 +1150,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       </div>
     </div>
     <div class="card">
-      <div class="cimg"><img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=80" alt="">
+      <div class="cimg"><img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=80" alt="غرفة سفرة">
         <div class="cimg-ov"><div><div class="cbadge ac">45,000 ج</div><div class="ctitle">غرفة السفرة</div></div></div></div>
       <div class="cbody">
         <div class="inc-box"><div class="inc-t">المشتملات</div><div class="inc-txt">2 نيش 60 أو نيش 120 — بوفيه 150 — ترابيزة — 6 كراسي</div></div>
@@ -985,12 +1261,24 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 
 </div><!-- /app -->
 <script>
+// Stop shimmer animation once image loads
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.cimg img').forEach(function(img){
+    function stopShimmer(){img.parentElement.style.animation='none';img.parentElement.style.background='none';}
+    if(img.complete&&img.naturalWidth){stopShimmer();}
+    else{img.addEventListener('load',stopShimmer);img.addEventListener('error',stopShimmer);}
+  });
+});
+
 function nav(name,btn){
   document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active')});
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
   var p=document.getElementById('pg-'+name);
   if(p){p.classList.add('active');p.scrollTop=0}
   if(btn)btn.classList.add('active');
+  var titles={kit:'المطابخ',win:'الشبابيك',fin:'التشطيبات',furn:'الأثاث',script:'السكريبت'};
+  var el=document.getElementById('hdr-pg');
+  if(el)el.textContent='— '+(titles[name]||'');
 }
 function tab(page,name,el){
   var pfx=page+'-';
