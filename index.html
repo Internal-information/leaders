@@ -3,9 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover">
-<title>دليل السيلز</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@700;800;900&display=swap" rel="stylesheet">
+<title>Leaders — النظام الكامل</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;800;900&family=Cairo:wght@400;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&display=swap" rel="stylesheet">
 <style>
+/* ══════════════════════════════════════════════════════
+   WEBSITE SHELL
+══════════════════════════════════════════════════════ */
+*, *::before, *::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --g:#b8860b; --g2:#d4a017; --g3:#f5e0a0;
+  --ink:#09080e; --ink2:#13121a; --ink3:#1e1c28;
+  --txt:rgba(255,255,255,.85); --txt2:rgba(255,255,255,.45); --txt3:rgba(255,255,255,.2);
+  --bdr:rgba(255,255,255,.07); --bdr2:rgba(255,255,255,.12);
+  --nh:56px; --sh:100vh;
+}
+html,body{height:100%;overflow:hidden;background:var(--ink)}
+body{font-family:'Cairo',sans-serif;color:var(--txt)}
+
+/* ── SITE NAV ─────────────────────────────────────── */
+#sitenav{
+  position:fixed;top:0;left:0;right:0;
+  height:var(--nh);z-index:8000;
+  background:rgba(9,8,14,.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;
+  padding:0 20px;gap:0;
+}
+.sn-logo{
+  font-family:'Tajawal',sans-serif;
+  font-size:20px;font-weight:900;color:#fff;
+  letter-spacing:1px;margin-left:auto;
+  display:flex;align-items:center;gap:6px;
+}
+.sn-logo-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--g2);display:inline-block;
+  box-shadow:0 0 8px var(--g);
+}
+.sn-tabs{
+  display:flex;gap:2px;margin-right:auto;
+}
+.sn-tab{
+  padding:7px 16px;border-radius:8px;
+  font-size:12px;font-weight:700;
+  cursor:pointer;border:none;background:none;
+  color:var(--txt2);transition:all .2s;
+  display:flex;align-items:center;gap:7px;
+  font-family:'Cairo',sans-serif;
+}
+.sn-tab svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.sn-tab:hover{color:var(--txt);background:rgba(255,255,255,.05)}
+.sn-tab.on{color:var(--g2);background:rgba(184,134,11,.1);border:1px solid rgba(184,134,11,.2)}
+/* Mobile tab labels */
+@media(max-width:480px){.sn-tab-lbl{display:none}}
+
+/* ── VIEWS ────────────────────────────────────────── */
+.view{
+  position:fixed;
+  top:var(--nh);left:0;right:0;bottom:0;
+  display:none;overflow:hidden;
+}
+.view.on{display:block}
+
+/* Guide view — inner app handles all scrolling */
+#vg{background:var(--ink)}
+#sg{position:absolute;inset:0;overflow:hidden}
+#sg #app{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
+
+/* Portfolio view — scrollable */
+#vp{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:#09080e}
+#sp{min-height:100%}
+
+/* Brochure view — scrollable, light bg */
+#vb{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:#d8d0c0;padding:8mm}
+#sb{background:transparent}
+
+/* ── LANDING (home view) ──────────────────────────── */
+#vh{
+  display:none;
+  overflow-y:auto;
+  background:var(--ink);
+}
+#vh.on{display:block}
+.land{
+  min-height:calc(100vh - var(--nh));
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 24px 60px;
+  position:relative;
+  overflow:hidden;
+}
+.land-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(184,134,11,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 30% at 10% 90%,rgba(184,134,11,.04) 0%,transparent 50%),
+    radial-gradient(ellipse 40% 30% at 90% 80%,rgba(184,134,11,.03) 0%,transparent 50%);
+}
+/* Grain texture */
+.land-bg::after{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+.land-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:4px;
+  text-transform:uppercase;color:var(--g);
+  margin-bottom:16px;
+}
+.land-title{
+  font-family:'Tajawal',sans-serif;
+  font-size:clamp(44px,10vw,88px);
+  font-weight:900;color:#fff;line-height:.95;
+  text-align:center;margin-bottom:6px;
+}
+.land-title em{
+  font-style:italic;
+  font-family:'Fraunces',serif;
+  color:var(--g2);font-weight:300;
+}
+.land-sub{
+  font-size:13px;color:var(--txt2);
+  line-height:1.9;text-align:center;
+  max-width:420px;margin:16px auto 48px;
+}
+/* Tool cards */
+.tools{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;width:100%;max-width:860px;
+}
+@media(max-width:640px){.tools{grid-template-columns:1fr;max-width:380px}}
+.tool{
+  border-radius:14px;padding:24px 20px 20px;
+  cursor:pointer;border:1px solid var(--bdr);
+  background:rgba(255,255,255,.03);
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:12px;
+  transition:all .25s;position:relative;overflow:hidden;
+}
+.tool::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:2px;opacity:0;transition:opacity .25s;
+}
+.t1::after{background:linear-gradient(90deg,#b8860b,#d4a017)}
+.t2::after{background:linear-gradient(90deg,#1d4ed8,#60a5fa)}
+.t3::after{background:linear-gradient(90deg,#166534,#4ade80)}
+.tool:hover{transform:translateY(-5px);background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.tool:hover::after{opacity:1}
+.tool-ico{
+  width:52px;height:52px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+}
+.ti1{background:rgba(184,134,11,.12)}
+.ti2{background:rgba(59,130,246,.12)}
+.ti3{background:rgba(34,197,94,.12)}
+.tool-ico svg{width:26px;height:26px;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ti1 svg{stroke:#d4a017}.ti2 svg{stroke:#60a5fa}.ti3 svg{stroke:#4ade80}
+.tool-num{font-size:9px;font-weight:700;letter-spacing:3px;color:var(--txt3)}
+.tool-name{font-family:'Tajawal',sans-serif;font-size:18px;font-weight:900;color:#fff}
+.tool-desc{font-size:10px;color:var(--txt2);line-height:1.75}
+.tool-tags{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:2px}
+.t-tag{font-size:8px;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(255,255,255,.06);color:var(--txt3)}
+.tool-cta{
+  margin-top:auto;padding-top:12px;
+  font-size:10px;font-weight:700;letter-spacing:.5px;
+  color:var(--txt3);display:flex;align-items:center;gap:5px;
+  transition:color .2s;
+}
+.tool:hover .tool-cta{color:var(--txt2)}
+.tool-cta svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.tool:hover .tool-cta svg{transform:translateX(-4px)}
+/* Stats row */
+.stats{
+  display:flex;gap:32px;margin-top:56px;
+  flex-wrap:wrap;justify-content:center;
+}
+.stat{text-align:center}
+.stat-n{font-family:'Tajawal',sans-serif;font-size:28px;font-weight:900;color:var(--g2)}
+.stat-l{font-size:10px;color:var(--txt3);letter-spacing:1px;margin-top:2px}
+.land-footer{
+  margin-top:48px;font-size:10px;color:var(--txt3);
+  letter-spacing:1px;text-align:center;
+}
+
+/* Brochure page shadow in view */
+#sb .page{
+  box-shadow:0 4px 32px rgba(0,0,0,.2);
+  margin-bottom:8mm;
+}
+
+/* Portfolio lightbox above everything */
+#sp .lb{z-index:9500 !important}
+#sp .lb-x{z-index:9501 !important}
+#sp .lb-cap{z-index:9501 !important}
+
+/* Desktop layout */
+@media(min-width:1024px){
+  :root{--nh:60px}
+  .sn-tab{padding:8px 18px;font-size:13px}
+  .sn-tab-lbl{display:inline}
+  #vb{padding:12mm 16mm}
+  .land-title{font-size:clamp(52px,8vw,96px)}
+}
+
+/* ── GUIDE SCOPED CSS ───────────────────────────── */
+
+
 :root{
   --bg:#0a0f1a;--bg2:#111827;--bg3:#1a2236;--bg4:#222d42;
   --card:#161e2e;--card2:#1e2a3d;
@@ -20,364 +225,1065 @@
   --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
   --nav-h:64px;--hdr-h:56px;
 }
+
+
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+
 html{height:100%}
-body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif}
-#app{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden}
+
+
+#sg{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif}
+
+
+#sg #app{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
+
+
+
 
 /* HEADER */
-.hdr{height:var(--hdr-h);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:20}
-.hdr-ico{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:8px;color:#000}
-.hdr-title{font-family:'Tajawal',sans-serif;font-size:17px;font-weight:800;flex:1}
-.hdr-sub{font-size:10px;color:var(--text3)}
-.hdr-badge{background:var(--accent3);border:1px solid rgba(232,160,32,.3);color:var(--accent);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
+
+
+#sg .hdr{height:var(--hdr-h);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:20}
+
+
+#sg .hdr-ico{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:8px;color:#000}
+
+
+#sg .hdr-title{font-family:'Tajawal',sans-serif;font-size:17px;font-weight:800;flex:1}
+
+
+#sg .hdr-sub{font-size:10px;color:var(--text3)}
+
+
+#sg .hdr-badge{background:var(--accent3);border:1px solid rgba(232,160,32,.3);color:var(--accent);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
+
+
+
 
 /* PAGES */
-#pages{flex:1;overflow:hidden;position:relative}
-.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 20px);scroll-behavior:smooth;opacity:0;pointer-events:none;transform:translateX(24px);transition:opacity .22s ease,transform .22s ease;-webkit-overflow-scrolling:touch}
-.page.active{opacity:1;pointer-events:auto;transform:translateX(0)}
-.page::-webkit-scrollbar{width:3px}
-.page::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+
+#sg #pages{flex:1;overflow:hidden;position:relative}
+
+
+#sg .page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 20px);scroll-behavior:smooth;opacity:0;pointer-events:none;transform:translateX(24px);transition:opacity .22s ease,transform .22s ease;-webkit-overflow-scrolling:touch}
+
+
+#sg .page.active{opacity:1;pointer-events:auto;transform:translateX(0)}
+
+
+#sg .page::-webkit-scrollbar{width:3px}
+
+
+#sg .page::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+
+
 
 /* BOTTOM NAV */
-.bnav{height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--bg2);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);flex-shrink:0;z-index:30}
-.nb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:.18s;position:relative;border:none;background:none;color:var(--text3);padding:6px 4px}
-.nb .ni{width:22px;height:22px;transition:.18s;display:flex;align-items:center;justify-content:center}
-.nb .nl{font-size:9px;font-weight:700;transition:.18s;letter-spacing:.2px}
-.nb.active{color:var(--accent)}
-.nb.active .ni{transform:translateY(-2px)}
-.nb-bar{position:absolute;top:0;left:50%;transform:translateX(-50%);width:28px;height:3px;background:var(--accent);border-radius:0 0 3px 3px;opacity:0;transition:.18s}
-.nb.active .nb-bar{opacity:1}
+
+
+#sg .bnav{height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--bg2);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);flex-shrink:0;z-index:30}
+
+
+#sg .nb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:.18s;position:relative;border:none;background:none;color:var(--text3);padding:6px 4px}
+
+
+#sg .nb .ni{width:22px;height:22px;transition:.18s;display:flex;align-items:center;justify-content:center}
+
+
+#sg .nb .nl{font-size:9px;font-weight:700;transition:.18s;letter-spacing:.2px}
+
+
+#sg .nb.active{color:var(--accent)}
+
+
+#sg .nb.active .ni{transform:translateY(-2px)}
+
+
+#sg .nb-bar{position:absolute;top:0;left:50%;transform:translateX(-50%);width:28px;height:3px;background:var(--accent);border-radius:0 0 3px 3px;opacity:0;transition:.18s}
+
+
+#sg .nb.active .nb-bar{opacity:1}
+
+
+
 
 /* SUB TABS */
-.stabs{display:flex;gap:7px;padding:12px 16px 0;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
-.stabs::-webkit-scrollbar{display:none}
-.stab{flex-shrink:0;padding:6px 13px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:.18s;border:1.5px solid var(--border2);color:var(--text2);background:transparent;white-space:nowrap}
-.stab.on{background:var(--accent);color:#000;border-color:var(--accent)}
-.sc{display:none;padding:12px 16px}
-.sc.on{display:block}
+
+
+#sg .stabs{display:flex;gap:7px;padding:12px 16px 0;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+
+
+#sg .stabs::-webkit-scrollbar{display:none}
+
+
+#sg .stab{flex-shrink:0;padding:6px 13px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:.18s;border:1.5px solid var(--border2);color:var(--text2);background:transparent;white-space:nowrap}
+
+
+#sg .stab.on{background:var(--accent);color:#000;border-color:var(--accent)}
+
+
+#sg .sc{display:none;padding:12px 16px}
+
+
+#sg .sc.on{display:block}
+
+
+
 
 /* PAGE HERO */
-.ph{padding:18px 16px 0;margin-bottom:2px}
-.ph-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
-.ph-title{font-family:'Tajawal',sans-serif;font-size:23px;font-weight:900;line-height:1.2;margin-bottom:5px}
-.ph-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+
+#sg .ph{padding:18px 16px 0;margin-bottom:2px}
+
+
+#sg .ph-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+
+
+#sg .ph-title{font-family:'Tajawal',sans-serif;font-size:23px;font-weight:900;line-height:1.2;margin-bottom:5px}
+
+
+#sg .ph-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+
+
 
 /* CARDS */
-.card{background:var(--card);border:1px solid var(--border);border-radius:15px;overflow:hidden;margin-bottom:11px;transition:.18s}
-.card:active{transform:scale(.985)}
-.cimg{height:160px;overflow:hidden;position:relative}
-.cimg img{width:100%;height:100%;object-fit:cover;opacity:.85}
-.cimg-ov{position:absolute;inset:0;background:linear-gradient(transparent 10%,rgba(0,0,0,.5) 40%,rgba(0,0,0,.93) 100%);display:flex;align-items:flex-end;padding:14px}
-.cbadge{display:inline-block;padding:4px 11px;border-radius:20px;font-size:10px;font-weight:800;margin-bottom:6px;letter-spacing:.3px}
-.cbadge.ac{background:var(--accent);color:#000}
-.cbadge.gr{background:var(--green);color:#000}
-.cbadge.bl{background:var(--blue);color:#fff}
-.cbadge.or{background:var(--orange);color:#fff}
-.cbadge.te{background:var(--teal);color:#fff}
-.cbadge.gy{background:#475569;color:#fff}
-.ctitle{font-family:'Tajawal',sans-serif;font-size:20px;font-weight:900;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4);margin-bottom:3px}
-.cpr{font-size:12px;color:rgba(255,255,255,.92);font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.5)}
-.cbody{padding:13px}
-.srow{display:flex;align-items:flex-start;gap:7px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
-.srow:last-child{border-bottom:none}
-.slbl{color:var(--text3);min-width:60px;font-size:11px;flex-shrink:0;padding-top:1px}
-.sval{color:var(--text);font-weight:600;flex:1;line-height:1.5}
-.sval.g{color:var(--green)}
-.sval.b{color:var(--blue)}
-.cfoot{padding:11px 13px;background:var(--card2);border-top:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.6}
-.cfoot strong{color:var(--accent);display:block;margin-bottom:2px;font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+
+
+#sg .card{background:var(--card);border:1px solid var(--border);border-radius:15px;overflow:hidden;margin-bottom:11px;transition:.18s}
+
+
+#sg .card:active{transform:scale(.985)}
+
+
+#sg .cimg{height:160px;overflow:hidden;position:relative}
+
+
+#sg .cimg img{width:100%;height:100%;object-fit:cover;opacity:.85}
+
+
+#sg .cimg-ov{position:absolute;inset:0;background:linear-gradient(transparent 10%,rgba(0,0,0,.5) 40%,rgba(0,0,0,.93) 100%);display:flex;align-items:flex-end;padding:14px}
+
+
+#sg .cbadge{display:inline-block;padding:4px 11px;border-radius:20px;font-size:10px;font-weight:800;margin-bottom:6px;letter-spacing:.3px}
+
+
+#sg .cbadge.ac{background:var(--accent);color:#000}
+
+
+#sg .cbadge.gr{background:var(--green);color:#000}
+
+
+#sg .cbadge.bl{background:var(--blue);color:#fff}
+
+
+#sg .cbadge.or{background:var(--orange);color:#fff}
+
+
+#sg .cbadge.te{background:var(--teal);color:#fff}
+
+
+#sg .cbadge.gy{background:#475569;color:#fff}
+
+
+#sg .ctitle{font-family:'Tajawal',sans-serif;font-size:20px;font-weight:900;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4);margin-bottom:3px}
+
+
+#sg .cpr{font-size:12px;color:rgba(255,255,255,.92);font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+
+
+#sg .cbody{padding:13px}
+
+
+#sg .srow{display:flex;align-items:flex-start;gap:7px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+
+
+#sg .srow:last-child{border-bottom:none}
+
+
+#sg .slbl{color:var(--text3);min-width:60px;font-size:11px;flex-shrink:0;padding-top:1px}
+
+
+#sg .sval{color:var(--text);font-weight:600;flex:1;line-height:1.5}
+
+
+#sg .sval.g{color:var(--green)}
+
+
+#sg .sval.b{color:var(--blue)}
+
+
+#sg .cfoot{padding:11px 13px;background:var(--card2);border-top:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.6}
+
+
+#sg .cfoot strong{color:var(--accent);display:block;margin-bottom:2px;font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+
+
+
 
 /* INFO BOXES */
-.ib{border-radius:11px;padding:11px 13px;margin-bottom:11px;display:flex;gap:9px;font-size:12px;line-height:1.65}
-.ib span:first-child{font-size:16px;flex-shrink:0;margin-top:1px}
-.ib.go{background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.22);color:#d4930a}
-.ib.bl{background:var(--blue-s);border:1px solid rgba(59,130,246,.18);color:#60a5fa}
-.ib.gr{background:var(--green-s);border:1px solid rgba(34,197,94,.22);color:#4ade80}
-.ib.or{background:var(--orange-s);border:1px solid rgba(249,115,22,.22);color:#fb923c}
-.ib.te{background:var(--teal-s);border:1px solid rgba(20,184,166,.22);color:#2dd4bf}
-.ib.pu{background:var(--purple-s);border:1px solid rgba(168,85,247,.2);color:#c084fc}
-.ib strong{font-weight:700;color:inherit}
+
+
+#sg .ib{border-radius:11px;padding:11px 13px;margin-bottom:11px;display:flex;gap:9px;font-size:12px;line-height:1.65}
+
+
+#sg .ib span:first-child{font-size:16px;flex-shrink:0;margin-top:1px}
+
+
+#sg .ib.go{background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.22);color:#d4930a}
+
+
+#sg .ib.bl{background:var(--blue-s);border:1px solid rgba(59,130,246,.18);color:#60a5fa}
+
+
+#sg .ib.gr{background:var(--green-s);border:1px solid rgba(34,197,94,.22);color:#4ade80}
+
+
+#sg .ib.or{background:var(--orange-s);border:1px solid rgba(249,115,22,.22);color:#fb923c}
+
+
+#sg .ib.te{background:var(--teal-s);border:1px solid rgba(20,184,166,.22);color:#2dd4bf}
+
+
+#sg .ib.pu{background:var(--purple-s);border:1px solid rgba(168,85,247,.2);color:#c084fc}
+
+
+#sg .ib strong{font-weight:700;color:inherit}
+
+
+
 
 /* SAME BADGE */
-.sb{background:linear-gradient(135deg,var(--bg3),var(--card2));border:1px solid var(--border2);border-radius:11px;padding:13px;margin-bottom:11px;display:flex;align-items:center;gap:11px}
-.sb-ic{font-size:26px;flex-shrink:0}
-.sb-txt strong{color:var(--accent2);font-size:13px;display:block;margin-bottom:2px}
-.sb-txt span{font-size:12px;color:var(--text2);line-height:1.5}
+
+
+#sg .sb{background:linear-gradient(135deg,var(--bg3),var(--card2));border:1px solid var(--border2);border-radius:11px;padding:13px;margin-bottom:11px;display:flex;align-items:center;gap:11px}
+
+
+#sg .sb-ic{font-size:26px;flex-shrink:0}
+
+
+#sg .sb-txt strong{color:var(--accent2);font-size:13px;display:block;margin-bottom:2px}
+
+
+#sg .sb-txt span{font-size:12px;color:var(--text2);line-height:1.5}
+
+
+
 
 /* HINGE CARDS */
-.hg{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
-.hc{background:var(--card);border:1.5px solid var(--border);border-radius:13px;padding:13px 9px;text-align:center;transition:.18s;position:relative;overflow:hidden}
-.hc.gc{border-color:rgba(34,197,94,.32)}
-.hc.oc{border-color:rgba(249,115,22,.28)}
-.hc.ac{border-color:rgba(232,160,32,.32)}
-.hc-inc{position:absolute;top:6px;right:6px;background:var(--green-s);color:var(--green);font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px}
-.hc-ico{font-size:22px;margin-bottom:5px}
-.hc-name{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;margin-bottom:2px}
-.hc-pr{font-size:13px;font-weight:700;margin-bottom:5px}
-.hc-pr.g{color:var(--green)}.hc-pr.o{color:var(--orange)}.hc-pr.a{color:var(--accent)}
-.hc-desc{font-size:10px;color:var(--text3);line-height:1.5;background:var(--bg3);border-radius:6px;padding:5px 7px}
+
+
+#sg .hg{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
+
+
+#sg .hc{background:var(--card);border:1.5px solid var(--border);border-radius:13px;padding:13px 9px;text-align:center;transition:.18s;position:relative;overflow:hidden}
+
+
+#sg .hc.gc{border-color:rgba(34,197,94,.32)}
+
+
+#sg .hc.oc{border-color:rgba(249,115,22,.28)}
+
+
+#sg .hc.ac{border-color:rgba(232,160,32,.32)}
+
+
+#sg .hc-inc{position:absolute;top:6px;right:6px;background:var(--green-s);color:var(--green);font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px}
+
+
+#sg .hc-ico{font-size:22px;margin-bottom:5px}
+
+
+#sg .hc-name{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;margin-bottom:2px}
+
+
+#sg .hc-pr{font-size:13px;font-weight:700;margin-bottom:5px}
+
+
+#sg .hc-pr.g{color:var(--green)}
+#sg .hc-pr.o{color:var(--orange)}
+#sg .hc-pr.a{color:var(--accent)}
+
+
+#sg .hc-desc{font-size:10px;color:var(--text3);line-height:1.5;background:var(--bg3);border-radius:6px;padding:5px 7px}
+
+
+
 
 /* 2-COL GRID */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
+
+
+#sg .g2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
+
+
+#sg .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
+
+
+
 
 /* ACC CARDS */
-.ac-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px;transition:.18s}
-.ac-card:active{transform:scale(.97)}
-.ac-ico{font-size:24px;margin-bottom:6px}
-.ac-name{font-size:13px;font-weight:700;margin-bottom:3px}
-.ac-desc{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:5px}
-.ac-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
-.ac-tag.bl{background:var(--blue-s);color:#60a5fa}
-.ac-tag.gr{background:var(--green-s);color:var(--green)}
-.ac-tag.or{background:var(--orange-s);color:var(--orange)}
-.ac-tag.te{background:var(--teal-s);color:var(--teal)}
+
+
+#sg .ac-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px;transition:.18s}
+
+
+#sg .ac-card:active{transform:scale(.97)}
+
+
+#sg .ac-ico{font-size:24px;margin-bottom:6px}
+
+
+#sg .ac-name{font-size:13px;font-weight:700;margin-bottom:3px}
+
+
+#sg .ac-desc{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:5px}
+
+
+#sg .ac-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+
+
+#sg .ac-tag.bl{background:var(--blue-s);color:#60a5fa}
+
+
+#sg .ac-tag.gr{background:var(--green-s);color:var(--green)}
+
+
+#sg .ac-tag.or{background:var(--orange-s);color:var(--orange)}
+
+
+#sg .ac-tag.te{background:var(--teal-s);color:var(--teal)}
+
+
+
 
 /* GLASS CALC */
-.gcalc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px;margin-bottom:11px}
-.gcalc-title{font-size:13px;font-weight:700;margin-bottom:11px;display:flex;align-items:center;gap:5px}
-.gsteps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:5px;margin-bottom:10px}
-.gs{text-align:center}
-.gs-ico{font-size:20px;margin-bottom:3px}
-.gs-lbl{font-size:10px;color:var(--text3);margin-bottom:2px}
-.gs-val{font-size:12px;font-weight:700}
-.gop{font-size:16px;color:var(--text3);text-align:center}
-.gres{background:var(--green-s);border:1px solid rgba(34,197,94,.18);border-radius:9px;padding:9px;text-align:center}
-.gres-lbl{font-size:10px;color:var(--green);font-weight:600;margin-bottom:2px}
-.gres-val{font-size:13px;font-weight:700;color:var(--green)}
+
+
+#sg .gcalc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px;margin-bottom:11px}
+
+
+#sg .gcalc-title{font-size:13px;font-weight:700;margin-bottom:11px;display:flex;align-items:center;gap:5px}
+
+
+#sg .gsteps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:5px;margin-bottom:10px}
+
+
+#sg .gs{text-align:center}
+
+
+#sg .gs-ico{font-size:20px;margin-bottom:3px}
+
+
+#sg .gs-lbl{font-size:10px;color:var(--text3);margin-bottom:2px}
+
+
+#sg .gs-val{font-size:12px;font-weight:700}
+
+
+#sg .gop{font-size:16px;color:var(--text3);text-align:center}
+
+
+#sg .gres{background:var(--green-s);border:1px solid rgba(34,197,94,.18);border-radius:9px;padding:9px;text-align:center}
+
+
+#sg .gres-lbl{font-size:10px;color:var(--green);font-weight:600;margin-bottom:2px}
+
+
+#sg .gres-val{font-size:13px;font-weight:700;color:var(--green)}
+
+
+
 
 /* WOOD FLOW */
-.wflow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:6px;margin-bottom:11px}
-.fb{background:var(--card2);border:1px solid var(--border2);border-radius:9px;padding:11px 7px;text-align:center}
-.fb-ico{width:22px;height:22px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center}.fb-ico svg{width:100%;height:100%}
-.fb-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
-.fb-val{font-size:12px;font-weight:700}
-.fb-sub{font-size:10px;color:var(--accent);margin-top:2px}
-.fa{font-size:14px;color:var(--text3);text-align:center}
+
+
+#sg .wflow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:6px;margin-bottom:11px}
+
+
+#sg .fb{background:var(--card2);border:1px solid var(--border2);border-radius:9px;padding:11px 7px;text-align:center}
+
+
+#sg .fb-ico{width:22px;height:22px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center}
+#sg .fb-ico svg{width:100%;height:100%}
+
+
+#sg .fb-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+
+
+#sg .fb-val{font-size:12px;font-weight:700}
+
+
+#sg .fb-sub{font-size:10px;color:var(--accent);margin-top:2px}
+
+
+#sg .fa{font-size:14px;color:var(--text3);text-align:center}
+
+
+
 
 /* FINISH GRID */
-.fg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
-.fc{border-radius:11px;overflow:hidden;border:1.5px solid var(--border);transition:.18s}
-.fc:active{transform:scale(.97)}
-.fc-top{padding:11px 11px 9px}
-.ft1{background:linear-gradient(135deg,#2d1a1a,#1a0d0d)}
-.ft2{background:linear-gradient(135deg,#2d1a0a,#1a0d05)}
-.ft3{background:linear-gradient(135deg,#0a1a2d,#050d1a)}
-.ft4{background:linear-gradient(135deg,#1a1a2d,#0d0d1a)}
-.ft5{background:linear-gradient(135deg,#0a1a14,#050d0a)}
-.fc-name{font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px}
-.fc-en{font-size:9px;color:rgba(255,255,255,.28)}
-.fc-body{background:rgba(0,0,0,.2);padding:9px 11px}
-.fspec{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:10px}
-.fspec:last-child{border-bottom:none}
-.fspec .fl{color:rgba(255,255,255,.28)}
-.fspec .fv{color:rgba(255,255,255,.72);font-weight:600;text-align:left}
+
+
+#sg .fg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
+
+
+#sg .fc{border-radius:11px;overflow:hidden;border:1.5px solid var(--border);transition:.18s}
+
+
+#sg .fc:active{transform:scale(.97)}
+
+
+#sg .fc-top{padding:11px 11px 9px}
+
+
+#sg .ft1{background:linear-gradient(135deg,#2d1a1a,#1a0d0d)}
+
+
+#sg .ft2{background:linear-gradient(135deg,#2d1a0a,#1a0d05)}
+
+
+#sg .ft3{background:linear-gradient(135deg,#0a1a2d,#050d1a)}
+
+
+#sg .ft4{background:linear-gradient(135deg,#1a1a2d,#0d0d1a)}
+
+
+#sg .ft5{background:linear-gradient(135deg,#0a1a14,#050d0a)}
+
+
+#sg .fc-name{font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px}
+
+
+#sg .fc-en{font-size:9px;color:rgba(255,255,255,.28)}
+
+
+#sg .fc-body{background:rgba(0,0,0,.2);padding:9px 11px}
+
+
+#sg .fspec{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:10px}
+
+
+#sg .fspec:last-child{border-bottom:none}
+
+
+#sg .fspec .fl{color:rgba(255,255,255,.28)}
+
+
+#sg .fspec .fv{color:rgba(255,255,255,.72);font-weight:600;text-align:left}
+
+
+
 
 /* HPL BRANDS */
-.bcard{background:var(--card);border:1.5px solid var(--border);border-radius:11px;padding:13px;margin-bottom:9px;transition:.18s}
-.bcard.mn{border-color:rgba(232,160,32,.38);background:rgba(232,160,32,.05)}
-.bcard-name{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;margin-bottom:3px}
-.bcard-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:7px}
-.btag{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
-.btag.mn{background:rgba(232,160,32,.18);color:var(--accent)}
-.btag.op{background:var(--bg3);color:var(--text3)}
+
+
+#sg .bcard{background:var(--card);border:1.5px solid var(--border);border-radius:11px;padding:13px;margin-bottom:9px;transition:.18s}
+
+
+#sg .bcard.mn{border-color:rgba(232,160,32,.38);background:rgba(232,160,32,.05)}
+
+
+#sg .bcard-name{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;margin-bottom:3px}
+
+
+#sg .bcard-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:7px}
+
+
+#sg .btag{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
+
+
+#sg .btag.mn{background:rgba(232,160,32,.18);color:var(--accent)}
+
+
+#sg .btag.op{background:var(--bg3);color:var(--text3)}
+
+
+
 
 /* COUNTER */
-.ccl{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}
-.cbox{border-radius:11px;padding:11px;border:1.5px solid}
-.cbox.wc{background:var(--green-s);border-color:rgba(34,197,94,.28)}
-.cbox.sc{background:rgba(232,160,32,.07);border-color:rgba(232,160,32,.22)}
-.cbox-t{font-size:12px;font-weight:700;margin-bottom:4px}
-.cbox.wc .cbox-t{color:var(--green)}.cbox.sc .cbox-t{color:var(--accent)}
-.cbox-d{font-size:11px;color:var(--text2);line-height:1.5}
+
+
+#sg .ccl{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}
+
+
+#sg .cbox{border-radius:11px;padding:11px;border:1.5px solid}
+
+
+#sg .cbox.wc{background:var(--green-s);border-color:rgba(34,197,94,.28)}
+
+
+#sg .cbox.sc{background:rgba(232,160,32,.07);border-color:rgba(232,160,32,.22)}
+
+
+#sg .cbox-t{font-size:12px;font-weight:700;margin-bottom:4px}
+
+
+#sg .cbox.wc .cbox-t{color:var(--green)}
+#sg .cbox.sc .cbox-t{color:var(--accent)}
+
+
+#sg .cbox-d{font-size:11px;color:var(--text2);line-height:1.5}
+
+
+
 
 /* FURNITURE */
-.ptag{display:inline-block;background:var(--accent);color:#000;font-size:13px;font-weight:800;padding:4px 13px;border-radius:20px;margin-bottom:7px}
-.inc-box{background:var(--bg3);border-radius:9px;padding:9px 11px;margin-bottom:9px}
-.inc-t{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px}
-.inc-txt{font-size:12px;color:var(--text2);line-height:1.7}
-.ext-box{border-top:1px solid var(--border);padding-top:9px}
-.ext-t{font-size:10px;font-weight:700;color:var(--orange);letter-spacing:.5px;margin-bottom:4px}
-.ext-row{display:flex;justify-content:space-between;padding:3px 0;font-size:12px}
-.ext-row .el{color:var(--text2)}.ext-row .ep{font-weight:700}
+
+
+#sg .ptag{display:inline-block;background:var(--accent);color:#000;font-size:13px;font-weight:800;padding:4px 13px;border-radius:20px;margin-bottom:7px}
+
+
+#sg .inc-box{background:var(--bg3);border-radius:9px;padding:9px 11px;margin-bottom:9px}
+
+
+#sg .inc-t{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px}
+
+
+#sg .inc-txt{font-size:12px;color:var(--text2);line-height:1.7}
+
+
+#sg .ext-box{border-top:1px solid var(--border);padding-top:9px}
+
+
+#sg .ext-t{font-size:10px;font-weight:700;color:var(--orange);letter-spacing:.5px;margin-bottom:4px}
+
+
+#sg .ext-row{display:flex;justify-content:space-between;padding:3px 0;font-size:12px}
+
+
+#sg .ext-row .el{color:var(--text2)}
+#sg .ext-row .ep{font-weight:700}
+
+
+
 
 /* SOFA TABLE */
-.st{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:11px}
-.st-hdr{padding:11px 13px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;color:#fff}
-.sh1{background:linear-gradient(135deg,#1a4a2a,#0d2818)}
-.sh2{background:linear-gradient(135deg,#3a2a10,#201808)}
-.st-row{display:flex;justify-content:space-between;padding:8px 13px;border-bottom:1px solid var(--border);font-size:12px}
-.st-row:last-child{border-bottom:none}
-.st-row .sl{color:var(--text2)}.st-row .sp{font-weight:700;color:var(--blue)}
+
+
+#sg .st{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:11px}
+
+
+#sg .st-hdr{padding:11px 13px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;color:#fff}
+
+
+#sg .sh1{background:linear-gradient(135deg,#1a4a2a,#0d2818)}
+
+
+#sg .sh2{background:linear-gradient(135deg,#3a2a10,#201808)}
+
+
+#sg .st-row{display:flex;justify-content:space-between;padding:8px 13px;border-bottom:1px solid var(--border);font-size:12px}
+
+
+#sg .st-row:last-child{border-bottom:none}
+
+
+#sg .st-row .sl{color:var(--text2)}
+#sg .st-row .sp{font-weight:700;color:var(--blue)}
+
+
+
 
 /* MISC */
-.mc{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px;margin-bottom:9px}
-.mc-name{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;margin-bottom:3px}
-.mc-pr{font-size:19px;font-weight:700;color:var(--blue);margin-bottom:5px}
-.mc-pr span{font-size:12px;font-weight:400;color:var(--text3)}
-.mc-desc{font-size:12px;color:var(--text2)}
+
+
+#sg .mc{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px;margin-bottom:9px}
+
+
+#sg .mc-name{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;margin-bottom:3px}
+
+
+#sg .mc-pr{font-size:19px;font-weight:700;color:var(--blue);margin-bottom:5px}
+
+
+#sg .mc-pr span{font-size:12px;font-weight:400;color:var(--text3)}
+
+
+#sg .mc-desc{font-size:12px;color:var(--text2)}
+
+
+
 
 /* SCRIPT */
-.skcard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:9px;cursor:pointer;transition:.18s}
-.sk-head{display:flex;align-items:center;gap:11px;padding:13px}
-.sk-num{width:34px;height:34px;border-radius:9px;background:var(--accent);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
-.sk-ht{flex:1}
-.sk-ph{font-size:10px;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
-.sk-title{font-size:14px;font-weight:700}
-.sk-chev{color:var(--text3);transition:.28s;font-size:13px}
-.sk-body{max-height:0;overflow:hidden;transition:max-height .28s ease}
-.sk-body.op{max-height:280px}
-.speech{margin:0 13px 13px;background:rgba(255,255,255,.04);border-right:3px solid var(--accent);border-radius:0 9px 9px 0;padding:11px 13px;font-size:13px;color:var(--text2);line-height:1.7;font-style:italic}
-.sk-tip{margin:0 13px 13px;font-size:11px;color:var(--text3);display:flex;gap:4px}
-.ti{color:var(--accent);font-style:normal}
+
+
+#sg .skcard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:9px;cursor:pointer;transition:.18s}
+
+
+#sg .sk-head{display:flex;align-items:center;gap:11px;padding:13px}
+
+
+#sg .sk-num{width:34px;height:34px;border-radius:9px;background:var(--accent);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
+
+
+#sg .sk-ht{flex:1}
+
+
+#sg .sk-ph{font-size:10px;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+
+
+#sg .sk-title{font-size:14px;font-weight:700}
+
+
+#sg .sk-chev{color:var(--text3);transition:.28s;font-size:13px}
+
+
+#sg .sk-body{max-height:0;overflow:hidden;transition:max-height .28s ease}
+
+
+#sg .sk-body.op{max-height:280px}
+
+
+#sg .speech{margin:0 13px 13px;background:rgba(255,255,255,.04);border-right:3px solid var(--accent);border-radius:0 9px 9px 0;padding:11px 13px;font-size:13px;color:var(--text2);line-height:1.7;font-style:italic}
+
+
+#sg .sk-tip{margin:0 13px 13px;font-size:11px;color:var(--text3);display:flex;gap:4px}
+
+
+#sg .ti{color:var(--accent);font-style:normal}
+
+
+
 
 /* OBJ */
-.ocard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:9px;cursor:pointer}
 
-.oq{display:flex;align-items:center;gap:9px;padding:12px 13px;background:rgba(239,68,68,.05);border-bottom:1px solid rgba(239,68,68,.1)}
-.oq-txt{font-size:13px;font-weight:700;color:#fca5a5;flex:1}
-.oc{color:var(--text3);transition:.28s;font-size:13px}
-.ob{max-height:0;overflow:hidden;transition:max-height .28s ease}
-.ob.op{max-height:200px}
-.oa{padding:12px 13px;font-size:13px;color:var(--text2);line-height:1.7}
-.oa strong{color:var(--green)}
+
+#sg .ocard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:9px;cursor:pointer}
+
+
+
+
+#sg .oq{display:flex;align-items:center;gap:9px;padding:12px 13px;background:rgba(239,68,68,.05);border-bottom:1px solid rgba(239,68,68,.1)}
+
+
+#sg .oq-txt{font-size:13px;font-weight:700;color:#fca5a5;flex:1}
+
+
+#sg .oc{color:var(--text3);transition:.28s;font-size:13px}
+
+
+#sg .ob{max-height:0;overflow:hidden;transition:max-height .28s ease}
+
+
+#sg .ob.op{max-height:200px}
+
+
+#sg .oa{padding:12px 13px;font-size:13px;color:var(--text2);line-height:1.7}
+
+
+#sg .oa strong{color:var(--green)}
+
+
+
 
 /* REF TABLE */
-.rtbl{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:11px}
-.rtbl-t{padding:11px 13px;font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;background:var(--card2);border-bottom:1px solid var(--border)}
-.rrow{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-bottom:1px solid var(--border);font-size:12px}
-.rrow:last-child{border-bottom:none}
-.rrow .rl{color:var(--text2)}.rrow .rv{font-weight:700}
-.rrow .rv.ac{color:var(--accent2)}.rrow .rv.gr{color:var(--green)}
+
+
+#sg .rtbl{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:11px}
+
+
+#sg .rtbl-t{padding:11px 13px;font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;background:var(--card2);border-bottom:1px solid var(--border)}
+
+
+#sg .rrow{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-bottom:1px solid var(--border);font-size:12px}
+
+
+#sg .rrow:last-child{border-bottom:none}
+
+
+#sg .rrow .rl{color:var(--text2)}
+#sg .rrow .rv{font-weight:700}
+
+
+#sg .rrow .rv.ac{color:var(--accent2)}
+#sg .rrow .rv.gr{color:var(--green)}
+
+
+
 
 /* DELIVERY */
-.dg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
-.dc{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px;text-align:center}
-.dc-city{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;margin-bottom:4px}
-.dc-note{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:7px}
-.dc-inc{display:inline-block;background:var(--accent3);color:var(--accent);font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
+
+
+#sg .dg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
+
+
+#sg .dc{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px;text-align:center}
+
+
+#sg .dc-city{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;margin-bottom:4px}
+
+
+#sg .dc-note{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:7px}
+
+
+#sg .dc-inc{display:inline-block;background:var(--accent3);color:var(--accent);font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
+
+
+
 
 /* DIVIDER */
-.sdiv{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;padding:14px 0 7px;display:flex;align-items:center;gap:7px}
-.sdiv::after{content:'';flex:1;height:1px;background:var(--border)}
+
+
+#sg .sdiv{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;padding:14px 0 7px;display:flex;align-items:center;gap:7px}
+
+
+#sg .sdiv::after{content:'';flex:1;height:1px;background:var(--border)}
+
+
+
 
 /* WINDOW SPECIFIC */
-.wcomp{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
-.wcomp-box{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px}
-.wcomp-icon{font-size:22px;margin-bottom:6px}
-.wcomp-name{font-size:13px;font-weight:700;margin-bottom:3px}
-.wcomp-desc{font-size:11px;color:var(--text3);line-height:1.5}
-.wcol-strip{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.wcol{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
-.open-types{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px}
-.ot{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px;text-align:center}
-.ot-ico{font-size:20px;margin-bottom:4px}
-.ot-name{font-size:12px;font-weight:700;margin-bottom:2px}
-.ot-desc{font-size:10px;color:var(--text3);line-height:1.4}
-.glass-types{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:11px}
-.gt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px;text-align:center}
-.gt-ico{font-size:20px;margin-bottom:4px}
-.gt-name{font-size:12px;font-weight:700;margin-bottom:2px}
-.gt-desc{font-size:10px;color:var(--text3);line-height:1.4}
-.gt.rec{border-color:rgba(59,130,246,.3);background:var(--blue-s)}
-.gt.rec .gt-name{color:var(--blue)}
+
+
+#sg .wcomp{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
+
+
+#sg .wcomp-box{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px}
+
+
+#sg .wcomp-icon{font-size:22px;margin-bottom:6px}
+
+
+#sg .wcomp-name{font-size:13px;font-weight:700;margin-bottom:3px}
+
+
+#sg .wcomp-desc{font-size:11px;color:var(--text3);line-height:1.5}
+
+
+#sg .wcol-strip{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+
+
+#sg .wcol{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
+
+
+#sg .open-types{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px}
+
+
+#sg .ot{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px;text-align:center}
+
+
+#sg .ot-ico{font-size:20px;margin-bottom:4px}
+
+
+#sg .ot-name{font-size:12px;font-weight:700;margin-bottom:2px}
+
+
+#sg .ot-desc{font-size:10px;color:var(--text3);line-height:1.4}
+
+
+#sg .glass-types{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:11px}
+
+
+#sg .gt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px;text-align:center}
+
+
+#sg .gt-ico{font-size:20px;margin-bottom:4px}
+
+
+#sg .gt-name{font-size:12px;font-weight:700;margin-bottom:2px}
+
+
+#sg .gt-desc{font-size:10px;color:var(--text3);line-height:1.4}
+
+
+#sg .gt.rec{border-color:rgba(59,130,246,.3);background:var(--blue-s)}
+
+
+#sg .gt.rec .gt-name{color:var(--blue)}
+
+
+
 
 /* FINISHES SPECIFIC */
-.fin-cat{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:11px;cursor:pointer;transition:.18s}
-.fin-cat:active{transform:scale(.985)}
-.fin-cat-head{display:flex;align-items:center;gap:11px;padding:14px}
-.fin-cat-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:9px;color:#fff}
-.ico-paint{background:linear-gradient(135deg,#be185d,#9d174d)}
-.ico-ceramic{background:linear-gradient(135deg,#0f766e,#0d9488)}
-.ico-gyp{background:linear-gradient(135deg,#1d4ed8,#1e40af)}
-.ico-wood{background:linear-gradient(135deg,#92400e,#78350f)}
-.ico-elec{background:linear-gradient(135deg,#854d0e,#713f12)}
-.ico-plumb{background:linear-gradient(135deg,#1e5f8e,#164e63)}
-.ico-wall{background:linear-gradient(135deg,#4c1d95,#3b0764)}
-.fin-cat-txt{flex:1}
-.fin-cat-name{font-family:'Tajawal',sans-serif;font-size:16px;font-weight:800;margin-bottom:2px}
-.fin-cat-sub{font-size:11px;color:var(--text3)}
-.fin-chev{color:var(--text3);transition:.28s}
-.fin-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
-.fin-body.op{max-height:1200px}
-.fin-inner{padding:0 13px 14px}
-.paint-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
-.pcard{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
-.pcard-top{padding:10px 11px 8px;font-size:13px;font-weight:700;color:#fff}
-.p1{background:linear-gradient(135deg,#1e3a5f,#0f1f35)}
-.p2{background:linear-gradient(135deg,#5f3a1e,#351f0f)}
-.p3{background:linear-gradient(135deg,#1e5f3a,#0f3520)}
-.p4{background:linear-gradient(135deg,#3a1e5f,#1f0f35)}
-.pcard-body{background:rgba(0,0,0,.25);padding:8px 11px}
-.pspec{font-size:11px;color:rgba(255,255,255,.55);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06)}
-.pspec:last-child{border-bottom:none}
-.pspec strong{color:rgba(255,255,255,.8)}
-.cer-sizes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}
-.csz{background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;text-align:center}
-.csz.rec{background:var(--blue-s);border-color:rgba(59,130,246,.3);color:var(--blue)}
-.park-types{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:9px}
-.pkc{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:11px;text-align:center}
-.pkc-ico{font-size:20px;margin-bottom:4px}
-.pkc-name{font-size:12px;font-weight:700;margin-bottom:2px}
-.pkc-desc{font-size:10px;color:var(--text3);line-height:1.4}
-.gyp-types{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
-.gyp-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px}
-.gyp-name{font-size:13px;font-weight:700;margin-bottom:3px}
-.gyp-desc{font-size:11px;color:var(--text3);line-height:1.5}
+
+
+#sg .fin-cat{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:11px;cursor:pointer;transition:.18s}
+
+
+#sg .fin-cat:active{transform:scale(.985)}
+
+
+#sg .fin-cat-head{display:flex;align-items:center;gap:11px;padding:14px}
+
+
+#sg .fin-cat-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:9px;color:#fff}
+
+
+#sg .ico-paint{background:linear-gradient(135deg,#be185d,#9d174d)}
+
+
+#sg .ico-ceramic{background:linear-gradient(135deg,#0f766e,#0d9488)}
+
+
+#sg .ico-gyp{background:linear-gradient(135deg,#1d4ed8,#1e40af)}
+
+
+#sg .ico-wood{background:linear-gradient(135deg,#92400e,#78350f)}
+
+
+#sg .ico-elec{background:linear-gradient(135deg,#854d0e,#713f12)}
+
+
+#sg .ico-plumb{background:linear-gradient(135deg,#1e5f8e,#164e63)}
+
+
+#sg .ico-wall{background:linear-gradient(135deg,#4c1d95,#3b0764)}
+
+
+#sg .fin-cat-txt{flex:1}
+
+
+#sg .fin-cat-name{font-family:'Tajawal',sans-serif;font-size:16px;font-weight:800;margin-bottom:2px}
+
+
+#sg .fin-cat-sub{font-size:11px;color:var(--text3)}
+
+
+#sg .fin-chev{color:var(--text3);transition:.28s}
+
+
+#sg .fin-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+
+
+#sg .fin-body.op{max-height:1200px}
+
+
+#sg .fin-inner{padding:0 13px 14px}
+
+
+#sg .paint-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
+
+
+#sg .pcard{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+
+
+#sg .pcard-top{padding:10px 11px 8px;font-size:13px;font-weight:700;color:#fff}
+
+
+#sg .p1{background:linear-gradient(135deg,#1e3a5f,#0f1f35)}
+
+
+#sg .p2{background:linear-gradient(135deg,#5f3a1e,#351f0f)}
+
+
+#sg .p3{background:linear-gradient(135deg,#1e5f3a,#0f3520)}
+
+
+#sg .p4{background:linear-gradient(135deg,#3a1e5f,#1f0f35)}
+
+
+#sg .pcard-body{background:rgba(0,0,0,.25);padding:8px 11px}
+
+
+#sg .pspec{font-size:11px;color:rgba(255,255,255,.55);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+
+
+#sg .pspec:last-child{border-bottom:none}
+
+
+#sg .pspec strong{color:rgba(255,255,255,.8)}
+
+
+#sg .cer-sizes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}
+
+
+#sg .csz{background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;text-align:center}
+
+
+#sg .csz.rec{background:var(--blue-s);border-color:rgba(59,130,246,.3);color:var(--blue)}
+
+
+#sg .park-types{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:9px}
+
+
+#sg .pkc{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:11px;text-align:center}
+
+
+#sg .pkc-ico{font-size:20px;margin-bottom:4px}
+
+
+#sg .pkc-name{font-size:12px;font-weight:700;margin-bottom:2px}
+
+
+#sg .pkc-desc{font-size:10px;color:var(--text3);line-height:1.4}
+
+
+#sg .gyp-types{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
+
+
+#sg .gyp-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px}
+
+
+#sg .gyp-name{font-size:13px;font-weight:700;margin-bottom:3px}
+
+
+#sg .gyp-desc{font-size:11px;color:var(--text3);line-height:1.5}
+
+
+
+
+
 
 
 
 /* ANIM */
+
+
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.sc.on>*{animation:up .18s ease forwards}
-.sc.on>*:nth-child(2){animation-delay:.04s;opacity:0}
-.sc.on>*:nth-child(3){animation-delay:.08s;opacity:0}
-.sc.on>*:nth-child(4){animation-delay:.12s;opacity:0}
-.sc.on>*:nth-child(5){animation-delay:.16s;opacity:0}
+
+
+#sg .sc.on>*{animation:up .18s ease forwards}
+
+
+#sg .sc.on>*:nth-child(2){animation-delay:.04s;opacity:0}
+
+
+#sg .sc.on>*:nth-child(3){animation-delay:.08s;opacity:0}
+
+
+#sg .sc.on>*:nth-child(4){animation-delay:.12s;opacity:0}
+
+
+#sg .sc.on>*:nth-child(5){animation-delay:.16s;opacity:0}
+
+
+
 
 /* IMAGE SHIMMER */
-.cimg{position:relative;background:linear-gradient(90deg,var(--bg3) 25%,var(--card2) 50%,var(--bg3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+
+
+#sg .cimg{position:relative;background:linear-gradient(90deg,var(--bg3) 25%,var(--card2) 50%,var(--bg3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+
+
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.cimg img{position:relative;z-index:1;transition:opacity .3s}
+
+
+#sg .cimg img{position:relative;z-index:1;transition:opacity .3s}
+
+
+
 
 /* ACCORDION OPEN STATE — kept in CLEAN ACCORDION block below */
+
+
 /* Prevent sticky active on mobile */
-.skcard,.ocard,.fin-cat{-webkit-tap-highlight-color:transparent;cursor:pointer}
+
+
+#sg .skcard,
+#sg .ocard,
+#sg .fin-cat{-webkit-tap-highlight-color:transparent;cursor:pointer}
+
+
 /* SVG icon sizing inside ot/gt/pkc/gs/hc */
-.ot-ico svg,.gt-ico svg,.pkc-ico svg,.gs-ico svg,.hc-ico svg{width:100%;height:100%}
-.ot-ico{width:24px;height:24px;margin:0 auto 4px}
-.gt-ico{width:22px;height:22px;margin:0 auto 4px}
-.pkc-ico{width:24px;height:24px;margin:0 auto 4px}
-.gs-ico{width:20px;height:20px;margin:0 auto 3px}
-.hc-ico{width:26px;height:26px;margin:0 auto 5px}
-.ac-ico svg{width:100%;height:100%}
-.ac-ico{width:26px;height:26px;margin-bottom:6px}
-.sb-ic svg{width:100%;height:100%}
+
+
+#sg .ot-ico svg,
+#sg .gt-ico svg,
+#sg .pkc-ico svg,
+#sg .gs-ico svg,
+#sg .hc-ico svg{width:100%;height:100%}
+
+
+#sg .ot-ico{width:24px;height:24px;margin:0 auto 4px}
+
+
+#sg .gt-ico{width:22px;height:22px;margin:0 auto 4px}
+
+
+#sg .pkc-ico{width:24px;height:24px;margin:0 auto 4px}
+
+
+#sg .gs-ico{width:20px;height:20px;margin:0 auto 3px}
+
+
+#sg .hc-ico{width:26px;height:26px;margin:0 auto 5px}
+
+
+#sg .ac-ico svg{width:100%;height:100%}
+
+
+#sg .ac-ico{width:26px;height:26px;margin-bottom:6px}
+
+
+#sg .sb-ic svg{width:100%;height:100%}
+
+
+
 
 /* CLEAN ACCORDION STATE */
-.skcard{transition:border-color .2s,background .2s}
-.skcard.open{border-color:rgba(232,160,32,.5)!important;background:rgba(232,160,32,.05)!important}
-.ocard{transition:border-color .2s}
-.ocard.open{border-color:rgba(239,68,68,.3)!important}
-.ocard.open .oq{background:rgba(239,68,68,.07)!important}
-.fin-cat{transition:border-color .2s}
-.fin-cat.open{border-color:rgba(59,130,246,.3)!important}
+
+
+#sg .skcard{transition:border-color .2s,background .2s}
+
+
+#sg .skcard.open{border-color:rgba(232,160,32,.5)!important;background:rgba(232,160,32,.05)!important}
+
+
+#sg .ocard{transition:border-color .2s}
+
+
+#sg .ocard.open{border-color:rgba(239,68,68,.3)!important}
+
+
+#sg .ocard.open .oq{background:rgba(239,68,68,.07)!important}
+
+
+#sg .fin-cat{transition:border-color .2s}
+
+
+#sg .fin-cat.open{border-color:rgba(59,130,246,.3)!important}
+
+
 /* Chevron */
-.sk-chev,.oc,.fin-chev{transition:transform .25s ease;display:inline-block}
+
+
+#sg .sk-chev,
+#sg .oc,
+#sg .fin-chev{transition:transform .25s ease;display:inline-block}
+
+
 /* NO hover bg on mobile cards */
-@media(hover:none){.skcard:hover,.ocard:hover,.fin-cat:hover{background:inherit}}
+
+
+@media(hover:none){
+#sg .skcard:hover,
+#sg .ocard:hover,
+#sg .fin-cat:hover{background:inherit}
+}
+
+
+
+
+
 
 
 
 /* ════════════════════════════════════════════════════════
    DESKTOP LAYOUT  (1024px+)
    ════════════════════════════════════════════════════════ */
+
+
 @media(min-width:1024px){
 
-  /* ── Body + App shell ── */
-  body{background:#030712;overflow:hidden}
-  #app{
+
+
+
+ 
+ 
+/* ── Body + App shell ── */
+
+
+ 
+ 
+body{background:#030712;overflow:hidden}
+
+
+ 
+ 
+#sg #app{
     position:fixed;inset:0;
     display:grid;
     grid-template-areas:
@@ -388,8 +1294,17 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     overflow:hidden;
   }
 
-  /* ── Header ── */
-  .hdr{
+
+
+
+ 
+ 
+/* ── Header ── */
+
+
+ 
+ 
+#sg .hdr{
     grid-area:header;
     padding:0 28px;
     background:var(--bg2);
@@ -397,8 +1312,17 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     border-right:none;
   }
 
-  /* ── Bottom nav → Left sidebar ── */
-  .bnav{
+
+
+
+ 
+ 
+/* ── Bottom nav → Left sidebar ── */
+
+
+ 
+ 
+#sg .bnav{
     grid-area:sidebar;
     display:flex !important;
     flex-direction:column;
@@ -412,8 +1336,17 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     gap:3px;
   }
 
-  /* Sidebar top brand strip */
-  .bnav::before{
+
+
+
+ 
+ 
+/* Sidebar top brand strip */
+
+
+ 
+ 
+#sg .bnav::before{
     content:'Leaders';
     display:block;
     font-family:'Tajawal',sans-serif;
@@ -427,8 +1360,17 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     margin-bottom:10px;
   }
 
-  /* Nav buttons */
-  .nb{
+
+
+
+ 
+ 
+/* Nav buttons */
+
+
+ 
+ 
+#sg .nb{
     display:flex !important;
     flex-direction:row;
     align-items:center;
@@ -444,218 +1386,2179 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     color:var(--text2);
     transition:background .15s,border-color .15s,color .15s;
   }
-  .nb:hover{background:rgba(255,255,255,.05);color:var(--text)}
-  .nb.active{
+
+
+ 
+ 
+#sg .nb:hover{background:rgba(255,255,255,.05);color:var(--text)}
+
+
+ 
+ 
+#sg .nb.active{
     background:rgba(232,160,32,.1);
     border-color:rgba(232,160,32,.25);
     color:var(--accent);
   }
-  .nb-bar{display:none}
-  .nb.active .ni{transform:none !important}
-  .nb .ni{
+
+
+ 
+ 
+#sg .nb-bar{display:none}
+
+
+ 
+ 
+#sg .nb.active .ni{transform:none !important}
+
+
+ 
+ 
+#sg .nb .ni{
     width:20px !important;
     height:20px !important;
     flex-shrink:0;
   }
-  .nb .nl{
+
+
+ 
+ 
+#sg .nb .nl{
     font-size:13px;
     font-weight:600;
     letter-spacing:0;
     opacity:1;
   }
 
-  /* ── Pages container ── */
-  #pages{
+
+
+
+ 
+ 
+/* ── Pages container ── */
+
+
+ 
+ 
+#sg #pages{
     grid-area:content;
     position:relative;
     overflow:hidden;
     background:var(--bg);
   }
 
-  /* ── Individual page ── */
-  .page{
+
+
+
+ 
+ 
+/* ── Individual page ── */
+
+
+ 
+ 
+#sg .page{
     padding:28px 32px 40px !important;
     overflow-y:auto;
     overflow-x:hidden;
   }
 
-  /* ── Page hero ── */
-  .ph{padding:0 0 4px !important}
-  .ph-title{font-size:26px}
 
-  /* ── Sub tabs ── */
-  .stabs{padding:14px 0 0 !important;gap:8px}
-  .stab{font-size:13px;padding:7px 18px}
 
-  /* ── sc (section content) wrapper ── */
-  .sc{padding:0}
 
-  /* ────────────────────────────────────────
+ 
+ 
+/* ── Page hero ── */
+
+
+ 
+ 
+#sg .ph{padding:0 0 4px !important}
+
+
+ 
+ 
+#sg .ph-title{font-size:26px}
+
+
+
+
+ 
+ 
+/* ── Sub tabs ── */
+
+
+ 
+ 
+#sg .stabs{padding:14px 0 0 !important;gap:8px}
+
+
+ 
+ 
+#sg .stab{font-size:13px;padding:7px 18px}
+
+
+
+
+ 
+ 
+/* ── sc (section content) wrapper ── */
+
+
+ 
+ 
+#sg .sc{padding:0}
+
+
+
+
+ 
+ 
+/* ────────────────────────────────────────
      KITCHEN — 2-col card grid
   ──────────────────────────────────────── */
-  #kit-alu .card,
-  #kit-wood .card,
-  #kit-counter .card{
+
+
+ 
+ 
+#sg #kit-alu .card,
+#sg #kit-wood .card,
+#sg #kit-counter .card{
     margin-bottom:0;
   }
-  /* Kitchen sections — 2-col grid */
-  #kit-alu,#kit-wood,#kit-counter{
+
+
+ 
+ 
+/* Kitchen sections — 2-col grid */
+
+
+ 
+ 
+#sg #kit-alu,
+#sg #kit-wood,
+#sg #kit-counter{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:14px;
     align-items:start;
   }
-  /* Full-width elements inside grid */
-  #kit-alu > .ib,
-  #kit-alu > .sb,
-  #kit-wood > .ib,
-  #kit-wood > .sb,
-  #kit-counter > .ib,
-  #kit-counter > .sb,
-  #kit-counter > .ccl{
+
+
+ 
+ 
+/* Full-width elements inside grid */
+
+
+ 
+ 
+#sg #kit-alu > .ib,
+#sg #kit-alu > .sb,
+#sg #kit-wood > .ib,
+#sg #kit-wood > .sb,
+#sg #kit-counter > .ib,
+#sg #kit-counter > .sb,
+#sg #kit-counter > .ccl{
     grid-column:1 / -1;
   }
-  /* Hinges 4-up */
-  .hg{grid-template-columns:repeat(4,1fr)}
-  /* Accessories 3-up */
-  #kit-acc .g2,
-  #kit-acc .g3{grid-template-columns:repeat(3,1fr) !important}
-  /* Counter comparison boxes */
-  .ccl{grid-template-columns:repeat(3,1fr)}
 
-  /* ────────────────────────────────────────
+
+ 
+ 
+/* Hinges 4-up */
+
+
+ 
+ 
+#sg .hg{grid-template-columns:repeat(4,1fr)}
+
+
+ 
+ 
+/* Accessories 3-up */
+
+
+ 
+ 
+#sg #kit-acc .g2,
+#sg #kit-acc .g3{grid-template-columns:repeat(3,1fr) !important}
+
+
+ 
+ 
+/* Counter comparison boxes */
+
+
+ 
+ 
+#sg .ccl{grid-template-columns:repeat(3,1fr)}
+
+
+
+
+ 
+ 
+/* ────────────────────────────────────────
      WINDOWS — 2-col + side-by-side tables
   ──────────────────────────────────────── */
-  #win-alu,#win-pvc{
+
+
+ 
+ 
+#sg #win-alu,
+#sg #win-pvc{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:14px;
     align-items:start;
   }
-  #win-alu > .ib,
-  #win-pvc > .ib{grid-column:1 / -1}
-  #win-glass .g2{grid-template-columns:repeat(3,1fr)}
-  /* Win compare: 2 tables side by side */
-  #win-compare{
+
+
+ 
+ 
+#sg #win-alu > .ib,
+#sg #win-pvc > .ib{grid-column:1 / -1}
+
+
+ 
+ 
+#sg #win-glass .g2{grid-template-columns:repeat(3,1fr)}
+
+
+ 
+ 
+/* Win compare: 2 tables side by side */
+
+
+ 
+ 
+#sg #win-compare{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:14px;
   }
-  #win-compare > .ib{grid-column:1 / -1}
 
-  /* ────────────────────────────────────────
+
+ 
+ 
+#sg #win-compare > .ib{grid-column:1 / -1}
+
+
+
+
+ 
+ 
+/* ────────────────────────────────────────
      FINISHING — 2-col accordion layout
   ──────────────────────────────────────── */
-  .fin-wrap{
+
+
+ 
+ 
+#sg .fin-wrap{
     padding:12px 16px 0;
   }
-  #pg-fin .fin-wrap{
+
+
+ 
+ 
+#sg #pg-fin .fin-wrap{
     columns:2;
     column-gap:14px;
     padding:0;
   }
-  #pg-fin .fin-cat{
+
+
+ 
+ 
+#sg #pg-fin .fin-cat{
     break-inside:avoid;
     display:inline-block;
     width:100%;
     margin-bottom:12px;
   }
-  /* Finish grid inside fin bodies */
-  .fg{grid-template-columns:repeat(3,1fr)}
 
-  /* ────────────────────────────────────────
+
+ 
+ 
+/* Finish grid inside fin bodies */
+
+
+ 
+ 
+#sg .fg{grid-template-columns:repeat(3,1fr)}
+
+
+
+
+ 
+ 
+/* ────────────────────────────────────────
      FURNITURE — 2-col cards
   ──────────────────────────────────────── */
-  #furn-rooms{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-    align-items:start;
-  }
-  #furn-rooms > .ib{grid-column:1 / -1}
-  #furn-rooms > .card{margin-bottom:0}
-  /* Sofa/misc wider */
-  #furn-sofa,#furn-units{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-    align-items:start;
-  }
-  #furn-sofa > .ib{grid-column:1 / -1}
 
-  /* ────────────────────────────────────────
+
+ 
+ 
+#sg #furn-rooms{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+  }
+
+
+ 
+ 
+#sg #furn-rooms > .ib{grid-column:1 / -1}
+
+
+ 
+ 
+#sg #furn-rooms > .card{margin-bottom:0}
+
+
+ 
+ 
+/* Sofa/misc wider */
+
+
+ 
+ 
+#sg #furn-sofa,
+#sg #furn-units{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+  }
+
+
+ 
+ 
+#sg #furn-sofa > .ib{grid-column:1 / -1}
+
+
+
+
+ 
+ 
+/* ────────────────────────────────────────
      SCRIPT — 2-col + ref tables side by side
   ──────────────────────────────────────── */
-  /* Script steps & objections */
-  #scr-steps,#scr-obj{
+
+
+ 
+ 
+/* Script steps & objections */
+
+
+ 
+ 
+#sg #scr-steps,
+#sg #scr-obj{
     columns:2;
     column-gap:14px;
   }
-  #scr-steps .skcard,
-  #scr-obj .ocard{
+
+
+ 
+ 
+#sg #scr-steps .skcard,
+#sg #scr-obj .ocard{
     break-inside:avoid;
     display:inline-block;
     width:100%;
     margin-bottom:9px;
   }
-  #scr-steps > .ib{
+
+
+ 
+ 
+#sg #scr-steps > .ib{
     column-span:all;
     display:block;
   }
-  /* Reference tables 3-col grid */
-  #scr-ref{
+
+
+ 
+ 
+/* Reference tables 3-col grid */
+
+
+ 
+ 
+#sg #scr-ref{
     display:grid;
     grid-template-columns:1fr 1fr 1fr;
     gap:12px;
     align-items:start;
   }
-  #scr-ref > .ib{grid-column:1 / -1}
-  #scr-ref > .rtbl{margin-bottom:0}
-  /* Delivery section */
-  #scr-del{
+
+
+ 
+ 
+#sg #scr-ref > .ib{grid-column:1 / -1}
+
+
+ 
+ 
+#sg #scr-ref > .rtbl{margin-bottom:0}
+
+
+ 
+ 
+/* Delivery section */
+
+
+ 
+ 
+#sg #scr-del{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:14px;
     align-items:start;
   }
-  #scr-del > .ib{grid-column:1 / -1}
 
-  /* ── Card image height ── */
-  .cimg{height:200px}
 
-  /* ── No scale on click (desktop) ── */
-  .card:active,.skcard:active,.ocard:active{transform:none}
+ 
+ 
+#sg #scr-del > .ib{grid-column:1 / -1}
 
-  /* ── Scrollbar styling ── */
-  #pages ::-webkit-scrollbar{width:5px}
-  #pages ::-webkit-scrollbar-track{background:transparent}
-  #pages ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+
+
+ 
+ 
+/* ── Card image height ── */
+
+
+ 
+ 
+#sg .cimg{height:200px}
+
+
+
+
+ 
+ 
+/* ── No scale on click (desktop) ── */
+
+
+ 
+ 
+#sg .card:active,
+#sg .skcard:active,
+#sg .ocard:active{transform:none}
+
+
+
+
+ 
+ 
+/* ── Scrollbar styling ── */
+
+
+ 
+ 
+#sg #pages ::-webkit-scrollbar{width:5px}
+
+
+ 
+ 
+#sg #pages ::-webkit-scrollbar-track{background:transparent}
+
+
+ 
+ 
+#sg #pages ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+
 }
+
+
+
 
 /* ════════════════════════════════════════════════════════
    LARGE DESKTOP  (1400px+)
    ════════════════════════════════════════════════════════ */
+
+
 @media(min-width:1400px){
-  #app{grid-template-columns:260px 1fr}
-  .bnav{width:260px;padding:22px 12px 32px}
-  .nb{padding:11px 16px}
-  .nb .nl{font-size:14px}
-  .page{padding:32px 40px 48px !important}
-  .ph-title{font-size:28px}
-  .cimg{height:220px}
-  /* 3-col cards on large screens */
-  #kit-alu,#kit-wood,
-  #furn-rooms{
+
+
+ 
+ 
+#sg #app{grid-template-columns:260px 1fr}
+
+
+ 
+ 
+#sg .bnav{width:260px;padding:22px 12px 32px}
+
+
+ 
+ 
+#sg .nb{padding:11px 16px}
+
+
+ 
+ 
+#sg .nb .nl{font-size:14px}
+
+
+ 
+ 
+#sg .page{padding:32px 40px 48px !important}
+
+
+ 
+ 
+#sg .ph-title{font-size:28px}
+
+
+ 
+ 
+#sg .cimg{height:220px}
+
+
+ 
+ 
+/* 3-col cards on large screens */
+
+
+ 
+ 
+#sg #kit-alu,
+#sg #kit-wood,
+#sg #furn-rooms{
     grid-template-columns:1fr 1fr 1fr;
   }
-  #scr-ref{grid-template-columns:repeat(4,1fr)}
-  .hg{grid-template-columns:repeat(4,1fr)}
-  .fg{grid-template-columns:repeat(4,1fr)}
+
+
+ 
+ 
+#sg #scr-ref{grid-template-columns:repeat(4,1fr)}
+
+
+ 
+ 
+#sg .hg{grid-template-columns:repeat(4,1fr)}
+
+
+ 
+ 
+#sg .fg{grid-template-columns:repeat(4,1fr)}
+
+
 }
+
+
+
+
+/* ── PORTFOLIO SCOPED CSS ───────────────────────── */
+
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+
+:root{
+  --ink:#0d0b08; --ink2:#1e1a12;
+  --gold:#b8860b; --gold2:#d4a017;
+  --cream:#faf7f0; --warm:#f2ece0; --sand:#e0d8c8;
+}
+
+
+html{scroll-behavior:smooth}
+
+
+#sp{background:var(--ink);color:var(--cream);font-family:'Cairo',sans-serif}
+
+
+
+
+/* ── HERO ─────────────────────────────────────────── */
+
+
+#sp .hero{
+  height:100vh;min-height:560px;
+  position:relative;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;overflow:hidden;
+}
+
+
+#sp .hero-bg{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;
+}
+
+
+#sp .hero-bg .ph-img{width:100%;height:100%}
+
+
+#sp .hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(13,11,8,.5) 0%,rgba(13,11,8,.8) 50%,var(--ink) 100%);
+}
+
+
+#sp .hero-content{position:relative;z-index:2;text-align:center;padding:0 24px}
+
+
+#sp .hero-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px}
+
+
+#sp .hero-title{font-family:'Tajawal',sans-serif;font-size:clamp(40px,8vw,78px);font-weight:900;color:#fff;line-height:1;margin-bottom:10px}
+
+
+#sp .hero-title span{color:var(--gold2)}
+
+
+#sp .hero-sub{font-size:13px;color:rgba(255,255,255,.4);line-height:1.9;margin-bottom:36px}
+
+
+#sp .hero-nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+
+#sp .hn-btn{
+  padding:9px 20px;border-radius:30px;font-family:'Cairo',sans-serif;
+  font-size:12px;font-weight:700;cursor:pointer;
+  text-decoration:none;transition:all .2s;display:inline-block;
+}
+
+
+#sp .hn-a{background:var(--gold);color:var(--ink)}
+
+
+#sp .hn-o{background:transparent;color:rgba(255,255,255,.5);border:1.5px solid rgba(255,255,255,.15)}
+
+
+#sp .hn-o:hover{border-color:var(--gold);color:var(--gold)}
+
+
+#sp .scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:bob 2.2s ease-in-out infinite;
+}
+
+
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}
+
+
+#sp .scroll-hint span{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.2)}
+
+
+#sp .scroll-arrow{width:1px;height:28px;background:linear-gradient(transparent,var(--gold))}
+
+
+
+
+/* ── SECTION ──────────────────────────────────────── */
+
+
+#sp .section{padding:64px 0 0}
+
+
+#sp .s-inner{max-width:1200px;margin:0 auto;padding:0 20px}
+
+
+#sp .s-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:28px;padding-bottom:18px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+
+#sp .s-head-l .s-cat{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+
+
+#sp .s-head-l .s-title{font-family:'Tajawal',sans-serif;font-size:clamp(26px,4vw,40px);font-weight:900;color:#fff;line-height:1.1}
+
+
+#sp .s-head-l .s-desc{font-size:11px;color:rgba(255,255,255,.35);margin-top:5px;line-height:1.7}
+
+
+#sp .s-head-r .s-num{font-family:'Tajawal',sans-serif;font-size:52px;font-weight:900;color:rgba(184,134,11,.1);line-height:1}
+
+
+#sp .sub-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(184,134,11,.55);margin-bottom:12px}
+
+
+
+
+/* ── MASONRY ──────────────────────────────────────── */
+
+
+#sp .masonry{column-count:3;column-gap:8px;padding-bottom:56px}
+
+
+@media(max-width:800px){
+#sp .masonry{column-count:2}
+}
+
+
+@media(max-width:500px){
+#sp .masonry{column-count:1}
+}
+
+
+
+
+#sp .m-item{
+  break-inside:avoid;margin-bottom:8px;
+  border-radius:10px;overflow:hidden;
+  position:relative;cursor:pointer;
+  background:var(--ink2);
+}
+
+
+#sp .m-item img{
+  width:100%;display:block;
+  transition:transform .5s ease,filter .4s;
+  filter:brightness(.87) saturate(.85);
+}
+
+
+#sp .m-item:hover img{transform:scale(1.05);filter:brightness(.65) saturate(1)}
+
+
+#sp .m-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(transparent 35%,rgba(0,0,0,.88) 100%);
+  opacity:0;transition:opacity .3s;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:14px;
+}
+
+
+#sp .m-item:hover .m-ov{opacity:1}
+
+
+#sp .m-tag{
+  display:inline-block;align-self:flex-start;
+  font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  background:var(--gold);color:var(--ink);padding:3px 9px;border-radius:20px;margin-bottom:5px;
+}
+
+
+#sp .m-lbl{font-family:'Tajawal',sans-serif;font-size:13px;font-weight:800;color:#fff}
+
+
+
+
+/* aspect ratios */
+
+
+#sp .m-item img{aspect-ratio:4/3;object-fit:cover}
+
+
+#sp .m-item.wide img{aspect-ratio:16/9}
+
+
+#sp .m-item.tall img{aspect-ratio:3/4}
+
+
+#sp .m-item.sq img{aspect-ratio:1}
+
+
+
+
+/* ── PLACEHOLDER IMAGE ────────────────────────────── */
+
+
+/* لما الصورة مش موجودة بتتظهر خلفية مع رقم */
+
+
+#sp .ph-img{
+  background:linear-gradient(135deg,#1a1a12,#2a2218);
+  border:1.5px dashed rgba(184,134,11,.25);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:8px;min-height:180px;
+}
+
+
+#sp .ph-img .ph-num{
+  font-family:'Tajawal',sans-serif;
+  font-size:28px;font-weight:900;color:rgba(184,134,11,.2);
+}
+
+
+#sp .ph-img .ph-name{
+  font-size:10px;font-weight:600;color:rgba(255,255,255,.25);
+  text-align:center;padding:0 12px;line-height:1.5;
+}
+
+
+
+
+/* ── DIVIDER ──────────────────────────────────────── */
+
+
+#sp .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(184,134,11,.25),transparent);max-width:1200px;margin:0 auto}
+
+
+
+
+/* ── HOW TO REPLACE BOX ───────────────────────────── */
+
+
+#sp .how-to{
+  background:rgba(184,134,11,.07);
+  border:1px solid rgba(184,134,11,.2);
+  border-radius:10px;padding:16px 20px;
+  margin:0 20px 40px;max-width:1160px;margin-left:auto;margin-right:auto;
+}
+
+
+#sp .how-to h3{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:.5px}
+
+
+#sp .how-to p{font-size:11px;color:rgba(255,255,255,.45);line-height:1.8}
+
+
+#sp .how-to code{background:rgba(255,255,255,.07);padding:2px 7px;border-radius:4px;font-size:10px;color:var(--gold2);font-family:monospace}
+
+
+
+
+/* ── FOOTER ───────────────────────────────────────── */
+
+
+#sp .footer{background:var(--ink2);padding:48px 20px;text-align:center;border-top:1px solid rgba(184,134,11,.12)}
+
+
+#sp .f-logo{font-family:'Tajawal',sans-serif;font-size:30px;font-weight:900;color:var(--gold2);margin-bottom:6px}
+
+
+#sp .f-sub{font-size:11px;color:rgba(255,255,255,.25);margin-bottom:20px}
+
+
+#sp .f-regions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+
+
+#sp .f-reg{font-size:10px;color:var(--gold);border:1px solid rgba(184,134,11,.25);padding:5px 14px;border-radius:20px}
+
+
+#sp .f-note{font-size:9px;color:rgba(255,255,255,.12);letter-spacing:1px}
+
+
+
+
+/* ── LIGHTBOX ─────────────────────────────────────── */
+
+
+#sp .lb{position:fixed;inset:0;z-index:9500;background:rgba(0,0,0,.96);display:none;align-items:center;justify-content:center;padding:20px}
+
+
+#sp .lb.on{display:flex}
+
+
+#sp .lb img{max-width:90vw;max-height:88vh;border-radius:6px;object-fit:contain}
+
+
+#sp .lb-x{position:fixed;top:18px;right:18px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+
+
+#sp .lb-x:hover{background:var(--gold);color:var(--ink)}
+
+
+#sp .lb-cap{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1px;white-space:nowrap}
+
+
+
+
+/* ── FADE IN ──────────────────────────────────────── */
+
+
+#sp .fi{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+
+
+#sp .fi.on{opacity:1;transform:none}
+
+
+/* ── BROCHURE SCOPED CSS ────────────────────────── */
+
+
+/* ─── RESET ─────────────────────────────────────── */
+
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+
+html{font-size:16px}
+
+
+body{font-family:'Cairo',sans-serif;background:#f4f0e8;color:#1a1410}
+
+
+
+
+/* ─── PALETTE ────────────────────────────────────── */
+
+
+:root{
+  --ink:   #111008;
+  --ink2:  #2a2418;
+  --gold:  #b8860b;
+  --gold2: #d4a017;
+  --gold3: #f5e6c0;
+  --cream: #faf7f0;
+  --warm:  #f0ebe0;
+  --sand:  #e8e0d0;
+  --rust:  #8b3a1a;
+  --teal:  #1a5c5c;
+  --white: #ffffff;
+  --page-w: 210mm;
+  --page-h: 297mm;
+}
+
+
+
+
+/* ─── PAGE WRAPPER ───────────────────────────────── */
+
+
+#sb .brochure{
+  width:var(--page-w);
+  background:var(--cream);
+  margin:0 auto;
+  position:relative;
+}
+
+
+
+
+/* ─── PAGE ───────────────────────────────────────── */
+
+
+#sb .page{
+  width:var(--page-w);
+  min-height:var(--page-h);
+  position:relative;
+  overflow:hidden;
+  background:var(--cream);
+  page-break-after:always;
+}
+
+
+
+
+/* ─── GOLD LINE ──────────────────────────────────── */
+
+
+#sb .gold-line{height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold2),var(--gold),transparent)}
+
+
+#sb .gold-line-sm{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6}
+
+
+
+
+/* ══════════════════════════════════════════════════
+   PAGE 1 — COVER
+══════════════════════════════════════════════════ */
+
+
+#sb .cover{
+  height:var(--page-h);
+  display:flex;
+  flex-direction:column;
+  background:var(--ink);
+  position:relative;
+  overflow:hidden;
+}
+
+
+
+
+/* Background texture */
+
+
+#sb .cover::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(184,134,11,.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(184,134,11,.05) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+
+
+
+/* Diagonal gold stripe */
+
+
+#sb .cover-stripe{
+  position:absolute;
+  top:0;right:0;
+  width:4px;
+  height:100%;
+  background:linear-gradient(180deg,var(--gold),var(--gold2),var(--gold));
+}
+
+
+
+
+/* Hero image */
+
+
+#sb .cover-img{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+}
+
+
+#sb .cover-img img{
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:.18;
+  filter:sepia(.3) contrast(1.1);
+}
+
+
+
+
+/* Cover content */
+
+
+#sb .cover-content{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:100%;
+  padding:0;
+}
+
+
+
+
+#sb .cover-top{
+  padding:14mm 14mm 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+
+
+
+#sb .cover-logo{
+  font-family:'Tajawal',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+
+
+
+
+#sb .cover-badge{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:var(--gold);
+  border:1px solid rgba(184,134,11,.4);
+  padding:4px 12px;
+  border-radius:20px;
+}
+
+
+
+
+#sb .cover-mid{
+  padding:0 14mm;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+
+
+
+/* Eyebrow */
+
+
+#sb .cover-eyebrow{
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:6mm;
+}
+
+
+
+
+/* Main title */
+
+
+#sb .cover-title{
+  font-family:'Tajawal',sans-serif;
+  font-size:52px;
+  font-weight:900;
+  color:var(--white);
+  line-height:1;
+  margin-bottom:4mm;
+}
+
+
+
+
+#sb .cover-title span{
+  color:var(--gold2);
+  display:block;
+  font-size:36px;
+  font-weight:300;
+  letter-spacing:2px;
+}
+
+
+
+
+/* Sub line */
+
+
+#sb .cover-sub{
+  font-size:13px;
+  color:rgba(255,255,255,.5);
+  line-height:1.8;
+  margin-top:6mm;
+  padding-top:6mm;
+  border-top:1px solid rgba(255,255,255,.1);
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+
+#sb .cover-sub span{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+
+#sb .cover-sub span::before{
+  content:'◆';
+  color:var(--gold);
+  font-size:8px;
+}
+
+
+
+
+/* Cover bottom strip */
+
+
+#sb .cover-bottom{
+  background:var(--gold);
+  padding:8mm 14mm;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+
+#sb .cover-bottom-title{
+  font-family:'Tajawal',sans-serif;
+  font-size:22px;
+  font-weight:900;
+  color:var(--ink);
+  line-height:1.3;
+}
+
+
+#sb .cover-bottom-desc{
+  font-size:11px;
+  color:rgba(0,0,0,.6);
+  margin-top:2px;
+}
+
+
+#sb .cover-bottom-tag{
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:2px;
+  color:rgba(0,0,0,.5);
+  text-transform:uppercase;
+}
+
+
+
+
+/* ══════════════════════════════════════════════════
+   PAGE 2 — WHO WE ARE + HOW IT WORKS
+══════════════════════════════════════════════════ */
+
+
+#sb .p2-header{
+  background:var(--ink2);
+  padding:10mm 14mm;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+
+#sb .p2-header-logo{
+  font-family:'Tajawal',sans-serif;
+  font-size:18px;
+  font-weight:900;
+  color:var(--gold2);
+  letter-spacing:1px;
+}
+
+
+#sb .p2-header-page{
+  font-size:9px;
+  color:rgba(255,255,255,.3);
+  letter-spacing:2px;
+}
+
+
+
+
+#sb .p2-body{padding:8mm 14mm}
+
+
+
+
+#sb .section-eyebrow{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:3mm;
+}
+
+
+#sb .section-title{
+  font-family:'Tajawal',sans-serif;
+  font-size:26px;
+  font-weight:900;
+  color:var(--ink);
+  line-height:1.2;
+  margin-bottom:5mm;
+}
+
+
+#sb .section-body{
+  font-size:12px;
+  color:#4a3e2e;
+  line-height:1.9;
+}
+
+
+
+
+/* Identity cards */
+
+
+#sb .identity-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5mm;
+  margin:6mm 0;
+}
+
+
+#sb .id-card{
+  background:var(--ink);
+  border-radius:6px;
+  padding:6mm;
+  position:relative;
+  overflow:hidden;
+}
+
+
+#sb .id-card::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2));
+}
+
+
+#sb .id-card-num{
+  font-family:'Tajawal',sans-serif;
+  font-size:32px;
+  font-weight:900;
+  color:var(--gold);
+  line-height:1;
+  margin-bottom:2mm;
+}
+
+
+#sb .id-card-label{
+  font-size:11px;
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:2mm;
+}
+
+
+#sb .id-card-desc{
+  font-size:10px;
+  color:rgba(255,255,255,.45);
+  line-height:1.6;
+}
+
+
+
+
+/* How it works — horizontal steps */
+
+
+#sb .steps{margin:7mm 0}
+
+
+#sb .steps-title{
+  font-family:'Tajawal',sans-serif;
+  font-size:16px;
+  font-weight:800;
+  color:var(--ink);
+  margin-bottom:4mm;
+}
+
+
+#sb .steps-row{
+  display:flex;
+  align-items:stretch;
+  gap:0;
+}
+
+
+#sb .step{
+  flex:1;
+  position:relative;
+  padding:4mm 3mm;
+  background:var(--warm);
+  border:1px solid var(--sand);
+  text-align:center;
+}
+
+
+#sb .step:first-child{border-radius:6px 0 0 6px}
+
+
+#sb .step:last-child{border-radius:0 6px 6px 0}
+
+
+#sb .step+.step{border-right:none}
+
+
+#sb .step-active{
+  background:var(--ink);
+  border-color:var(--ink);
+  border-radius:0;
+}
+
+
+#sb .step-num{
+  font-family:'Tajawal',sans-serif;
+  font-size:18px;
+  font-weight:900;
+  color:var(--gold);
+  margin-bottom:1mm;
+}
+
+
+#sb .step-active .step-num{color:var(--gold2)}
+
+
+#sb .step-name{
+  font-size:9px;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:1mm;
+}
+
+
+#sb .step-active .step-name{color:var(--white)}
+
+
+#sb .step-note{
+  font-size:8px;
+  color:#8a7a6a;
+  line-height:1.4;
+}
+
+
+#sb .step-active .step-note{color:rgba(255,255,255,.5)}
+
+
+
+
+/* Regions */
+
+
+#sb .regions{
+  display:flex;
+  gap:3mm;
+  margin-top:5mm;
+}
+
+
+#sb .region-pill{
+  flex:1;
+  background:var(--ink);
+  color:var(--gold2);
+  font-size:11px;
+  font-weight:700;
+  text-align:center;
+  padding:3mm;
+  border-radius:4px;
+  font-family:'Tajawal',sans-serif;
+}
+
+
+
+
+/* ══════════════════════════════════════════════════
+   PAGE 3 — KITCHENS
+══════════════════════════════════════════════════ */
+
+
+#sb .prod-header{
+  height:55mm;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:flex-end;
+}
+
+
+#sb .prod-header img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  filter:brightness(.5) saturate(.8);
+}
+
+
+#sb .prod-header-content{
+  position:relative;z-index:2;
+  padding:8mm 14mm;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  width:100%;
+}
+
+
+#sb .prod-header-left .cat-eyebrow{
+  font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:2mm;
+}
+
+
+#sb .prod-header-left .cat-title{
+  font-family:'Tajawal',sans-serif;
+  font-size:32px;font-weight:900;color:var(--white);
+}
+
+
+#sb .prod-header-left .cat-sub{
+  font-size:11px;color:rgba(255,255,255,.5);margin-top:1mm;
+}
+
+
+#sb .prod-header-right{
+  background:rgba(0,0,0,.5);
+  border:1px solid rgba(184,134,11,.4);
+  border-radius:6px;
+  padding:4mm 5mm;
+  text-align:center;
+  backdrop-filter:blur(4px);
+}
+
+
+#sb .cat-badge-label{font-size:9px;color:var(--gold);letter-spacing:1px;margin-bottom:1mm}
+
+
+#sb .cat-badge-val{font-family:'Tajawal',sans-serif;font-size:18px;font-weight:900;color:var(--white)}
+
+
+
+
+/* Product body */
+
+
+#sb .prod-body{padding:6mm 14mm 0}
+
+
+
+
+/* Types comparison */
+
+
+#sb .types-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:4mm;
+  margin-bottom:5mm;
+}
+
+
+#sb .type-card{
+  border-radius:6px;
+  overflow:hidden;
+  border:1px solid var(--sand);
+  background:var(--white);
+}
+
+
+#sb .type-img{height:28mm;overflow:hidden;position:relative}
+
+
+#sb .type-img img{width:100%;height:100%;object-fit:cover}
+
+
+#sb .type-img-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,.8));
+  padding:3mm;
+  font-family:'Tajawal',sans-serif;
+  font-size:13px;font-weight:800;color:var(--white);
+}
+
+
+#sb .type-img-badge{
+  position:absolute;top:2mm;right:2mm;
+  background:var(--gold);color:var(--ink);
+  font-size:8px;font-weight:800;padding:2px 7px;border-radius:20px;
+}
+
+
+#sb .type-body{padding:3mm}
+
+
+#sb .type-price{
+  font-family:'Tajawal',sans-serif;
+  font-size:16px;font-weight:900;color:var(--gold);
+  margin-bottom:1mm;
+}
+
+
+#sb .type-desc{font-size:9px;color:#6a5a4a;line-height:1.5}
+
+
+
+
+/* Spec table */
+
+
+#sb .spec-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:10px;
+  margin-bottom:5mm;
+}
+
+
+#sb .spec-table thead th{
+  background:var(--ink);
+  color:var(--gold2);
+  padding:3mm 4mm;
+  font-weight:700;
+  font-size:9px;
+  letter-spacing:.5px;
+}
+
+
+#sb .spec-table tbody td{
+  padding:2.5mm 4mm;
+  border-bottom:1px solid var(--sand);
+  color:#4a3e2e;
+}
+
+
+#sb .spec-table tbody tr:last-child td{border-bottom:none}
+
+
+#sb .spec-table tbody tr:nth-child(even) td{background:var(--warm)}
+
+
+#sb .td-label{font-weight:700;color:var(--ink2)}
+
+
+#sb .td-val{text-align:center}
+
+
+#sb .td-check{color:#1a7a1a;font-weight:800;text-align:center}
+
+
+#sb .td-extra{color:var(--rust);font-weight:700;text-align:center}
+
+
+
+
+/* Info strip */
+
+
+#sb .info-strip{
+  background:var(--ink);
+  border-right:3px solid var(--gold);
+  padding:4mm 5mm;
+  margin-bottom:5mm;
+  border-radius:0 4px 4px 0;
+  display:flex;gap:8px;
+  align-items:flex-start;
+}
+
+
+#sb .info-strip-icon{color:var(--gold);font-size:14px;flex-shrink:0;margin-top:1px}
+
+
+#sb .info-strip-text{font-size:10px;color:rgba(255,255,255,.75);line-height:1.7}
+
+
+#sb .info-strip-text strong{color:var(--gold2)}
+
+
+
+
+/* ══════════════════════════════════════════════════
+   PAGE 4 — WINDOWS + FINISHING
+══════════════════════════════════════════════════ */
+
+
+#sb .half-section{min-height:120mm;padding:8mm 14mm}
+
+
+#sb .half-divider{height:1px;background:var(--sand);margin:0 14mm}
+
+
+
+
+#sb .compare-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4mm;
+  margin:4mm 0;
+}
+
+
+#sb .cmp-card{
+  border-radius:6px;overflow:hidden;
+  border:1px solid var(--sand);
+}
+
+
+#sb .cmp-img{height:22mm;overflow:hidden}
+
+
+#sb .cmp-img img{width:100%;height:100%;object-fit:cover}
+
+
+#sb .cmp-body{padding:3mm 4mm;background:var(--white)}
+
+
+#sb .cmp-title{
+  font-family:'Tajawal',sans-serif;
+  font-size:14px;font-weight:900;color:var(--ink);margin-bottom:2mm;
+}
+
+
+#sb .cmp-rows .cmp-row{
+  display:flex;justify-content:space-between;
+  padding:1.5mm 0;
+  border-bottom:1px solid var(--sand);
+  font-size:9px;
+}
+
+
+#sb .cmp-rows .cmp-row:last-child{border-bottom:none}
+
+
+#sb .cmp-row .cl{color:#8a7a6a}
+
+
+#sb .cmp-row .cv{font-weight:700;color:var(--ink)}
+
+
+#sb .cv-good{color:#1a7a1a !important}
+
+
+#sb .cv-best{color:var(--teal) !important}
+
+
+
+
+/* Finishing grid */
+
+
+#sb .fin-cats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:3mm;
+  margin:4mm 0;
+}
+
+
+#sb .fin-cat{
+  background:var(--ink);
+  border-radius:6px;
+  padding:4mm 3mm;
+  text-align:center;
+}
+
+
+#sb .fin-cat-icon{
+  width:24px;height:24px;
+  background:var(--gold);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 2mm;
+  color:var(--ink);
+  padding:5px;
+}
+
+
+#sb .fin-cat-icon svg{width:100%;height:100%}
+
+
+#sb .fin-cat-name{font-size:10px;font-weight:700;color:var(--white);margin-bottom:1mm}
+
+
+#sb .fin-cat-sub{font-size:8px;color:rgba(255,255,255,.4);line-height:1.4}
+
+
+
+
+/* ══════════════════════════════════════════════════
+   PAGE 5 — FURNITURE + PRICING SUMMARY
+══════════════════════════════════════════════════ */
+
+
+#sb .furn-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:4mm;
+  margin:4mm 0;
+}
+
+
+#sb .furn-card{
+  border-radius:6px;overflow:hidden;
+  border:1px solid var(--sand);
+  background:var(--white);
+}
+
+
+#sb .furn-img{height:25mm;overflow:hidden;position:relative}
+
+
+#sb .furn-img img{width:100%;height:100%;object-fit:cover}
+
+
+#sb .furn-price{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,.85));
+  padding:2.5mm 3mm;
+  font-family:'Tajawal',sans-serif;
+  font-size:14px;font-weight:900;color:var(--gold2);
+}
+
+
+#sb .furn-body{padding:3mm}
+
+
+#sb .furn-name{font-family:'Tajawal',sans-serif;font-size:12px;font-weight:800;margin-bottom:1.5mm}
+
+
+#sb .furn-contents{font-size:8.5px;color:#6a5a4a;line-height:1.5}
+
+
+
+
+/* Wood comparison */
+
+
+#sb .wood-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4mm;
+  margin:4mm 0;
+}
+
+
+#sb .wood-card{
+  border-radius:6px;
+  padding:4mm;
+  border:1.5px solid var(--sand);
+  background:var(--white);
+}
+
+
+#sb .wood-card.premium{
+  background:var(--ink);
+  border-color:rgba(184,134,11,.4);
+}
+
+
+#sb .wood-name{font-family:'Tajawal',sans-serif;font-size:13px;font-weight:900;margin-bottom:1mm}
+
+
+#sb .wood-card.premium .wood-name{color:var(--gold2)}
+
+
+#sb .wood-tag{
+  display:inline-block;font-size:8px;font-weight:700;
+  padding:2px 8px;border-radius:20px;margin-bottom:2mm;
+}
+
+
+#sb .tag-eco{background:rgba(26,90,26,.15);color:#1a7a1a}
+
+
+#sb .tag-prem{background:rgba(184,134,11,.15);color:var(--gold)}
+
+
+#sb .wood-specs .ws{
+  display:flex;justify-content:space-between;
+  padding:1.5mm 0;border-bottom:1px solid rgba(0,0,0,.06);
+  font-size:9px;
+}
+
+
+#sb .wood-card.premium .ws{border-bottom-color:rgba(255,255,255,.08)}
+
+
+#sb .ws:last-child{border-bottom:none}
+
+
+#sb .ws .wl{color:#8a7a6a}
+
+
+#sb .wood-card.premium .ws .wl{color:rgba(255,255,255,.4)}
+
+
+#sb .ws .wv{font-weight:700;color:var(--ink)}
+
+
+#sb .wood-card.premium .ws .wv{color:var(--white)}
+
+
+#sb .wv-good{color:#1a7a1a !important}
+
+
+#sb .wood-card.premium .wv-good{color:var(--gold2) !important}
+
+
+
+
+/* ══════════════════════════════════════════════════
+   PAGE 6 — PRICING + WHY US + CONTACT
+══════════════════════════════════════════════════ */
+
+
+#sb .pricing-section{padding:8mm 14mm 5mm}
+
+
+
+
+#sb .price-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:4mm;
+  margin:4mm 0 6mm;
+}
+
+
+#sb .price-card{
+  background:var(--ink);
+  border-radius:8px;
+  padding:5mm;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+
+#sb .price-card::before{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:2px;
+  background:var(--gold);
+}
+
+
+#sb .price-cat{font-size:9px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,.4);margin-bottom:2mm}
+
+
+#sb .price-name{font-family:'Tajawal',sans-serif;font-size:13px;font-weight:800;color:var(--white);margin-bottom:3mm}
+
+
+#sb .price-val{font-family:'Tajawal',sans-serif;font-size:20px;font-weight:900;color:var(--gold2);margin-bottom:1mm}
+
+
+#sb .price-unit{font-size:8px;color:rgba(255,255,255,.35)}
+
+
+
+
+/* Why us */
+
+
+#sb .why-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:4mm;
+  margin:4mm 0;
+}
+
+
+#sb .why-card{
+  background:var(--warm);
+  border:1px solid var(--sand);
+  border-radius:6px;
+  padding:4mm;
+  border-top:2px solid var(--gold);
+}
+
+
+#sb .why-icon{font-size:18px;margin-bottom:2mm}
+
+
+#sb .why-title{font-size:11px;font-weight:700;color:var(--ink);margin-bottom:1.5mm}
+
+
+#sb .why-desc{font-size:9px;color:#6a5a4a;line-height:1.6}
+
+
+
+
+/* Terms strip */
+
+
+#sb .terms-strip{
+  background:var(--warm);
+  border:1px solid var(--sand);
+  border-radius:6px;
+  padding:4mm 5mm;
+  margin:4mm 0;
+  display:flex;
+  gap:6mm;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+
+#sb .term-item{
+  display:flex;align-items:center;gap:6px;
+  font-size:10px;color:#4a3e2e;
+}
+
+
+#sb .term-item::before{content:'◆';color:var(--gold);font-size:7px}
+
+
+#sb .term-item strong{color:var(--ink);font-weight:700}
+
+
+
+
+/* Footer / contact */
+
+
+#sb .page-footer{
+  background:var(--ink);
+  padding:8mm 14mm;
+  margin-top:5mm;
+}
+
+
+#sb .footer-logo{
+  font-family:'Tajawal',sans-serif;
+  font-size:22px;font-weight:900;color:var(--gold2);
+  margin-bottom:2mm;
+}
+
+
+#sb .footer-tagline{
+  font-size:11px;color:rgba(255,255,255,.4);
+  margin-bottom:5mm;
+}
+
+
+#sb .footer-regions{
+  display:flex;gap:3mm;margin-bottom:5mm;
+}
+
+
+#sb .footer-region{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(184,134,11,.2);
+  border-radius:4px;padding:2mm 4mm;
+  font-size:10px;color:var(--gold);font-weight:600;
+}
+
+
+#sb .footer-note{
+  font-size:9px;color:rgba(255,255,255,.25);
+  padding-top:4mm;
+  border-top:1px solid rgba(255,255,255,.08);
+  text-align:center;
+  letter-spacing:.5px;
+}
+
+
+
+
+/* ─── PAGE NUMBERS ───────────────────────────────── */
+
+
+#sb .pg-num{
+  position:absolute;
+  bottom:6mm;left:14mm;
+  font-size:8px;
+  color:rgba(0,0,0,.25);
+  letter-spacing:1px;
+}
+
+
+
+
+/* ─── PRINT ──────────────────────────────────────── */
+
+
+@media print{
+
+
+ 
+ 
+#sb{background:none}
+
+
+ 
+ 
+#sb .page{page-break-after:always;page-break-inside:avoid}
+
+
+ 
+ 
+@page{margin:0;size:A4}
+
+
+}
+
+
+
+
+/* ─── SCREEN PREVIEW ─────────────────────────────── */
+
+
+@media screen{
+
+
+ 
+ 
+#sb{padding:10mm;background:#d8d0c0}
+
+
+ 
+ 
+#sb .page{
+    box-shadow:0 4px 40px rgba(0,0,0,.25);
+    margin-bottom:10mm;
+  }
+
+
+}
+
 
 </style>
 </head>
 <body>
+
+<!-- ══ SITE NAV ════════════════════════════════════ -->
+<nav id="sitenav">
+  <div class="sn-tabs">
+    <button class="sn-tab" onclick="go('h',this)" id="tab-h">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="sn-tab-lbl">الرئيسية</span>
+    </button>
+    <button class="sn-tab" onclick="go('g',this)" id="tab-g">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1.5"/><rect x="2" y="11" width="20" height="10" rx="1.5"/><line x1="6" y1="8" x2="6" y2="8.5"/><line x1="10" y1="8" x2="10" y2="8.5"/></svg>
+      <span class="sn-tab-lbl">دليل السيلز</span>
+    </button>
+    <button class="sn-tab" onclick="go('p',this)" id="tab-p">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span class="sn-tab-lbl">معرض الأعمال</span>
+    </button>
+    <button class="sn-tab" onclick="go('b',this)" id="tab-b">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span class="sn-tab-lbl">البروشور</span>
+    </button>
+  </div>
+  <div class="sn-logo">
+    Leaders <span class="sn-logo-dot"></span>
+  </div>
+</nav>
+
+<!-- ══ HOME VIEW ═══════════════════════════════════ -->
+<div class="view on" id="vh">
+  <div class="land">
+    <div class="land-bg"></div>
+    <div class="land-eyebrow">منظومة أدوات Leaders</div>
+    <div class="land-title">كل أدواتك<br><em>في مكان واحد</em></div>
+    <div class="land-sub">دليل البيع · معرض الأعمال · البروشور الاحترافي<br>كل حاجة محتاجها قبل ما تقابل العميل</div>
+    <div class="tools">
+      <div class="tool t1" onclick="go('g',document.getElementById('tab-g'))">
+        <div class="tool-ico ti1">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1.5"/><rect x="2" y="11" width="20" height="10" rx="1.5"/><line x1="6" y1="8" x2="6" y2="8.5"/><line x1="10" y1="8" x2="10" y2="8.5"/><line x1="7" y1="16" x2="17" y2="16"/><line x1="7" y1="19" x2="17" y2="19"/></svg>
+        </div>
+        <div><div class="tool-num">01</div><div class="tool-name">دليل السيلز</div></div>
+        <div class="tool-desc">المنتجات والأسعار — سكريبت البيع — رد الاعتراضات — مرجع سريع</div>
+        <div class="tool-tags"><span class="t-tag">مطابخ</span><span class="t-tag">شبابيك</span><span class="t-tag">أثاث</span><span class="t-tag">تشطيبات</span><span class="t-tag">سكريبت</span></div>
+        <div class="tool-cta">افتح الدليل <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="tool t2" onclick="go('p',document.getElementById('tab-p'))">
+        <div class="tool-ico ti2">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div><div class="tool-num">02</div><div class="tool-name">معرض الأعمال</div></div>
+        <div class="tool-desc">44 خانة صور — أضف صور أعمالك من Pinterest — معرض تفاعلي للعملاء</div>
+        <div class="tool-tags"><span class="t-tag">ALU</span><span class="t-tag">WOOD</span><span class="t-tag">WIN</span><span class="t-tag">FURN</span><span class="t-tag">FIN</span></div>
+        <div class="tool-cta">افتح المعرض <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="tool t3" onclick="go('b',document.getElementById('tab-b'))">
+        <div class="tool-ico ti3">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div><div class="tool-num">03</div><div class="tool-name">البروشور</div></div>
+        <div class="tool-desc">6 صفحات A4 — للطباعة أو المشاركة مع مكاتب الديكور والسيلز</div>
+        <div class="tool-tags"><span class="t-tag">6 صفحات</span><span class="t-tag">A4</span><span class="t-tag">للطباعة</span></div>
+        <div class="tool-cta">افتح البروشور <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">4</div><div class="stat-l">محافظات</div></div>
+      <div class="stat"><div class="stat-n">10</div><div class="stat-l">سنوات ضمان</div></div>
+      <div class="stat"><div class="stat-n">44</div><div class="stat-l">خانة أعمال</div></div>
+      <div class="stat"><div class="stat-n">6</div><div class="stat-l">صفحات بروشور</div></div>
+    </div>
+    <div class="land-footer">Leaders · للاستخدام الداخلي · 2025</div>
+  </div>
+</div>
+
+<!-- ══ GUIDE VIEW ═══════════════════════════════════ -->
+<div class="view" id="vg">
+  <div id="sg">
 <div id="app">
 
 <!-- HEADER -->
@@ -1117,10 +4020,11 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
   <div class="ph">
     <div class="ph-lbl">القسم الرابع</div>
     <div class="ph-title">الأثاث</div>
-    <div class="ph-desc">الغرف الكاملة — الوحدات</div>
+    <div class="ph-desc">الغرف الكاملة — أنواع الخشب — الوحدات</div>
   </div>
   <div class="stabs">
     <div class="stab on" onclick="tab('furn','rooms',this)">الغرف</div>
+    <div class="stab" onclick="tab('furn','wood',this)">الخشب</div>
     <div class="stab" onclick="tab('furn','sofa',this)">ركنة وأنتريه</div>
     <div class="stab" onclick="tab('furn','units',this)">وحدات</div>
   </div>
@@ -1161,6 +4065,74 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     </div>
   </div>
 
+  <!-- WOOD -->
+  <div class="sc" id="furn-wood">
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="13" width="16" height="5" rx=".5"/><rect x="2" y="7" width="7" height="6"/><rect x="11" y="7" width="7" height="6"/><rect x="2" y="2" width="16" height="5" rx=".5"/></svg></span><div>نوع الخشب بيأثر مباشرة على السعر والعمر والجودة — السؤال الأول من العميل دايماً عن الخشب</div></div>
+
+    <!-- مقارنة البياض vs السويدي -->
+    <div class="sdiv">البياض vs السويدي</div>
+    <div class="g2">
+      <div style="background:var(--card);border:1px solid rgba(255,255,255,.1);border-radius:13px;overflow:hidden">
+        <div style="background:linear-gradient(135deg,#2a1a0a,#1a0d05);padding:12px 14px">
+          <div style="font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;color:#fff;margin-bottom:2px">خشب البياض</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.45)">الشعبي الاقتصادي</div>
+        </div>
+        <div style="padding:12px 14px">
+          <div class="srow"><span class="slbl">اللون</span><span class="sval">أبيض فاتح</span></div>
+          <div class="srow"><span class="slbl">الوزن</span><span class="sval">خفيف</span></div>
+          <div class="srow"><span class="slbl">الصلابة</span><span class="sval" style="color:var(--orange)">ضعيف نسبياً</span></div>
+          <div class="srow"><span class="slbl">الرطوبة</span><span class="sval" style="color:var(--red)">يتأثر بسرعة</span></div>
+          <div class="srow"><span class="slbl">العمر</span><span class="sval" style="color:var(--orange)">أقصر</span></div>
+          <div class="srow"><span class="slbl">الاستخدام</span><span class="sval">شغل اقتصادي — غرف بسيطة</span></div>
+          <div class="srow" style="border-bottom:none"><span class="slbl">السعر</span><span class="sval" style="color:var(--green);font-size:14px;font-weight:800">20,000 — 25,000 ج</span></div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1.5px solid rgba(232,160,32,.3);border-radius:13px;overflow:hidden">
+        <div style="background:linear-gradient(135deg,#2a1a05,#1a1005);padding:12px 14px">
+          <div style="font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;color:var(--accent2);margin-bottom:2px">خشب سويدي فيرلاندي</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.45)">صنوبر — عروق زيت</div>
+        </div>
+        <div style="padding:12px 14px">
+          <div class="srow"><span class="slbl">اللون</span><span class="sval">فاتح مائل للأصفر</span></div>
+          <div class="srow"><span class="slbl">الوزن</span><span class="sval">أثقل — أمتن</span></div>
+          <div class="srow"><span class="slbl">الصلابة</span><span class="sval" style="color:var(--green)">قوي ومتين ✓</span></div>
+          <div class="srow"><span class="slbl">عروق زيت</span><span class="sval" style="color:var(--green)">مقاوم للسوس ✓</span></div>
+          <div class="srow"><span class="slbl">العمر</span><span class="sval" style="color:var(--green)">أطول بكتير ✓</span></div>
+          <div class="srow"><span class="slbl">الاستخدام</span><span class="sval">أثاث — أبواب — ديكور</span></div>
+          <div class="srow" style="border-bottom:none"><span class="slbl">السعر</span><span class="sval" style="color:var(--accent);font-size:14px;font-weight:800">45,000 ج+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sb"><div class="sb-ic" style="width:28px;height:28px;display:flex"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2a5 5 0 0 1 3 9l-1 1H8l-1-1a5 5 0 0 1 3-9z"/><path d="M8 15h4M9 18h2"/></svg></div><div class="sb-txt"><strong>السويدي فيرلاندي أقل صلابة من الزان — لكن أقوى من البياض بكتير</strong><span>الفرق في جودة الزيت الطبيعي داخل الخشب — بيحميه من الحشرات والرطوبة</span></div></div>
+
+    <!-- التقفيل -->
+    <div class="sdiv">التقفيل والمواصفات الداخلية</div>
+    <div class="ib bl"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="16" height="16" rx="1"/><path d="M6 2v16M14 2v16M2 6h4M2 10h4M2 14h4" stroke-width=".9"/></svg></span><div>التقفيل هو روح الغرفة — المنافسين بيحطوا سواسة كل <strong>20سم</strong> وإحنا كل <strong>9.5 — 10سم</strong></div></div>
+
+    <div class="rtbl">
+      <div class="rtbl-t">مواصفات التقفيل عندنا</div>
+      <div class="rrow"><span class="rl">سمك القوائم</span><span class="rv ac">3.5 سم</span></div>
+      <div class="rrow"><span class="rl">الإطار الخارجي</span><span class="rv ac">3 سم</span></div>
+      <div class="rrow"><span class="rl">المسافة بين السواسات</span><span class="rv" style="color:var(--green)">9.5 — 10 سم ✓</span></div>
+      <div class="rrow"><span class="rl">سمك باقي السواسات</span><span class="rv">14 مم</span></div>
+      <div class="rrow"><span class="rl">المنافسين</span><span class="rv" style="color:var(--red)">سواسة كل 20 سم ✗</span></div>
+      <div class="rrow"><span class="rl">الدهان</span><span class="rv" style="color:var(--green)">دوكو فرن — ثابت ومقاوم ✓</span></div>
+    </div>
+
+    <!-- الأبلكاش -->
+    <div class="sdiv">الأبلكاش — نوع ث الروسي</div>
+    <div class="ib gr"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><polyline points="6.5,10 8.5,12.5 13.5,7.5"/></svg></span><div>بنشتغل بأبلكاش <strong>نوع ث روسي</strong> — سمكه <strong>3مم</strong> — أنواع: ث44 / ث9 / ث14. إحنا شغالين مصنع مش تاجر.</div></div>
+    <div class="g3">
+      <div class="ac-card" style="text-align:center"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="16" height="16" rx="1"/><path d="M6 2v16M10 2v16M14 2v16M2 6h16M2 10h16M2 14h16" stroke-width=".8"/></svg></div><div class="ac-name">ث44</div><div class="ac-desc">الحجم الكبير — للهياكل الأساسية</div></div>
+      <div class="ac-card" style="text-align:center"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="12" height="12" rx="1"/><path d="M7 4v12M13 4v12M4 7h12M4 13h12" stroke-width=".8"/></svg></div><div class="ac-name">ث9</div><div class="ac-desc">متوسط — للوحدات والأسطح</div></div>
+      <div class="ac-card" style="text-align:center"><div class="ac-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="10" height="10" rx="1"/><path d="M8 5v10M12 5v10M5 8h10M5 12h10" stroke-width=".8"/></svg></div><div class="ac-name">ث14</div><div class="ac-desc">رقيق — للتشطيبات والأبواب</div></div>
+    </div>
+
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div><strong>الكلام مع العميل:</strong> "الفرق مش في الشكل بس — في اللي جوه. إحنا بنستخدم أبلكاش روسي 3مم وتقفيل سواسة كل 10سم — مش 20 زي التاني. ده اللي بيفرق في العمر."</div></div>
+  </div>
+
+
   <div class="sc" id="furn-sofa">
     <div class="ib bl"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2H2v-2z"/><path d="M4 13v6M20 13v6M4 19h16"/></svg></span><div>الأسعار تقديرية وبتتحدد حسب المقاسات والخامة الفعلية</div></div>
     <div class="rtbl">
@@ -1186,6 +4158,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
   <div class="stabs">
     <div class="stab on" onclick="tab('scr','steps',this)">السكريبت</div>
     <div class="stab" onclick="tab('scr','obj',this)">الاعتراضات</div>
+    <div class="stab" onclick="tab('scr','furn',this)">موبيليا</div>
     <div class="stab" onclick="tab('scr','ref',this)">المرجع</div>
     <div class="stab" onclick="tab('scr','del',this)">النقل</div>
   </div>
@@ -1210,6 +4183,36 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
     <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"مش محتاج معاينة"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"المعاينة مش بس للمقاسات — بنشوف <strong>اتجاه الأبواب ومكان البنية التحتية.</strong> وهي مجانية."</div></div></div>
   </div>
 
+  <!-- FURNITURE Q&A -->
+  <div class="sc" id="scr-furn">
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div>ارد بثقة وبساطة — ربط كل إجابة بفايدة للعميل</div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">الخشب ده نوعه إيه؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"خشب سويدي فيرلاندي — من الصنوبر. فيه عروق زيت طبيعية بتحميه من السوس والرطوبة. أقوى من البياض بكتير وعمره أطول."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">الخشب ده يعيش قد إيه؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"مع الاستخدام الطبيعي — سنين طويلة جداً. الضمان عندنا <strong>10 سنوات</strong> على الخشب والتقفيل ضد عيوب الصناعة."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">التقفيل عامل إزاي؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"سواسة كل <strong>9.5 — 10سم</strong> — المنافسين بيحطوا كل 20سم. القوائم سمكها 3.5سم والإطار الخارجي 3سم. أبلكاش روسي نوع ث سمك 3مم. الدهان دوكو فرن — ثابت ومقاوم للخدش."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">المقاسات مناسبة لبيتي؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"بنحدد المقاسات حسب مساحة الأوضة عندك — وممكن نعدل على حسب طلبك."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">ينفع أعدل في التصميم؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"طبعاً — نقدر نعدل الألوان أو المقاسات أو حتى الشكل بالكامل حسب ذوقك."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">"السعر ليه كده؟ غالي"</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"السعر بيكون حسب نوع الخشب وجودة الخامات والتقفيل. إحنا بندي <strong>أفضل جودة بسعر تنافسي</strong> — الفرق هيبان في السنة التالتة لما الغرفة التانية تبدأ تتهري وغرفتك لسه جديدة."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">ينفع تقسيط؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"كاش أو تقسيط. <strong>40% عند التعاقد</strong> وبنحدد موعد التسليم في العقد. شرط إنهاء <strong>50% في أول شهرين</strong> — والباقي على فترات أقصاها سنة ونص. العميل لازم ينهي حسابه <strong>قبل استلام الموبيليا.</strong> مثلاً: عفش بـ 120,000 ج ← 48,000 ج عند التعاقد."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">هتكون جاهزة امتى؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"التنفيذ بياخد من <strong>30 لـ 75 يوم</strong> حسب نوع الغرفة والتعديلات المطلوبة."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">الضمان قد إيه؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"<strong>10 سنوات</strong> على الخشب والتقفيل ضد عيوب الصناعة."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">التوصيل والتركيب شاملين؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"التركيب <strong>شامل في السعر</strong> — النقل بيتضاف حسب المكان ونحدد رقمه قبل التعاقد."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">الألوان بتتغير بعد فترة؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"لأ — الدهان <strong>دوكو فرن</strong> بيعني ثابت ومقاوم للخدش ولا بيشحب."</div></div></div>
+
+    <div class="ocard" onclick="togObj(this)" ontouchstart=""><div class="oq"><span style="display:inline-flex;width:17px;height:17px;flex-shrink:0;margin-top:2px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M7 8l2 1M13 8l-2 1"/><path d="M7 14s1-2 3-2 3 2 3 2"/></svg></span><span class="oq-txt">إيه الفرق بين ده وغيره في السوق؟</span><span class="oc">▼</span></div><div class="ob"><div class="oa">"الفرق في جودة الخشب، دقة التقفيل، ونوع الدهان. سواسة كل 10سم بدل 20، أبلكاش روسي بدل محلي، ودهان فرن بدل عادي. <strong>ده اللي بيخلي العمر أطول والشكل أحسن.</strong>"</div></div></div>
+  </div>
+
+
   <div class="sc" id="scr-ref">
     <div class="rtbl"><div class="rtbl-t">الألومنيوم / متر (1800 جرام)</div>
       <div class="rrow"><span class="rl">كلادينج</span><span class="rv ac">4,500 ج</span></div>
@@ -1223,7 +4226,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="rrow"><span class="rl">نمساوي / باب</span><span class="rv">+110 ج</span></div>
       <div class="rrow"><span class="rl">تركي → نمساوي (8 أبواب)</span><span class="rv ac">+880 ج</span></div>
     </div>
-    <div class="rtbl"><div class="rtbl-t">الأثاث</div>
+    <div class="rtbl"><div class="rtbl-t">الأثاث — خشب سويدي فيرلاندي</div>
       <div class="rrow"><span class="rl">غرفة نوم كبيرة</span><span class="rv ac">45,000 ج</span></div>
       <div class="rrow"><span class="rl">غرفة أطفال</span><span class="rv ac">35,000 ج</span></div>
       <div class="rrow"><span class="rl">غرفة سفرة</span><span class="rv ac">45,000 ج</span></div>
@@ -1232,13 +4235,20 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
       <div class="rrow"><span class="rl">الجزامة</span><span class="rv">4,500 ج</span></div>
       <div class="rrow"><span class="rl">ميكانيزم سرير</span><span class="rv">800 ج</span></div>
     </div>
+    <div class="rtbl"><div class="rtbl-t">الخشب — غرف بياض</div>
+      <div class="rrow"><span class="rl">غرفة من خشب بياض</span><span class="rv" style="color:var(--green)">20,000 — 25,000 ج</span></div>
+      <div class="rrow"><span class="rl">الضمان</span><span class="rv gr">10 سنوات ✓</span></div>
+      <div class="rrow"><span class="rl">مدة التنفيذ</span><span class="rv">30 — 75 يوم</span></div>
+      <div class="rrow"><span class="rl">الدفعة الأولى</span><span class="rv ac">40% عند التعاقد</span></div>
+      <div class="rrow"><span class="rl">50% في أول شهرين</span><span class="rv ac">شرط التقسيط</span></div>
+    </div>
     <div class="rtbl"><div class="rtbl-t">الركنة</div>
       <div class="rrow"><span class="rl">سعر المتر</span><span class="rv ac">3,800 — 4,500 ج</span></div>
     </div>
   </div>
 
   <div class="sc" id="scr-del">
-    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div>"النقل بنحسبه بعد ما نعرف العنوان — بيعتمد على المسافة والطابق. هنحدد معاك الرقم النهائي قبل التعاقد."</div></div>
+    <div class="ib go"><span style="display:inline-flex;width:18px;height:18px;flex-shrink:0;margin-top:1px"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8h3l4-4v12l-4-4H3z"/><path d="M14 6a5 5 0 0 1 0 8"/><path d="M16.5 3.5a9 9 0 0 1 0 13"/></svg></span><div>"التركيب شامل في السعر — النقل بيتضاف حسب المكان. هنحدد معاك الرقم النهائي قبل التعاقد."</div></div>
     <div class="dg">
       <div class="dc"><div class="dc-city">🏙️ القاهرة</div><div class="dc-note">حسب المنطقة والطابق</div><div class="dc-inc">نقل + تركيب</div></div>
       <div class="dc"><div class="dc-city">🌊 الإسكندرية</div><div class="dc-note">بيتحدد مسبقاً</div><div class="dc-inc">نقل + تركيب</div></div>
@@ -1260,8 +4270,1027 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo',sans
 </div>
 
 </div><!-- /app -->
+
+</div>
+</div>
+
+<!-- ══ PORTFOLIO VIEW ══════════════════════════════ -->
+<div class="view" id="vp">
+  <div id="sp">
+
+<!-- ══ HERO ══════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-bg">
+    <!-- Hero BG 1 — استبدل الرابط -->
+    <div class="ph-img"><div class="ph-num">H1</div><div class="ph-name">صورة hero يسار</div></div>
+    <!-- Hero BG 2 -->
+    <div class="ph-img"><div class="ph-num">H2</div><div class="ph-name">صورة hero وسط</div></div>
+    <!-- Hero BG 3 -->
+    <div class="ph-img"><div class="ph-num">H3</div><div class="ph-name">صورة hero يمين</div></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">معرض أعمال Leaders</div>
+    <div class="hero-title">أعمالنا<span><br>تتكلم عنا</span></div>
+    <div class="hero-sub">مطابخ · شبابيك · أثاث · تشطيبات<br>مشاريع منفذة في الدقهلية · الإسكندرية · سوهاج · القاهرة</div>
+    <div class="hero-nav">
+      <a class="hn-btn hn-a" href="#alu">مطابخ ألومنيوم</a>
+      <a class="hn-btn hn-o" href="#wood">مطابخ خشب</a>
+      <a class="hn-btn hn-o" href="#win">شبابيك</a>
+      <a class="hn-btn hn-o" href="#furn">أثاث</a>
+      <a class="hn-btn hn-o" href="#fin">تشطيبات</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>SCROLL</span><div class="scroll-arrow"></div></div>
+</div>
+
+<!-- ══ HOW TO REPLACE ════════════════════════════════ -->
+<div class="how-to" style="margin-top:32px">
+  <h3>📌 كيفية استبدال الصور</h3>
+  <p>
+    افتح الصورة على Pinterest ← اضغط على الصورة ← كليك يمين ← <strong style="color:rgba(255,255,255,.6)">"Open image in new tab"</strong> ← انسخ الرابط من شريط العنوان<br>
+    الرابط هيبقى شكله: <code>https://i.pinimg.com/736x/xx/xx/xx.jpg</code><br>
+    بعدين في الكود ابحث عن <code>data-slot="ALU-1"</code> مثلاً وغير الرابط في <code>src=""</code> أو ابعتهولي وأحدث الملف.
+  </p>
+</div>
+
+<!-- ══ SECTION 1 — مطابخ ألومنيوم ══════════════════ -->
+<div class="section" id="alu">
+  <div class="s-inner">
+    <div class="s-head fi">
+      <div class="s-head-l">
+        <div class="s-cat">القسم الأول</div>
+        <div class="s-title">مطابخ الألومنيوم</div>
+        <div class="s-desc">كلادينج · شيت ألومنيوم · خشمنيوم · مودرن</div>
+      </div>
+      <div class="s-head-r"><div class="s-num">01</div></div>
+    </div>
+
+    <div class="masonry fi">
+      <!-- ALU-1 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="ALU-1" data-label="مطبخ كلادينج">
+        <img src="" alt="مطبخ كلادينج" onerror="showPh(this,'ALU-1','مطبخ كلادينج أبيض')">
+        <div class="m-ov"><span class="m-tag">كلادينج</span><div class="m-lbl">مطبخ كلادينج أبيض</div></div>
+      </div>
+      <!-- ALU-2 -->
+      <div class="m-item tall" onclick="lb(this)" data-slot="ALU-2" data-label="مطبخ كلادينج 2">
+        <img src="" alt="" onerror="showPh(this,'ALU-2','مطبخ كلادينج ألوان')">
+        <div class="m-ov"><span class="m-tag">كلادينج</span><div class="m-lbl">كلادينج ألوان مخصصة</div></div>
+      </div>
+      <!-- ALU-3 -->
+      <div class="m-item" onclick="lb(this)" data-slot="ALU-3" data-label="شيت ألومنيوم">
+        <img src="" alt="" onerror="showPh(this,'ALU-3','شيت ألومنيوم')">
+        <div class="m-ov"><span class="m-tag">شيت</span><div class="m-lbl">شيت ألومنيوم</div></div>
+      </div>
+      <!-- ALU-4 -->
+      <div class="m-item sq" onclick="lb(this)" data-slot="ALU-4" data-label="شيت ألومنيوم 2">
+        <img src="" alt="" onerror="showPh(this,'ALU-4','شيت ألومنيوم ألوان')">
+        <div class="m-ov"><span class="m-tag">شيت</span><div class="m-lbl">شيت ألوان مخصصة</div></div>
+      </div>
+      <!-- ALU-5 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="ALU-5" data-label="خشمنيوم">
+        <img src="" alt="" onerror="showPh(this,'ALU-5','خشمنيوم تون خشبي')">
+        <div class="m-ov"><span class="m-tag">خشمنيوم</span><div class="m-lbl">خشمنيوم تون خشبي دافئ</div></div>
+      </div>
+      <!-- ALU-6 -->
+      <div class="m-item" onclick="lb(this)" data-slot="ALU-6" data-label="خشمنيوم 2">
+        <img src="" alt="" onerror="showPh(this,'ALU-6','خشمنيوم داكن')">
+        <div class="m-ov"><span class="m-tag">خشمنيوم</span><div class="m-lbl">خشمنيوم داكن مودرن</div></div>
+      </div>
+      <!-- ALU-7 -->
+      <div class="m-item" onclick="lb(this)" data-slot="ALU-7" data-label="مودرن">
+        <img src="" alt="" onerror="showPh(this,'ALU-7','مطبخ مودرن')">
+        <div class="m-ov"><span class="m-tag">مودرن</span><div class="m-lbl">مطبخ مودرن +200ج/م</div></div>
+      </div>
+      <!-- ALU-8 -->
+      <div class="m-item tall" onclick="lb(this)" data-slot="ALU-8" data-label="مودرن 2">
+        <img src="" alt="" onerror="showPh(this,'ALU-8','مطبخ مودرن جزيرة')">
+        <div class="m-ov"><span class="m-tag">مودرن</span><div class="m-lbl">مطبخ مودرن مع جزيرة</div></div>
+      </div>
+      <!-- ALU-9 -->
+      <div class="m-item" onclick="lb(this)" data-slot="ALU-9" data-label="كونتر كوارتز">
+        <img src="" alt="" onerror="showPh(this,'ALU-9','كونتر كوارتز')">
+        <div class="m-ov"><span class="m-tag">كونتر</span><div class="m-lbl">كونتر كوارتز أبيض</div></div>
+      </div>
+      <!-- ALU-10 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="ALU-10" data-label="كونتر رخام">
+        <img src="" alt="" onerror="showPh(this,'ALU-10','كونتر رخام بريميوم')">
+        <div class="m-ov"><span class="m-tag">رخام</span><div class="m-lbl">كونتر رخام بريميوم</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 2 — مطابخ خشب ══════════════════════ -->
+<div class="section" id="wood">
+  <div class="s-inner">
+    <div class="s-head fi">
+      <div class="s-head-l">
+        <div class="s-cat">القسم الثاني</div>
+        <div class="s-title">مطابخ الخشب</div>
+        <div class="s-desc">HPL جرين لام · بولي لاك · أكريليك · ميلامين · بولي باك</div>
+      </div>
+      <div class="s-head-r"><div class="s-num">02</div></div>
+    </div>
+
+    <div class="masonry fi">
+      <!-- WOOD-1 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="WOOD-1" data-label="HPL جرين لام">
+        <img src="" alt="" onerror="showPh(this,'WOOD-1','HPL جرين لام خشن مط')">
+        <div class="m-ov"><span class="m-tag">HPL</span><div class="m-lbl">HPL جرين لام خشن مط</div></div>
+      </div>
+      <!-- WOOD-2 -->
+      <div class="m-item" onclick="lb(this)" data-slot="WOOD-2" data-label="HPL 2">
+        <img src="" alt="" onerror="showPh(this,'WOOD-2','HPL تون خشبي')">
+        <div class="m-ov"><span class="m-tag">HPL</span><div class="m-lbl">HPL تون خشبي طبيعي</div></div>
+      </div>
+      <!-- WOOD-3 -->
+      <div class="m-item tall" onclick="lb(this)" data-slot="WOOD-3" data-label="بولي لاك">
+        <img src="" alt="" onerror="showPh(this,'WOOD-3','بولي لاك أبيض لامع')">
+        <div class="m-ov"><span class="m-tag">بولي لاك</span><div class="m-lbl">بولي لاك أبيض لامع</div></div>
+      </div>
+      <!-- WOOD-4 -->
+      <div class="m-item" onclick="lb(this)" data-slot="WOOD-4" data-label="بولي لاك 2">
+        <img src="" alt="" onerror="showPh(this,'WOOD-4','بولي لاك ألوان')">
+        <div class="m-ov"><span class="m-tag">بولي لاك</span><div class="m-lbl">بولي لاك ألوان متعددة</div></div>
+      </div>
+      <!-- WOOD-5 -->
+      <div class="m-item sq" onclick="lb(this)" data-slot="WOOD-5" data-label="أكريليك">
+        <img src="" alt="" onerror="showPh(this,'WOOD-5','أكريليك لامع كالمرايا')">
+        <div class="m-ov"><span class="m-tag">أكريليك</span><div class="m-lbl">أكريليك لامع كالمرايا</div></div>
+      </div>
+      <!-- WOOD-6 -->
+      <div class="m-item" onclick="lb(this)" data-slot="WOOD-6" data-label="ميلامين">
+        <img src="" alt="" onerror="showPh(this,'WOOD-6','ميلامين خشن عصري')">
+        <div class="m-ov"><span class="m-tag">ميلامين</span><div class="m-lbl">ميلامين خشن عصري</div></div>
+      </div>
+      <!-- WOOD-7 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="WOOD-7" data-label="بولي باك">
+        <img src="" alt="" onerror="showPh(this,'WOOD-7','بولي باك لامع')">
+        <div class="m-ov"><span class="m-tag">بولي باك</span><div class="m-lbl">بولي باك ناعم لامع</div></div>
+      </div>
+      <!-- WOOD-8 -->
+      <div class="m-item" onclick="lb(this)" data-slot="WOOD-8" data-label="كونتر جرانيت خشب">
+        <img src="" alt="" onerror="showPh(this,'WOOD-8','مطبخ خشب مع جرانيت')">
+        <div class="m-ov"><span class="m-tag">جرانيت</span><div class="m-lbl">مطبخ خشب مع كونتر جرانيت</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 3 — شبابيك ════════════════════════════ -->
+<div class="section" id="win">
+  <div class="s-inner">
+    <div class="s-head fi">
+      <div class="s-head-l">
+        <div class="s-cat">القسم الثالث</div>
+        <div class="s-title">الشبابيك</div>
+        <div class="s-desc">ألومنيوم عادي · PVC / UPVC · دبل جلاس · تيرمال بريك</div>
+      </div>
+      <div class="s-head-r"><div class="s-num">03</div></div>
+    </div>
+
+    <div class="masonry fi">
+      <!-- WIN-1 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="WIN-1" data-label="شباك ألومنيوم أبيض">
+        <img src="" alt="" onerror="showPh(this,'WIN-1','شباك ألومنيوم أبيض شومس')">
+        <div class="m-ov"><span class="m-tag">ألومنيوم</span><div class="m-lbl">ألومنيوم أبيض شومس</div></div>
+      </div>
+      <!-- WIN-2 -->
+      <div class="m-item" onclick="lb(this)" data-slot="WIN-2" data-label="ألومنيوم بني">
+        <img src="" alt="" onerror="showPh(this,'WIN-2','ألومنيوم بني أنودايز')">
+        <div class="m-ov"><span class="m-tag">ألومنيوم</span><div class="m-lbl">ألومنيوم بني أنودايز</div></div>
+      </div>
+      <!-- WIN-3 -->
+      <div class="m-item tall" onclick="lb(this)" data-slot="WIN-3" data-label="ألومنيوم رمادي">
+        <img src="" alt="" onerror="showPh(this,'WIN-3','ألومنيوم رمادي مودرن')">
+        <div class="m-ov"><span class="m-tag">ألومنيوم</span><div class="m-lbl">ألومنيوم رمادي مودرن</div></div>
+      </div>
+      <!-- WIN-4 -->
+      <div class="m-item" onclick="lb(this)" data-slot="WIN-4" data-label="ألومنيوم منزلق">
+        <img src="" alt="" onerror="showPh(this,'WIN-4','شباك منزلق كبير')">
+        <div class="m-ov"><span class="m-tag">منزلق</span><div class="m-lbl">شباك ألومنيوم منزلق</div></div>
+      </div>
+      <!-- WIN-5 -->
+      <div class="m-item sq" onclick="lb(this)" data-slot="WIN-5" data-label="PVC أبيض">
+        <img src="" alt="" onerror="showPh(this,'WIN-5','شباك PVC أبيض')">
+        <div class="m-ov"><span class="m-tag">PVC</span><div class="m-lbl">PVC أبيض 5 حجرات</div></div>
+      </div>
+      <!-- WIN-6 -->
+      <div class="m-item" onclick="lb(this)" data-slot="WIN-6" data-label="PVC بني">
+        <img src="" alt="" onerror="showPh(this,'WIN-6','PVC بني خشبي')">
+        <div class="m-ov"><span class="m-tag">PVC</span><div class="m-lbl">PVC بني خشبي</div></div>
+      </div>
+      <!-- WIN-7 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="WIN-7" data-label="دبل جلاس">
+        <img src="" alt="" onerror="showPh(this,'WIN-7','دبل جلاس عزل ممتاز')">
+        <div class="m-ov"><span class="m-tag">دبل جلاس</span><div class="m-lbl">دبل جلاس عزل حراري</div></div>
+      </div>
+      <!-- WIN-8 -->
+      <div class="m-item" onclick="lb(this)" data-slot="WIN-8" data-label="كسر زراع">
+        <img src="" alt="" onerror="showPh(this,'WIN-8','شباك كسر زراع')">
+        <div class="m-ov"><span class="m-tag">كسر زراع</span><div class="m-lbl">شباك كسر زراع تهوية</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 4 — أثاث وغرف ════════════════════════ -->
+<div class="section" id="furn">
+  <div class="s-inner">
+    <div class="s-head fi">
+      <div class="s-head-l">
+        <div class="s-cat">القسم الرابع</div>
+        <div class="s-title">الأثاث والغرف</div>
+        <div class="s-desc">سويدي فيرلاندي · دوكو فرن · تقفيل سواسة كل 10سم</div>
+      </div>
+      <div class="s-head-r"><div class="s-num">04</div></div>
+    </div>
+
+    <div class="masonry fi">
+      <!-- FURN-1 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="FURN-1" data-label="غرفة نوم كبيرة">
+        <img src="" alt="" onerror="showPh(this,'FURN-1','غرفة نوم كبيرة 45,000 ج')">
+        <div class="m-ov"><span class="m-tag">نوم</span><div class="m-lbl">غرفة نوم كبيرة — 45,000 ج</div></div>
+      </div>
+      <!-- FURN-2 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FURN-2" data-label="غرفة نوم 2">
+        <img src="" alt="" onerror="showPh(this,'FURN-2','غرفة نوم فاخرة')">
+        <div class="m-ov"><span class="m-tag">نوم</span><div class="m-lbl">غرفة نوم دوكو فرن أبيض</div></div>
+      </div>
+      <!-- FURN-3 -->
+      <div class="m-item tall" onclick="lb(this)" data-slot="FURN-3" data-label="غرفة نوم 3">
+        <img src="" alt="" onerror="showPh(this,'FURN-3','غرفة نوم داكنة')">
+        <div class="m-ov"><span class="m-tag">نوم</span><div class="m-lbl">غرفة نوم مودرن داكنة</div></div>
+      </div>
+      <!-- FURN-4 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FURN-4" data-label="غرفة أطفال">
+        <img src="" alt="" onerror="showPh(this,'FURN-4','غرفة أطفال 35,000 ج')">
+        <div class="m-ov"><span class="m-tag">أطفال</span><div class="m-lbl">غرفة أطفال — 35,000 ج</div></div>
+      </div>
+      <!-- FURN-5 -->
+      <div class="m-item sq" onclick="lb(this)" data-slot="FURN-5" data-label="غرفة أطفال 2">
+        <img src="" alt="" onerror="showPh(this,'FURN-5','غرفة أطفال ملونة')">
+        <div class="m-ov"><span class="m-tag">أطفال</span><div class="m-lbl">غرفة أطفال ألوان</div></div>
+      </div>
+      <!-- FURN-6 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="FURN-6" data-label="سفرة">
+        <img src="" alt="" onerror="showPh(this,'FURN-6','غرفة سفرة 45,000 ج')">
+        <div class="m-ov"><span class="m-tag">سفرة</span><div class="m-lbl">غرفة سفرة — 45,000 ج</div></div>
+      </div>
+      <!-- FURN-7 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FURN-7" data-label="سفرة 2">
+        <img src="" alt="" onerror="showPh(this,'FURN-7','سفرة كلاسيك')">
+        <div class="m-ov"><span class="m-tag">سفرة</span><div class="m-lbl">سفرة كلاسيك فاخرة</div></div>
+      </div>
+      <!-- FURN-8 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FURN-8" data-label="ركنة">
+        <img src="" alt="" onerror="showPh(this,'FURN-8','ركنة بالمتر')">
+        <div class="m-ov"><span class="m-tag">ركنة</span><div class="m-lbl">ركنة — 3,800 : 4,500 ج/م</div></div>
+      </div>
+      <!-- FURN-9 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FURN-9" data-label="وحدات">
+        <img src="" alt="" onerror="showPh(this,'FURN-9','وحدة شاشة L')">
+        <div class="m-ov"><span class="m-tag">وحدات</span><div class="m-lbl">وحدة شاشة L — 4,500 ج</div></div>
+      </div>
+      <!-- FURN-10 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FURN-10" data-label="جزامة">
+        <img src="" alt="" onerror="showPh(this,'FURN-10','جزامة مدخل')">
+        <div class="m-ov"><span class="m-tag">جزامة</span><div class="m-lbl">جزامة — 4,500 ج</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 5 — تشطيبات ════════════════════════════ -->
+<div class="section" id="fin">
+  <div class="s-inner">
+    <div class="s-head fi">
+      <div class="s-head-l">
+        <div class="s-cat">القسم الخامس</div>
+        <div class="s-title">التشطيبات</div>
+        <div class="s-desc">دهانات · سيراميك · جبس LED · باركيه · سباكة · كهرباء · محارة</div>
+      </div>
+      <div class="s-head-r"><div class="s-num">05</div></div>
+    </div>
+
+    <!-- دهانات وجبس -->
+    <div class="sub-label">دهانات وجبس</div>
+    <div class="masonry fi">
+      <!-- FIN-1 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="FIN-1" data-label="صالة دهان وجبس">
+        <img src="" alt="" onerror="showPh(this,'FIN-1','صالة دهان وجبس LED')">
+        <div class="m-ov"><span class="m-tag">دهانات</span><div class="m-lbl">صالة دهان + جبس LED</div></div>
+      </div>
+      <!-- FIN-2 -->
+      <div class="m-item tall" onclick="lb(this)" data-slot="FIN-2" data-label="سقف جبس">
+        <img src="" alt="" onerror="showPh(this,'FIN-2','سقف جبس مضيء')">
+        <div class="m-ov"><span class="m-tag">جبس</span><div class="m-lbl">سقف جبس بورد + LED مخفي</div></div>
+      </div>
+      <!-- FIN-3 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FIN-3" data-label="حائط ديكور">
+        <img src="" alt="" onerror="showPh(this,'FIN-3','حائط ديكوري 3D')">
+        <div class="m-ov"><span class="m-tag">ديكور</span><div class="m-lbl">حائط ديكوري 3D جرافيت</div></div>
+      </div>
+      <!-- FIN-4 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FIN-4" data-label="كورنيش جبس">
+        <img src="" alt="" onerror="showPh(this,'FIN-4','كورنيش جبس كلاسيك')">
+        <div class="m-ov"><span class="m-tag">جبس</span><div class="m-lbl">كورنيش جبس كلاسيك</div></div>
+      </div>
+      <!-- FIN-5 -->
+      <div class="m-item sq" onclick="lb(this)" data-slot="FIN-5" data-label="دهان ستوكو">
+        <img src="" alt="" onerror="showPh(this,'FIN-5','ستوكو ديكوريتيف')">
+        <div class="m-ov"><span class="m-tag">ستوكو</span><div class="m-lbl">ستوكو إيطالي ديكوريتيف</div></div>
+      </div>
+      <!-- FIN-6 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FIN-6" data-label="أكسنت وول">
+        <img src="" alt="" onerror="showPh(this,'FIN-6','أكسنت وول بانيلات')">
+        <div class="m-ov"><span class="m-tag">بانيلات</span><div class="m-lbl">أكسنت وول بانيلات MDF</div></div>
+      </div>
+    </div>
+
+    <!-- سيراميك وباركيه وحمامات -->
+    <div class="sub-label" style="margin-top:8px">سيراميك · باركيه · حمامات</div>
+    <div class="masonry fi">
+      <!-- FIN-7 -->
+      <div class="m-item wide" onclick="lb(this)" data-slot="FIN-7" data-label="بورسلين صالة">
+        <img src="" alt="" onerror="showPh(this,'FIN-7','بورسلين 80×80 صالة')">
+        <div class="m-ov"><span class="m-tag">بورسلين</span><div class="m-lbl">بورسلين 80×80 صالة</div></div>
+      </div>
+      <!-- FIN-8 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FIN-8" data-label="باركيه لامينيت">
+        <img src="" alt="" onerror="showPh(this,'FIN-8','باركيه لامينيت غرفة')">
+        <div class="m-ov"><span class="m-tag">باركيه</span><div class="m-lbl">باركيه لامينيت غرفة نوم</div></div>
+      </div>
+      <!-- FIN-9 -->
+      <div class="m-item tall" onclick="lb(this)" data-slot="FIN-9" data-label="حمام تشطيب">
+        <img src="" alt="" onerror="showPh(this,'FIN-9','حمام تشطيب كامل')">
+        <div class="m-ov"><span class="m-tag">حمام</span><div class="m-lbl">حمام تشطيب كامل</div></div>
+      </div>
+      <!-- FIN-10 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FIN-10" data-label="SPC مطبخ">
+        <img src="" alt="" onerror="showPh(this,'FIN-10','SPC مطبخ وحمام')">
+        <div class="m-ov"><span class="m-tag">SPC</span><div class="m-lbl">SPC مقاوم للماء — مطبخ</div></div>
+      </div>
+      <!-- FIN-11 -->
+      <div class="m-item" onclick="lb(this)" data-slot="FIN-11" data-label="إضاءة LED">
+        <img src="" alt="" onerror="showPh(this,'FIN-11','إضاءة LED ديكور')">
+        <div class="m-ov"><span class="m-tag">كهرباء</span><div class="m-lbl">إضاءة LED ديكور مخفية</div></div>
+      </div>
+      <!-- FIN-12 -->
+      <div class="m-item sq" onclick="lb(this)" data-slot="FIN-12" data-label="طوب ديكوري">
+        <img src="" alt="" onerror="showPh(this,'FIN-12','طوب ديكوري أكسنت')">
+        <div class="m-ov"><span class="m-tag">ديكور</span><div class="m-lbl">طوب ديكوري أكسنت وول</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══════════════════════════════════════════ -->
+<div class="footer">
+  <div class="f-logo">Leaders</div>
+  <div class="f-sub">مطابخ · شبابيك · أثاث · تشطيبات — بدون معرض · كلها ميدان</div>
+  <div class="f-regions">
+    <div class="f-reg">الدقهلية</div>
+    <div class="f-reg">الإسكندرية</div>
+    <div class="f-reg">سوهاج</div>
+    <div class="f-reg">القاهرة</div>
+  </div>
+  <div class="f-note">Leaders © 2025 — للاستخدام الداخلي فقط</div>
+</div>
+
+<!-- ══ LIGHTBOX ════════════════════════════════════════ -->
+<div class="lb" id="lightbox">
+  <img id="lb-img" src="" alt="">
+  <button class="lb-x" onclick="closeLb()">✕</button>
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+
+
+</div>
+</div>
+
+<!-- ══ BROCHURE VIEW ═══════════════════════════════ -->
+<div class="view" id="vb">
+  <div id="sb">
+<div class="brochure">
+
+<!-- ══════════════════════════════════════════════
+     PAGE 1 — COVER
+══════════════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover-img">
+    <img src="https://images.unsplash.com/photo-1556911073-a517e752729c?auto=format&fit=crop&w=1200&q=85" alt="مطبخ فاخر">
+  </div>
+  <div class="cover-stripe"></div>
+  <div class="cover-content">
+    <div class="cover-top">
+      <div class="cover-logo">LEADERS</div>
+      <div class="cover-badge">للاستخدام الداخلي</div>
+    </div>
+    <div class="cover-mid">
+      <div class="cover-eyebrow">دليل الشراكة — مكاتب الديكور والسيلز</div>
+      <div class="cover-title">
+        Leaders
+        <span>مطابخ · شبابيك · أثاث · تشطيبات</span>
+      </div>
+      <div class="cover-sub">
+        <span>مطابخ ألومنيوم وخشب</span>
+        <span>شبابيك ألومنيوم وPVC</span>
+        <span>أثاث وغرف كاملة</span>
+        <span>تشطيبات متكاملة</span>
+      </div>
+    </div>
+    <div class="cover-bottom">
+      <div>
+        <div class="cover-bottom-title">شريكك في التنفيذ<br>من الفكرة للتسليم</div>
+        <div class="cover-bottom-desc">بدون معرض — خدمة ميدانية في 4 محافظات</div>
+      </div>
+      <div class="cover-bottom-tag">2025 — 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 2 — WHO WE ARE + HOW IT WORKS
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="p2-header">
+    <div class="p2-header-logo">Leaders</div>
+    <div class="p2-header-page">من نحن</div>
+  </div>
+  <div class="gold-line"></div>
+
+  <div class="p2-body">
+
+    <!-- من نحن -->
+    <div class="section-eyebrow">من نحن</div>
+    <div class="section-title">شركة تنفيذ متكاملة<br>بلا معرض — كلها ميدان</div>
+    <div class="section-body">
+      Leaders شركة متخصصة في تنفيذ المطابخ والشبابيك والأثاث والتشطيبات الكاملة. نموذجنا قائم على العمل الميداني المباشر — بدون تكلفة معرض، بأسعار تنافسية، وبضمان مكتوب على كل مشروع.
+    </div>
+
+    <!-- الأرقام -->
+    <div class="identity-grid">
+      <div class="id-card">
+        <div class="id-card-num">4</div>
+        <div class="id-card-label">محافظات نعمل فيها</div>
+        <div class="id-card-desc">الدقهلية · الإسكندرية · سوهاج · القاهرة</div>
+      </div>
+      <div class="id-card">
+        <div class="id-card-num">10</div>
+        <div class="id-card-label">سنوات ضمان</div>
+        <div class="id-card-desc">على الخشب والتقفيل ضد عيوب الصناعة</div>
+      </div>
+      <div class="id-card">
+        <div class="id-card-num">٣٠</div>
+        <div class="id-card-label">يوم للتنفيذ</div>
+        <div class="id-card-desc">من التعاقد لحد التسليم — حسب التعديلات</div>
+      </div>
+      <div class="id-card">
+        <div class="id-card-num">٤٠٪</div>
+        <div class="id-card-label">دفعة التعاقد</div>
+        <div class="id-card-desc">والباقي على فترات — أقصاها سنة ونص</div>
+      </div>
+    </div>
+
+    <!-- رحلة العميل -->
+    <div class="steps">
+      <div class="steps-title">رحلة العميل — من الاستفسار للتسليم</div>
+      <div class="steps-row">
+        <div class="step">
+          <div class="step-num">١</div>
+          <div class="step-name">التواصل</div>
+          <div class="step-note">واتساب أو ريفرال</div>
+        </div>
+        <div class="step">
+          <div class="step-num">٢</div>
+          <div class="step-name">الاستكشاف</div>
+          <div class="step-note">احتياج + ميزانية</div>
+        </div>
+        <div class="step step-active">
+          <div class="step-num">٣</div>
+          <div class="step-name">معاينة مجانية</div>
+          <div class="step-note">في البيت — 30 دقيقة</div>
+        </div>
+        <div class="step">
+          <div class="step-num">٤</div>
+          <div class="step-name">العرض</div>
+          <div class="step-note">سعر نهائي + عقد</div>
+        </div>
+        <div class="step">
+          <div class="step-num">٥</div>
+          <div class="step-name">التصنيع</div>
+          <div class="step-note">ورش معتمدة</div>
+        </div>
+        <div class="step">
+          <div class="step-num">٦</div>
+          <div class="step-name">التسليم</div>
+          <div class="step-note">تركيب شامل</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- المحافظات -->
+    <div class="section-eyebrow" style="margin-top:5mm">نطاق الخدمة</div>
+    <div class="regions">
+      <div class="region-pill">الدقهلية</div>
+      <div class="region-pill">الإسكندرية</div>
+      <div class="region-pill">سوهاج</div>
+      <div class="region-pill">القاهرة</div>
+    </div>
+  </div>
+  <div class="pg-num">Leaders · 02</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 3 — KITCHENS
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="prod-header">
+    <img src="https://images.unsplash.com/photo-1556911073-a517e752729c?auto=format&fit=crop&w=1200&q=80" alt="مطابخ">
+    <div class="prod-header-content">
+      <div class="prod-header-left">
+        <div class="cat-eyebrow">القسم الأول</div>
+        <div class="cat-title">المطابخ</div>
+        <div class="cat-sub">ألومنيوم — خشب HPL — كونتر حجر</div>
+      </div>
+      <div class="prod-header-right">
+        <div class="cat-badge-label">يبدأ من</div>
+        <div class="cat-badge-val">4,500 ج/م</div>
+      </div>
+    </div>
+  </div>
+  <div class="gold-line"></div>
+
+  <div class="prod-body">
+
+    <!-- أنواع الألومنيوم -->
+    <div class="section-eyebrow" style="margin-bottom:3mm">مطابخ الألومنيوم</div>
+    <div class="types-grid">
+      <div class="type-card">
+        <div class="type-img">
+          <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=80" alt="كلادينج">
+          <div class="type-img-badge">الأساسي</div>
+          <div class="type-img-label">كلادينج</div>
+        </div>
+        <div class="type-body">
+          <div class="type-price">4,500 ج / متر</div>
+          <div class="type-desc">ألواح كلادينج جاهزة — شكل نظيف — ميزانية مناسبة</div>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-img">
+          <img src="https://images.unsplash.com/photo-1565183928294-7063f23ce0f8?auto=format&fit=crop&w=600&q=80" alt="شيت ألومنيوم">
+          <div class="type-img-badge" style="background:var(--rust)">الأكثر مبيعاً</div>
+          <div class="type-img-label">شيت ألومنيوم</div>
+        </div>
+        <div class="type-body">
+          <div class="type-price">5,000 ج / متر</div>
+          <div class="type-desc">شيت يدخل فرن — ألوان مخصصة — الأكثر طلباً</div>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-img">
+          <img src="https://images.unsplash.com/photo-1556911073-a517e752729c?auto=format&fit=crop&w=600&q=80" alt="خشمنيوم">
+          <div class="type-img-badge" style="background:var(--teal)">المميز</div>
+          <div class="type-img-label">خشمنيوم</div>
+        </div>
+        <div class="type-body">
+          <div class="type-price">5,500 ج / متر</div>
+          <div class="type-desc">نفس خامة الشيت — لون يشبه الخشب بمتانة الألومنيوم</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- مواصفات ثابتة -->
+    <div class="info-strip">
+      <div class="info-strip-icon">◆</div>
+      <div class="info-strip-text">
+        <strong>الهيكل ثابت في كل الأنواع:</strong> إطار ألومنيوم + دواخل فايبر. العود <strong>6 متر</strong>. وزن <strong>1800 جرام</strong>. كل الضلف والأدراج <strong>سوفت كلوز شامل في السعر</strong>. المودرن +200 ج/متر.
+      </div>
+    </div>
+
+    <!-- المفصلات والكونتر -->
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>العنصر</th>
+          <th>الأساسي (شامل)</th>
+          <th>إيطالي</th>
+          <th>نمساوي</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-label">المفصلة</td>
+          <td class="td-check">تركي سوفت كلوز ✓</td>
+          <td class="td-extra">+40 ج/باب</td>
+          <td class="td-extra">+110 ج/باب</td>
+        </tr>
+        <tr>
+          <td class="td-label">8 أبواب (فرق)</td>
+          <td class="td-check">—</td>
+          <td class="td-extra">+320 ج</td>
+          <td class="td-extra">+880 ج</td>
+        </tr>
+        <tr>
+          <td class="td-label">الكونتر الخارجي</td>
+          <td class="td-val">جرانيت مصري</td>
+          <td class="td-val">كوارتز</td>
+          <td class="td-val">رخام Premium</td>
+        </tr>
+        <tr>
+          <td class="td-label">أبلكاش روسي (ث)</td>
+          <td class="td-check">ث44 / ث9 / ث14 — 3مم ✓</td>
+          <td class="td-val" colspan="2">نوع ثابت لا يتغير</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pg-num">Leaders · 03</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 4 — WINDOWS + FINISHING
+══════════════════════════════════════════════ -->
+<div class="page">
+  <!-- WINDOWS -->
+  <div class="half-section" style="padding-bottom:5mm">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4mm">
+      <div>
+        <div class="section-eyebrow">القسم الثاني</div>
+        <div class="section-title" style="font-size:20px;margin-bottom:0">الشبابيك</div>
+      </div>
+      <div style="background:var(--ink);border-radius:6px;padding:3mm 4mm;text-align:center">
+        <div style="font-size:8px;color:rgba(255,255,255,.4);margin-bottom:1mm">نوعان رئيسيان</div>
+        <div style="font-family:'Tajawal';font-size:14px;font-weight:900;color:var(--gold2)">ألومنيوم · PVC</div>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="cmp-card">
+        <div class="cmp-img">
+          <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80" alt="شباك ألومنيوم">
+        </div>
+        <div class="cmp-body">
+          <div class="cmp-title">ألومنيوم عادي</div>
+          <div class="cmp-rows">
+            <div class="cmp-row"><span class="cl">السعر</span><span class="cv cv-good">الأوفر ✓</span></div>
+            <div class="cmp-row"><span class="cl">الألوان</span><span class="cv cv-good">أكثر تنوعاً ✓</span></div>
+            <div class="cmp-row"><span class="cl">الصيانة</span><span class="cv cv-good">سهلة جداً ✓</span></div>
+            <div class="cmp-row"><span class="cl">العزل الحراري</span><span class="cv">متوسط</span></div>
+            <div class="cmp-row"><span class="cl">السماكات</span><span class="cv">1.2 / 1.6 / 2 مم</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cmp-card">
+        <div class="cmp-img">
+          <img src="https://images.unsplash.com/photo-1600210492-7059820397be?auto=format&fit=crop&w=600&q=80" alt="شباك PVC">
+        </div>
+        <div class="cmp-body">
+          <div class="cmp-title">PVC / UPVC</div>
+          <div class="cmp-rows">
+            <div class="cmp-row"><span class="cl">العزل الحراري</span><span class="cv cv-best">ممتاز جداً ✓</span></div>
+            <div class="cmp-row"><span class="cl">العزل الصوتي</span><span class="cv cv-best">ممتاز ✓</span></div>
+            <div class="cmp-row"><span class="cl">الحجرات</span><span class="cv">3 أو 5 حجرات</span></div>
+            <div class="cmp-row"><span class="cl">التكلفة</span><span class="cv">أعلى من الألومنيوم</span></div>
+            <div class="cmp-row"><span class="cl">الأنسب لـ</span><span class="cv">أدوار عالية / صاخبة</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-strip" style="margin-bottom:0">
+      <div class="info-strip-icon">◆</div>
+      <div class="info-strip-text">الزجاج المُوصى به: <strong>دبل جلاس</strong> — يقلل الحرارة الداخلة ويوفر في التكييف. الرفليكتور للواجهات الخارجية فقط.</div>
+    </div>
+  </div>
+
+  <div class="half-divider"></div>
+
+  <!-- FINISHING -->
+  <div class="half-section">
+    <div class="section-eyebrow">القسم الثالث</div>
+    <div class="section-title" style="font-size:20px;margin-bottom:4mm">التشطيبات الكاملة</div>
+
+    <div class="fin-cats">
+      <div class="fin-cat">
+        <div class="fin-cat-icon">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 3H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><path d="M12 11v4"/><path d="M8 15c0 2.5 1.5 4 4 4s4-1.5 4-4"/></svg>
+        </div>
+        <div class="fin-cat-name">دهانات</div>
+        <div class="fin-cat-sub">بلاستيك · زيت · جرافيت · ستوكو</div>
+      </div>
+      <div class="fin-cat">
+        <div class="fin-cat-icon">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="11" y="2" width="7" height="9" rx="1"/><rect x="2" y="13" width="7" height="5" rx="1"/><rect x="11" y="13" width="7" height="5" rx="1"/></svg>
+        </div>
+        <div class="fin-cat-name">سيراميك</div>
+        <div class="fin-cat-sub">أرضيات · حوائط · حمامات</div>
+      </div>
+      <div class="fin-cat">
+        <div class="fin-cat-icon">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9l9-6 9 6"/><path d="M3 9v3l9 6 9-6V9"/><path d="M12 3v18"/></svg>
+        </div>
+        <div class="fin-cat-name">جبس وأسقف</div>
+        <div class="fin-cat-sub">جبس بورد · كورنيش · LED</div>
+      </div>
+      <div class="fin-cat">
+        <div class="fin-cat-icon">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="14" width="16" height="4" rx=".5"/><rect x="2" y="9" width="7" height="4"/><rect x="11" y="9" width="7" height="4"/><rect x="2" y="4" width="16" height="4" rx=".5"/></svg>
+        </div>
+        <div class="fin-cat-name">باركيه</div>
+        <div class="fin-cat-sub">لامينيت · SPC · خشب طبيعي</div>
+      </div>
+      <div class="fin-cat">
+        <div class="fin-cat-icon">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="fin-cat-name">كهرباء</div>
+        <div class="fin-cat-sub">تمديدات · لوحات · LED ديكور</div>
+      </div>
+      <div class="fin-cat">
+        <div class="fin-cat-icon">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10c0-3 1-6 6-6s6 3 6 6"/><path d="M4 10v6M16 10v6M4 16h12"/></svg>
+        </div>
+        <div class="fin-cat-name">سباكة</div>
+        <div class="fin-cat-sub">PPR · أدوات صحية · سخانات</div>
+      </div>
+      <div class="fin-cat">
+        <div class="fin-cat-icon">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="16" height="5" rx="1"/><rect x="2" y="9" width="8" height="5" rx="1"/><rect x="12" y="9" width="6" height="5" rx="1"/><rect x="2" y="16" width="16" height="2" rx=".5"/></svg>
+        </div>
+        <div class="fin-cat-name">محارة</div>
+        <div class="fin-cat-sub">لياسة · بانيلات · طوب ديكوري</div>
+      </div>
+      <div class="fin-cat" style="background:rgba(184,134,11,.1);border:1px solid rgba(184,134,11,.3)">
+        <div class="fin-cat-icon" style="background:transparent;border:1.5px solid var(--gold)">
+          <svg viewBox="0 0 20 20" fill="none" stroke="var(--gold)" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><polyline points="6.5,10 8.5,12.5 13.5,7.5"/></svg>
+        </div>
+        <div class="fin-cat-name" style="color:var(--gold)">تشطيب كامل</div>
+        <div class="fin-cat-sub" style="color:rgba(184,134,11,.6)">بالسعر الكلي بعد المعاينة</div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-num">Leaders · 04</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 5 — FURNITURE + WOOD
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="prod-header">
+    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80" alt="غرف أثاث">
+    <div class="prod-header-content">
+      <div class="prod-header-left">
+        <div class="cat-eyebrow">القسم الرابع</div>
+        <div class="cat-title">الأثاث والغرف</div>
+        <div class="cat-sub">سويدي فيرلاندي — تقفيل احترافي — دوكو فرن</div>
+      </div>
+      <div class="prod-header-right">
+        <div class="cat-badge-label">تبدأ من</div>
+        <div class="cat-badge-val">35,000 ج</div>
+      </div>
+    </div>
+  </div>
+  <div class="gold-line"></div>
+
+  <div class="prod-body">
+
+    <!-- الغرف -->
+    <div class="section-eyebrow" style="margin-bottom:3mm">الغرف الكاملة</div>
+    <div class="furn-grid">
+      <div class="furn-card">
+        <div class="furn-img">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=600&q=80" alt="غرفة نوم">
+          <div class="furn-price">45,000 ج</div>
+        </div>
+        <div class="furn-body">
+          <div class="furn-name">غرفة النوم الكبيرة</div>
+          <div class="furn-contents">سرير 160 · دولاب 270 · بانكيت · تسريحة 150 · 2 كمودينو · كرسي · علاقة</div>
+        </div>
+      </div>
+      <div class="furn-card">
+        <div class="furn-img">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80" alt="غرفة أطفال">
+          <div class="furn-price">35,000 ج</div>
+        </div>
+        <div class="furn-body">
+          <div class="furn-name">غرفة الأطفال</div>
+          <div class="furn-contents">دولاب 200 · 2 سرير 120 · كمودينو · ميكانيزم سرير 800 ج إضافة</div>
+        </div>
+      </div>
+      <div class="furn-card">
+        <div class="furn-img">
+          <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=600&q=80" alt="غرفة سفرة">
+          <div class="furn-price">45,000 ج</div>
+        </div>
+        <div class="furn-body">
+          <div class="furn-name">غرفة السفرة</div>
+          <div class="furn-contents">نيشتين 60 أو نيش 120 · بوفيه 150 · ترابيزة · 6 كراسي</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- الخشب -->
+    <div class="section-eyebrow" style="margin-bottom:3mm">أنواع الخشب</div>
+    <div class="wood-grid">
+      <div class="wood-card">
+        <div class="wood-name">خشب البياض</div>
+        <span class="wood-tag tag-eco">اقتصادي</span>
+        <div class="wood-specs">
+          <div class="ws"><span class="wl">السعر</span><span class="wv wv-good">20,000 — 25,000 ج</span></div>
+          <div class="ws"><span class="wl">النوع</span><span class="wv">لين خفيف</span></div>
+          <div class="ws"><span class="wl">الرطوبة</span><span class="wv" style="color:var(--rust)">يتأثر</span></div>
+          <div class="ws"><span class="wl">الاستخدام</span><span class="wv">شغل اقتصادي</span></div>
+        </div>
+      </div>
+      <div class="wood-card premium">
+        <div class="wood-name">سويدي فيرلاندي</div>
+        <span class="wood-tag tag-prem">الأفضل جودة</span>
+        <div class="wood-specs">
+          <div class="ws"><span class="wl">السعر</span><span class="wv wv-good">45,000 ج+</span></div>
+          <div class="ws"><span class="wl">النوع</span><span class="wv">صنوبر بعروق زيت</span></div>
+          <div class="ws"><span class="wl">السوس</span><span class="wv wv-good">مقاوم ✓</span></div>
+          <div class="ws"><span class="wl">الضمان</span><span class="wv wv-good">10 سنوات ✓</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- تقفيل -->
+    <div class="info-strip">
+      <div class="info-strip-icon">◆</div>
+      <div class="info-strip-text">
+        <strong>التقفيل:</strong> سواسة كل <strong>9.5 — 10سم</strong> (المنافسين 20سم) · القوائم <strong>3.5سم</strong> · الإطار الخارجي <strong>3سم</strong> · أبلكاش روسي نوع ث — 3مم · دهان <strong>دوكو فرن</strong> ثابت مقاوم للخدش
+      </div>
+    </div>
+  </div>
+  <div class="pg-num">Leaders · 05</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 6 — PRICING SUMMARY + WHY US
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="p2-header">
+    <div class="p2-header-logo">Leaders</div>
+    <div class="p2-header-page">ملخص الأسعار والشروط</div>
+  </div>
+  <div class="gold-line"></div>
+
+  <div class="pricing-section">
+    <div class="section-eyebrow">ملخص الأسعار</div>
+    <div class="section-title" style="font-size:20px;margin-bottom:0">كل المنتجات في نظرة واحدة</div>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-cat">مطابخ ألومنيوم</div>
+        <div class="price-name">كلادينج</div>
+        <div class="price-val">4,500 ج</div>
+        <div class="price-unit">/ متر — 1800 جرام</div>
+      </div>
+      <div class="price-card">
+        <div class="price-cat">مطابخ ألومنيوم</div>
+        <div class="price-name">شيت ألومنيوم</div>
+        <div class="price-val">5,000 ج</div>
+        <div class="price-unit">/ متر — الأكثر مبيعاً</div>
+      </div>
+      <div class="price-card">
+        <div class="price-cat">مطابخ ألومنيوم</div>
+        <div class="price-name">خشمنيوم</div>
+        <div class="price-val">5,500 ج</div>
+        <div class="price-unit">/ متر — لون الخشب</div>
+      </div>
+      <div class="price-card">
+        <div class="price-cat">أثاث</div>
+        <div class="price-name">غرفة نوم / سفرة</div>
+        <div class="price-val">45,000 ج</div>
+        <div class="price-unit">سويدي فيرلاندي</div>
+      </div>
+      <div class="price-card">
+        <div class="price-cat">أثاث</div>
+        <div class="price-name">غرفة أطفال</div>
+        <div class="price-val">35,000 ج</div>
+        <div class="price-unit">سويدي فيرلاندي</div>
+      </div>
+      <div class="price-card">
+        <div class="price-cat">أثاث</div>
+        <div class="price-name">غرفة بياض</div>
+        <div class="price-val">20–25K ج</div>
+        <div class="price-unit">خشب بياض اقتصادي</div>
+      </div>
+      <div class="price-card">
+        <div class="price-cat">ركنة</div>
+        <div class="price-name">بالمتر</div>
+        <div class="price-val">3,800–4,500 ج</div>
+        <div class="price-unit">/ متر حسب الخامة</div>
+      </div>
+      <div class="price-card">
+        <div class="price-cat">شبابيك</div>
+        <div class="price-name">حسب المواصفات</div>
+        <div class="price-val">بعد المعاينة</div>
+        <div class="price-unit">ألومنيوم أو PVC</div>
+      </div>
+      <div class="price-card">
+        <div class="price-cat">تشطيبات</div>
+        <div class="price-name">تشطيب كامل</div>
+        <div class="price-val">بعد المعاينة</div>
+        <div class="price-unit">حسب المساحة والمواصفات</div>
+      </div>
+    </div>
+
+    <!-- شروط التعاقد -->
+    <div class="section-eyebrow">شروط التعاقد</div>
+    <div class="terms-strip">
+      <div class="term-item"><strong>40%</strong> عند التعاقد</div>
+      <div class="term-item"><strong>50%</strong> في أول شهرين (للتقسيط)</div>
+      <div class="term-item">الباقي قبل الاستلام</div>
+      <div class="term-item">أقصى مدة قسط <strong>سنة ونص</strong></div>
+      <div class="term-item">تركيب <strong>شامل في السعر</strong></div>
+      <div class="term-item">نقل <strong>يضاف حسب المكان</strong></div>
+      <div class="term-item">ضمان <strong>10 سنوات</strong></div>
+      <div class="term-item">تنفيذ <strong>30 — 75 يوم</strong></div>
+    </div>
+
+    <!-- ليه Leaders -->
+    <div class="section-eyebrow" style="margin-top:4mm">ليه Leaders</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🏗️</div>
+        <div class="why-title">شغالين مصنع</div>
+        <div class="why-desc">أبلكاش روسي نوع ث من المصنع مباشرة — مش تاجر. جودة ثابتة ومتحكم فيها.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔩</div>
+        <div class="why-title">تقفيل فوق المعيار</div>
+        <div class="why-desc">سواسة كل 10سم بدل 20سم عند المنافسين. القوائم 3.5سم والإطار 3سم.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎨</div>
+        <div class="why-title">دوكو فرن</div>
+        <div class="why-desc">الدهان يدخل الفرن — ثابت ومقاوم للخدش والبهتان لسنوات طويلة.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📋</div>
+        <div class="why-title">ضمان مكتوب</div>
+        <div class="why-desc">10 سنوات على الخشب والتقفيل ضد عيوب الصناعة — مش كلام شفهي.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🏠</div>
+        <div class="why-title">معاينة مجانية</div>
+        <div class="why-desc">بنيجي لبيت العميل ونعمل قياسات دقيقة — السعر بعد المعاينة مش قبلها.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📦</div>
+        <div class="why-title">تركيب شامل</div>
+        <div class="why-desc">التركيب من ضمن التعاقد — فريق متخصص. النقل يتفق عليه مسبقاً.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div class="footer-logo">Leaders</div>
+    <div class="footer-tagline">مطابخ · شبابيك · أثاث · تشطيبات — بدون معرض · كلها ميدان</div>
+    <div class="footer-regions">
+      <div class="footer-region">الدقهلية</div>
+      <div class="footer-region">الإسكندرية</div>
+      <div class="footer-region">سوهاج</div>
+      <div class="footer-region">القاهرة</div>
+    </div>
+    <div class="footer-note">وثيقة داخلية · للاستخدام من قِبل فريق المبيعات ومكاتب الديكور فقط · Leaders © 2025</div>
+  </div>
+  <div class="pg-num">Leaders · 06</div>
+</div>
+
+</div><!-- /brochure -->
+</div>
+</div>
+
+
 <script>
-// Stop shimmer animation once image loads
+
+/* ── Site navigation ───────────────────────────── */
+function go(sec, btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.querySelectorAll('.sn-tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('v'+sec).classList.add('on');
+  if(btn) btn.classList.add('on');
+  if(sec==='p') document.getElementById('vp').scrollTop=0;
+  if(sec==='b') document.getElementById('vb').scrollTop=0;
+}
+go('h', document.getElementById('tab-h'));
+
+/* ── Guide JS ──────────────────────────────────── */
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.cimg img').forEach(function(img){
     function stopShimmer(){img.parentElement.style.animation='none';img.parentElement.style.background='none';}
@@ -1328,6 +5357,49 @@ function toggleFin(card){
     card.querySelector('.fin-chev').style.transform='rotate(180deg)';
   }
 }
+
+/* ── Portfolio JS ──────────────────────────────── */
+function showPh(img, slot, name){
+  const wrap = img.parentElement;
+  const ph = document.createElement('div');
+  ph.className = 'ph-img';
+  ph.style.cssText = 'aspect-ratio:4/3;width:100%';
+  ph.innerHTML = `<div class="ph-num">${slot}</div><div class="ph-name">${name}</div>`;
+  wrap.replaceChild(ph, img);
+}
+document.querySelectorAll('.m-item img').forEach(img => {
+  if(!img.src || img.src === window.location.href){
+    const slot = img.closest('[data-slot]')?.dataset.slot || '?';
+    const label = img.alt || '';
+    showPh(img, slot, label);
+  }
+});
+function lb(el){
+  const img = el.querySelector('img');
+  const lbl = el.dataset.label || '';
+  if(img && img.src && !img.src.includes(window.location.href)){
+    document.getElementById('lb-img').src = img.src;
+    document.getElementById('lb-cap').textContent = lbl;
+    document.getElementById('lightbox').classList.add('on');
+    document.body.style.overflow='hidden';
+  }
+}
+function closeLb(){
+  document.getElementById('lightbox').classList.remove('on');
+  document.body.style.overflow='';
+}
+document.getElementById('lightbox').addEventListener('click',function(e){
+  if(e.target===this) closeLb();
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLb(); });
+
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); }
+  });
+},{threshold:.07});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+
 </script>
 </body>
 </html>
